@@ -2,6 +2,8 @@ package com.digiwes.product.offering.price;
 
 import com.digiwes.basetype.*;
 
+import java.util.Map;
+
 /**
  * An amount, usually of money, that is asked for or allowed when a ProductOffering is bought, rented, or leased. The price is valid for a defined period of time and may not represent the actual price paid by a customer.
  */
