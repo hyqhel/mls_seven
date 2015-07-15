@@ -12,6 +12,7 @@ public class ProductLine extends ProductSpecificationType {
      */
     public ProductLine(String type, String description) {
         // TODO - implement ProductLine.ProductLine
+        super(type,description);
         throw new UnsupportedOperationException();
     }
 

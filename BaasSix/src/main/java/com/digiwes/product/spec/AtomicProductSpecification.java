@@ -15,6 +15,7 @@ public class AtomicProductSpecification extends ProductSpecification {
      */
     public AtomicProductSpecification(String productNumber, String name, String brand) {
         // TODO - implement AtomicProductSpecification.AtomicProductSpecification
+        super(productNumber,name,brand);
         throw new UnsupportedOperationException();
     }
 
@@ -28,6 +29,7 @@ public class AtomicProductSpecification extends ProductSpecification {
      */
     public AtomicProductSpecification(String productNumber, String name, String brand, String description, TimePeriod validFor) {
         // TODO - implement AtomicProductSpecification.AtomicProductSpecification
+        super(productNumber,name,brand);
         throw new UnsupportedOperationException();
     }
 

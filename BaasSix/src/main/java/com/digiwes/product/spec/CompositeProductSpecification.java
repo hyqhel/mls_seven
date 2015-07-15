@@ -18,6 +18,7 @@ public class CompositeProductSpecification extends ProductSpecification {
      */
     public CompositeProductSpecification(String productNumber, String name, String brand) {
         // TODO - implement CompositeProductSpecification.CompositeProductSpecification
+        super(productNumber,name,brand);
         throw new UnsupportedOperationException();
     }
 
@@ -31,6 +32,7 @@ public class CompositeProductSpecification extends ProductSpecification {
      */
     public CompositeProductSpecification(String productNumber, String name, String brand, String description, TimePeriod validFor) {
         // TODO - implement CompositeProductSpecification.CompositeProductSpecification
+        super(productNumber,name,brand);
         throw new UnsupportedOperationException();
     }
 

@@ -12,6 +12,7 @@ public class ProductCategory extends ProductSpecificationType {
      */
     public ProductCategory(String type, String description) {
         // TODO - implement ProductCategory.ProductCategory
+        super(type,description);
         throw new UnsupportedOperationException();
     }
 

@@ -24,6 +24,7 @@ public class ProductCatalog extends Catalog {
      */
     public ProductCatalog(String id, String name, String type) {
         // TODO - implement ProductCatalog.ProductCatalog
+        super(id,name,type,null);
         throw new UnsupportedOperationException();
     }
 
@@ -36,6 +37,7 @@ public class ProductCatalog extends Catalog {
      */
     public ProductCatalog(String id, String name, String type, TimePeriod validFor) {
         // TODO - implement ProductCatalog.ProductCatalog
+        super(id, name, type, validFor);
         throw new UnsupportedOperationException();
     }
 
