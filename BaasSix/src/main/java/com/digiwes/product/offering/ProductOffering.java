@@ -2,6 +2,8 @@ package com.digiwes.product.offering;
 
 import java.util.*;
 
+import com.digiwes.common.enums.CommonErrorEnum;
+import com.digiwes.common.enums.ProductOfferingErrorEnum;
 import com.digiwes.common.enums.ProductOfferingStatus;
 import com.digiwes.common.util.CommonUtils;
 import com.digiwes.product.offering.price.*;
@@ -103,32 +105,26 @@ public abstract class ProductOffering {
             this.prodOfferingRelationship = new ArrayList<ProductOfferingRelationship>();
         }
         if (CommonUtils.checkParamIsNull(offering)) {
-            return 0;
+            return ProductOfferingErrorEnum.OFFERING_IS_NULL.getCode();
         }
         if (StringUtils.isEmpty(relationType)) {
-            logger.error("Parameter [relationType] cannot be null. ID="
-                    + offering.getId() + "relationType=" + relationType);
-            return 0;
+            return ProductOfferingErrorEnum.OFFERING_RELATIONSHIP_TYPE_IS_NULL.getCode();
         }
         if (this.equals(offering)) {
-            logger.error("Cannot add relationship with it self! ID=" + offering.getId() + "relationType=" + relationType);
-            return 0;
+            return ProductOfferingErrorEnum.OFFERING_ASSOCIATE_ITSELF.getCode();
         }
         if (this.prodOfferingRelationship.size() > 0) {
             for (ProductOfferingRelationship offeringRelationship : this.prodOfferingRelationship) {
                 if (offering.equals(offeringRelationship.getTargetOffering()) && relationType.equals
                         (offeringRelationship.getTypeRelationship()) && offeringRelationship.getValidFor().isOverlap(validFor)) {
-                    logger.error("the relationship already exist as the same timePeriod. Cannot add relationship." +
-                            "  ID=" + offering.getId() + "relationType=" + relationType);
-                    return 0;
-
+                    return ProductOfferingErrorEnum.OFFERING_RELATIONSHIP_EXISTING.getCode();
                 }
             }
         }
 
         ProductOfferingRelationship offeringRelationship = new ProductOfferingRelationship(this, offering, relationType, validFor);
         this.prodOfferingRelationship.add(offeringRelationship);
-        return 0;
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
     /**
@@ -136,7 +132,7 @@ public abstract class ProductOffering {
      */
     public int dissociate(ProductOffering offering) {
         // TODO - implement ProductOffering.dissociate
-        return 0;
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
     /**
@@ -180,7 +176,7 @@ public abstract class ProductOffering {
      */
     public int specifyPrice(ProductOfferingPrice price) {
         // TODO - implement ProductOffering.specifyPrice
-        return 0;
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
     /**
@@ -188,7 +184,7 @@ public abstract class ProductOffering {
      */
     private int removePrice(ProductOfferingPrice price) {
         // TODO - implement ProductOffering.removePrice
-        return 0;
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
     /**

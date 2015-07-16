@@ -3,6 +3,8 @@ package com.digiwes.product.offering;
 import java.util.*;
 
 import com.digiwes.basetype.*;
+import com.digiwes.common.enums.CommonErrorEnum;
+import com.digiwes.common.enums.ProductOfferingErrorEnum;
 import com.digiwes.common.util.CommonUtils;
 import org.apache.log4j.Logger;
 
@@ -48,36 +50,28 @@ public class BundledProductOffering extends ProductOffering {
             this.bundledProdOfferOption = new ArrayList<BundledProdOfferOption>();
         }
         if (lowerLimit < -1 || upperLimit < -1) {
-            logger.error("Parameter [lowerLimit]¡¢[upperLimit] is not valid. lowerLimit=" + lowerLimit + "; " +
-                    "upperLimit=" + upperLimit);
-            return 0;
+            return ProductOfferingErrorEnum.NUMBER_REL_OFFER_LIMIT_INVALID.getCode();
         }
         if (lowerLimit > upperLimit) {
-            logger.error("the lowLimit must be much lower than upperLimit. lowerLimit=" + lowerLimit + "; " +
-                    "upperLimit=" + upperLimit);
-            return 0;
+            return ProductOfferingErrorEnum.LOWERLIMIT_GREATER_UPPERLIMIT.getCode();
         }
         if (CommonUtils.checkParamIsNull(offering)) {
-            logger.error("Parameter [offering] cannot be null.");
-            return 0;
+            return ProductOfferingErrorEnum.OFFERING_IS_NULL.getCode();
         }
         if (this.equals(offering)) {
-            logger.error("Cannot add subOffering with it self!");
-            return 0;
+            return ProductOfferingErrorEnum.OFFERING_ASSOCIATE_ITSELF.getCode();
         }
         BundledProdOfferOption subOfferingOption = new BundledProdOfferOption(offering, lowerLimit, upperLimit);
         if (this.bundledProdOfferOption.size() > 0) {
             for (BundledProdOfferOption bundledOfferingOption : this.bundledProdOfferOption) {
                 if (bundledOfferingOption.equals(subOfferingOption)) {
-                    logger.error("the subProdSpec already exist, Cannot repeatedly create subOffering. OfferingID="
-                            + offering.getId());
-                    return 0;
+                    return ProductOfferingErrorEnum.COMPOSE_REPETITIVE_OFFERING.getCode();
                 }
             }
         }
 
         this.bundledProdOfferOption.add(subOfferingOption);
-        return 0;
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
     /**
@@ -87,7 +81,7 @@ public class BundledProductOffering extends ProductOffering {
      */
     public int modifyOption(ProductOffering offering, int lowerLimit, int upperLimit) {
         // TODO - implement BundledProductOffering.modifyOption
-        return 0;
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
     public List<ProductOffering> retrieveOffering() {

@@ -5,6 +5,9 @@ import com.digiwes.common.catalog.*;
 import java.util.*;
 
 import com.digiwes.basetype.*;
+import com.digiwes.common.enums.CommonErrorEnum;
+import com.digiwes.common.enums.ProductCatalogErrorEnum;
+import com.digiwes.common.enums.ProductOfferingErrorEnum;
 import com.digiwes.common.util.CommonUtils;
 import com.digiwes.product.offering.*;
 import com.digiwes.product.offering.price.*;
@@ -54,10 +57,10 @@ public class ProductCatalog extends Catalog {
     public int publish(ProductOffering offering, TimePeriod validFor) {
 
         if (CommonUtils.checkParamIsNull(offering)) {
-            return 0;
+            return ProductOfferingErrorEnum.OFFERING_IS_NULL.getCode();
         }
         if (CommonUtils.checkParamIsNull(validFor)) {
-            return 0;
+            return CommonErrorEnum.VALIDFOR_IS_NULL.getCode();
         }
 
         if (null == prodCatalogProdOffer) {
@@ -65,16 +68,15 @@ public class ProductCatalog extends Catalog {
         }
         ProdCatalogProdOffer catalogOffer = retrieveProdCatalogProdOffer(offering, validFor);
         if (null != catalogOffer) {
-            logger.warn("The offering is already publish the time .");
-            return 0;
+            return ProductCatalogErrorEnum.PUBLISH_REPETITIVE_OFFERING.getCode();
         }
         ProdCatalogProdOffer catalogProdOffer = new ProdCatalogProdOffer(offering, validFor);
         if (!prodCatalogProdOffer.contains(catalogProdOffer)) {
             prodCatalogProdOffer.add(catalogProdOffer);
         } else {
-            logger.warn("The offering is already publish . ");
+            return ProductCatalogErrorEnum.PUBLISH_REPETITIVE_OFFERING.getCode();
         }
-        return 0;
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
     /**
@@ -85,26 +87,25 @@ public class ProductCatalog extends Catalog {
     public int publish(ProductOffering offering, TimePeriod validFor, List<ProductOfferingPrice> price) {
 
         if (CommonUtils.checkParamIsNull(offering)) {
-            return 0;
+            return ProductOfferingErrorEnum.OFFERING_IS_NULL.getCode();
         }
         if (CommonUtils.checkParamIsNull(validFor)) {
-            return 0;
+            return CommonErrorEnum.VALIDFOR_IS_NULL.getCode();
         }
         if (null == prodCatalogProdOffer) {
             prodCatalogProdOffer = new ArrayList<ProdCatalogProdOffer>();
         }
         ProdCatalogProdOffer catalogOffer = retrieveProdCatalogProdOffer(offering, validFor);
         if (null != catalogOffer) {
-            logger.warn("The offering is already publish the time .");
-            return 0;
+            return ProductCatalogErrorEnum.PUBLISH_REPETITIVE_OFFERING.getCode();
         }
         ProdCatalogProdOffer catalogProdOffer = new ProdCatalogProdOffer(offering, validFor, price);
         if (!prodCatalogProdOffer.contains(catalogProdOffer)) {
             prodCatalogProdOffer.add(catalogProdOffer);
         } else {
-            logger.warn("The offering is already publish . ");
+            return ProductCatalogErrorEnum.PUBLISH_REPETITIVE_OFFERING.getCode();
         }
-        return 0;
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
     /**
@@ -114,16 +115,15 @@ public class ProductCatalog extends Catalog {
     public int retired(ProductOffering offering, TimePeriod validFor) {
 
         if (CommonUtils.checkParamIsNull(offering)) {
-            return 0;
+            return ProductOfferingErrorEnum.OFFERING_IS_NULL.getCode();
         }
         ProdCatalogProdOffer catalogOffer = retrieveProdCatalogProdOffer(offering, validFor);
         if (null != catalogOffer) {
             catalogOffer.getValidFor().setEndDateTime(new Date());
         } else {
-            logger.warn("the Object of ProductOffering Has not been published to the ProductCatalog . ");
-            return 0;
+            return ProductCatalogErrorEnum.RETIRED_REPETITIVE_OFFERING.getCode();
         }
-        return 0;
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
     /**
@@ -131,7 +131,7 @@ public class ProductCatalog extends Catalog {
      */
     public int retired(ProductOffering offering) {
         if (CommonUtils.checkParamIsNull(offering)) {
-            return 0;
+            return ProductOfferingErrorEnum.OFFERING_IS_NULL.getCode();
         }
         List<ProdCatalogProdOffer> catalogOffers = retrieveProdCatalogProdOffer(offering);
         if (null != catalogOffers) {
@@ -139,10 +139,9 @@ public class ProductCatalog extends Catalog {
                 catalogOffer.getValidFor().setEndDateTime(new Date());
             }
         } else {
-            logger.warn("the Object of ProductOffering Has not been published to the ProductCatalog . ");
-            return 0;
+            return ProductCatalogErrorEnum.RETIRED_REPETITIVE_OFFERING.getCode();
         }
-        return 0;
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
     /**
@@ -161,7 +160,7 @@ public class ProductCatalog extends Catalog {
      */
     public int specifyOfferingPrice(ProductOffering offering, TimePeriod timePeriod, ProductOfferingPrice price) {
         // TODO - implement ProductCatalog.specifyOfferingPrice
-        return 0;
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
     /**
@@ -171,7 +170,7 @@ public class ProductCatalog extends Catalog {
      */
     public int alterOfferingPrice(ProductOffering offering, TimePeriod timePeriod, ProductOfferingPrice[] newPrice) {
         // TODO - implement ProductCatalog.alterOfferingPrice
-        return 0;
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
     /**
@@ -252,30 +251,25 @@ public class ProductCatalog extends Catalog {
     public int modifyOfferingValidTime(ProductOffering offering, TimePeriod oldValidFor, TimePeriod newValidFor) {
 
         if (CommonUtils.checkParamIsNull(offering)) {
-            logger.error("parameter is error ：the Object of ProductOffering is null . ");
-            return 0;
+            return ProductOfferingErrorEnum.OFFERING_IS_NULL.getCode();
         }
         if (CommonUtils.checkParamIsNull(oldValidFor)) {
-            logger.error("parameter is error ：the Object of oldValidFor is null . ");
-            return 0;
+            return CommonErrorEnum.VALIDFOR_IS_NULL.getCode();
         }
         if (CommonUtils.checkParamIsNull(newValidFor)) {
-            logger.error("parameter is error ：the Object of newValidFor is null . ");
-            return 0;
+            return CommonErrorEnum.VALIDFOR_IS_NULL.getCode();
         }
         if (null != prodCatalogProdOffer) {
             ProdCatalogProdOffer catalogProdOffer = retrieveProdCatalogProdOffer(offering, oldValidFor);
             if (null != catalogProdOffer) {
                 catalogProdOffer.setValidFor(newValidFor);
             } else {
-                logger.warn("the Object of ProductOffering Has not been published to the ProductCatalog . ");
-                return 0;
+                return ProductCatalogErrorEnum.IS_NOT_PUBLISH_OFFERING.getCode();
             }
         } else {
-            logger.warn("the Object of ProductCatalog haven't ProductOffering . ");
-            return 0;
+            return ProductCatalogErrorEnum.IS_NOT_PUBLISH_OFFERING.getCode();
         }
-        return 0;
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
     public String toString() {
