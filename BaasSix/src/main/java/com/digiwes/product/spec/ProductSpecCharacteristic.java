@@ -2,14 +2,19 @@ package com.digiwes.product.spec;
 
 import java.util.*;
 import com.digiwes.basetype.*;
+import com.digiwes.common.util.CommonUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 /**
  * A characteristic quality or distinctive feature of a ProductSpecification. The characteristic can be take on a discrete value, such as color, can take on a range of values, (for example, sensitivity of 100-240 mV), or can be derived from a formula (for example, usage time (hrs) = 30 - talk time *3). Certain characteristics, such as color, may be configured during the ordering or some other process.
  */
 public class ProductSpecCharacteristic {
+    private static final Logger logger = Logger.getLogger(ProductSpecCharacteristic.class);
 
-    List<ProductSpecCharacteristicValue> prodSpecCharValue;
-    public List<ProductSpecCharRelationship> prodSpecCharRelationship;
+    private Set<ProductSpecCharacteristicValue> prodSpecCharValue;
+    private List<ProductSpecCharRelationship> prodSpecCharRelationship;
+
     /**
      * A unique identifier for the ProductSpecCharacteristic.
      * ?
@@ -141,8 +146,12 @@ public class ProductSpecCharacteristic {
      * @param valueType
      */
     public ProductSpecCharacteristic(String id, String name, String valueType) {
-        // TODO - implement ProductSpecCharacteristic.ProductSpecCharacteristic
-        throw new UnsupportedOperationException();
+        assert !StringUtils.isEmpty(id):"id should not be null";
+        assert !StringUtils.isEmpty(valueType):"valueType should not be null";
+        assert !StringUtils.isEmpty(name):"name should not be null";
+        this.ID = id;
+        this.name = name;
+        this.valueType = valueType;
     }
 
     /**
@@ -159,8 +168,20 @@ public class ProductSpecCharacteristic {
      * @param derivationFormula
      */
     public ProductSpecCharacteristic(String id, String name, String valueType, TimePeriod validFor, String unique, int minCardinality, int maxCardinality, boolean extensible, String description, String derivationFormula) {
-        // TODO - implement ProductSpecCharacteristic.ProductSpecCharacteristic
-        throw new UnsupportedOperationException();
+        assert !StringUtils.isEmpty(id):"id should not be null";
+        assert !StringUtils.isEmpty(valueType):"valueType should not be null";
+        assert !StringUtils.isEmpty(name):"name should not be null";
+        assert !(minCardinality>maxCardinality):"maxCardinality is less than minCardinality";
+        this.ID = id;
+        this.name = name;
+        this.valueType = valueType;
+        this.validFor = validFor;
+        this.unique = unique;
+        this.minCardinality = minCardinality;
+        this.maxCardinality = maxCardinality;
+        this.extensible = extensible;
+        this.description = description;
+        this.derivationFormula = derivationFormula;
     }
 
     /**
@@ -169,8 +190,13 @@ public class ProductSpecCharacteristic {
      * @param maxCardinality
      */
     public int specifyCardinality(int minCardinality, int maxCardinality) {
-        // TODO - implement ProductSpecCharacteristic.specifyCardinality
-        throw new UnsupportedOperationException();
+        if (minCardinality > maxCardinality){
+            logger.error("maxCardinality is less than minCardinality");
+            throw new IllegalArgumentException("maxCardinality is less than minCardinality");
+        }
+        this.minCardinality =minCardinality;
+        this.maxCardinality =maxCardinality;
+        return 0;
     }
 
     /**
@@ -178,8 +204,19 @@ public class ProductSpecCharacteristic {
      * @param charVal
      */
     public int assignValue(ProductSpecCharacteristicValue charVal) {
-        // TODO - implement ProductSpecCharacteristic.assignValue
-        throw new UnsupportedOperationException();
+        if(CommonUtils.checkParamIsNull(charVal)){
+            throw new IllegalArgumentException("Parameter charVal should not be null");
+        }
+        if(null == this.prodSpecCharValue){
+            this.prodSpecCharValue = new HashSet<ProductSpecCharacteristicValue>();
+        }
+        for (ProductSpecCharacteristicValue pscv:prodSpecCharValue){
+            if(pscv.equals(charVal)){
+                return 0;
+            }
+        }
+        this.prodSpecCharValue.add(charVal);
+        return 0;
     }
 
     /**
