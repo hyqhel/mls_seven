@@ -37,8 +37,9 @@ public class ProductSpecificationTest {
         ProductSpecCharacteristic characteristic2 = this.createChar(TestProductSpecificationData.specChar[4]);
         Set<ProductSpecCharUse> expectCharUse = new HashSet<ProductSpecCharUse>();
         ProductSpecCharUse charUse = new ProductSpecCharUse(characteristic, false, false, validFor, "CPU");
-        ProductSpecCharUse charUse2 = new ProductSpecCharUse(characteristic, false, false, validFor, "¥¶¿Ì∆˜(CPU)");
+        ProductSpecCharUse charUse2 = new ProductSpecCharUse(characteristic, false, false, validFor, "Â§ÑÁêÜÂô®(CPU)");
         expectCharUse.add(charUse);
+
         prodSpec.attachCharacteristic("CPU", characteristic, false, false, validFor);
         assertEquals("and one characteristic ", expectCharUse, prodSpec.getProdSpecChar());
 
@@ -46,9 +47,9 @@ public class ProductSpecificationTest {
         assertEquals(" and one exists characteristic", expectCharUse, prodSpec.getProdSpecChar());
 
         expectCharUse.add(charUse2);
-        prodSpec.attachCharacteristic("¥¶¿Ì∆˜(CPU)", characteristic2, false, false, validFor);
-        assertEquals("and one exists characteristic but use different name£¨check size ", 2, prodSpec.getProdSpecChar().size());
-        assertEquals("and one exists characteristic but use different name£¨check content", expectCharUse, prodSpec.getProdSpecChar());
+        prodSpec.attachCharacteristic("Â§ÑÁêÜÂô®(CPU)", characteristic2, false, false, validFor);
+        assertEquals("and one exists characteristic but use different nameÔºåcheck size ", 2, prodSpec.getProdSpecChar().size());
+        assertEquals("and one exists characteristic but use different nameÔºåcheck content", expectCharUse, prodSpec.getProdSpecChar());
 
         try {
             prodSpec.attachCharacteristic("CPU", null, false, false, validFor);
@@ -292,7 +293,7 @@ public class ProductSpecificationTest {
         // *********** Case3 **************
         try {
             List<ProductSpecification> productSpecificationList3 = this.srcProdSpec.retrieveRelatedProdSpec(null);
-            fail("Case 3 £∫ fail when type is null°£");
+            fail("Case 3 Ôºö fail when type is null„ÄÇ");
         } catch (IllegalArgumentException e) {
         }
 
