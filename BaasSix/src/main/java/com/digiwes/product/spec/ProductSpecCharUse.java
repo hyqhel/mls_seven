@@ -2,6 +2,8 @@ package com.digiwes.product.spec;
 
 import java.util.*;
 import com.digiwes.basetype.*;
+import com.digiwes.common.enums.CommonErrorEnum;
+import com.digiwes.common.enums.ProductSpecErrorEnum;
 import com.digiwes.common.util.CommonUtils;
 import org.apache.log4j.Logger;
 
@@ -193,10 +195,9 @@ public class ProductSpecCharUse {
             this.minCardinality = minCardinality;
             this.maxCardinality = maxCardinality;
         } else {
-            logger.error("minCardinality is greater than maxCardinality .");
-            throw new IllegalArgumentException("minCardinality is greater than maxCardinality .");
+            return ProductSpecErrorEnum.PROD_SPEC_CHAR_MAX_LESS_THAN_MAX.getCode();
         }
-        return  0;
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
     /**

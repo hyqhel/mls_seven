@@ -3,7 +3,9 @@ package com.digiwes.product.spec;
 import java.util.*;
 
 import com.digiwes.basetype.*;
+import com.digiwes.common.enums.CommonErrorEnum;
 import com.digiwes.common.enums.ProdSpecStatus;
+import com.digiwes.common.enums.ProductSpecErrorEnum;
 import com.digiwes.common.enums.RelationshipType;
 import com.digiwes.common.util.CommonUtils;
 import org.apache.commons.lang.StringUtils;
@@ -179,10 +181,10 @@ public abstract class ProductSpecification {
 
         //the parameter of specChar is null
         if (CommonUtils.checkParamIsNull(specChar)) {
-            return 0;
+            return ProductSpecErrorEnum.PROD_SPEC_CHAR_IS_NULL.getCode();
         }
         if (StringUtils.isEmpty(charName)) {
-            return 0;
+            return ProductSpecErrorEnum.CHAR_USE_NAME_IS_NULL.getCode();
         }
 
         //initialize set of ProductSpecCharUse
@@ -192,10 +194,9 @@ public abstract class ProductSpecification {
             ProductSpecCharUse prodSpecCharUse = new ProductSpecCharUse(specChar, canBeOveridden, isPackage, validFor, charName);
             prodSpecChar.add(prodSpecCharUse);
         } else {
-            log.warn("the characteristic is already in use. ");
-            return 0;
+            return ProductSpecErrorEnum.THE_CHAR_HAS_EXISTS_INSPEC.getCode();
         }
-        return 1;
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
     /**
@@ -215,10 +216,10 @@ public abstract class ProductSpecification {
                                             maxCardinality, boolean extensible, String description) {
         //the parameter of specChar is null
         if (CommonUtils.checkParamIsNull(specChar)) {
-            return 0;
+            return ProductSpecErrorEnum.PROD_SPEC_CHAR_IS_NULL.getCode();
         }
         if (StringUtils.isEmpty(charName)) {
-            return 0;
+            return ProductSpecErrorEnum.CHAR_USE_NAME_IS_NULL.getCode();
         }
 
         //initialize set of ProductSpecCharUse
@@ -229,10 +230,9 @@ public abstract class ProductSpecification {
                     validFor, charName, unique, minCardinality, maxCardinality, extensible, description);
             prodSpecChar.add(prodSpecCharUse);
         } else {
-            log.warn("the characteristic is already in use. ");
-            return 0;
+            return ProductSpecErrorEnum.THE_CHAR_HAS_EXISTS_INSPEC.getCode();
         }
-        return 0;
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
     /**
@@ -271,13 +271,13 @@ public abstract class ProductSpecification {
     public int assignCharacteristicValue(String charName, ProductSpecCharacteristic specChar, ProductSpecCharacteristicValue charValue, boolean isDefault, TimePeriod validFor) {
         //the parameter of specChar is null
         if (CommonUtils.checkParamIsNull(specChar)) {
-            return 0;
+            return ProductSpecErrorEnum.PROD_SPEC_CHAR_IS_NULL.getCode();
         }
         if (CommonUtils.checkParamIsNull(charValue)) {
-            return 0;
+            return ProductSpecErrorEnum.PROD_SPEC_CHAR_VALUE_IS_NULL.getCode();
         }
         if (StringUtils.isEmpty(charName)) {
-            return 0;
+            return ProductSpecErrorEnum.CHAR_USE_NAME_IS_NULL.getCode();
         }
         if (this.prodSpecChar != null) {
             ProductSpecCharUse charUse = this.contains(charName, specChar);
@@ -288,7 +288,7 @@ public abstract class ProductSpecification {
                 log.warn("Parameter characteristicValue is not belong to this characteristic ");
             }
         }
-        return 0;
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
     /**
@@ -298,7 +298,7 @@ public abstract class ProductSpecification {
      */
     public int removeCharacteristicValue(String charName, ProductSpecCharacteristic specChar, ProductSpecCharacteristicValue charValue) {
         // TODO - implement ProductSpecification.removeCharacteristicValue
-        throw new UnsupportedOperationException();
+        return 0;
     }
 
     /**
@@ -309,16 +309,16 @@ public abstract class ProductSpecification {
     public int specifyDefaultCharacteristicValue(String charName, ProductSpecCharacteristic specChar, ProductSpecCharacteristicValue defaultCharValue) {
         //the parameter of specChar is null
         if (CommonUtils.checkParamIsNull(prodSpecChar)) {
-            return 0;
+            return ProductSpecErrorEnum.THE_SPEC_NO_USE_CHAR.getCode();
         }
         if (CommonUtils.checkParamIsNull(specChar)) {
-            return 0;
+            return ProductSpecErrorEnum.PROD_SPEC_CHAR_IS_NULL.getCode();
         }
         if (CommonUtils.checkParamIsNull(defaultCharValue)) {
-            return 0;
+            return ProductSpecErrorEnum.PROD_SPEC_CHAR_VALUE_IS_NULL.getCode();
         }
         if (StringUtils.isEmpty(charName)) {
-            return 0;
+            return ProductSpecErrorEnum.CHAR_USE_NAME_IS_NULL.getCode();
         }
 
         ProductSpecCharUse charUse = this.contains(charName, specChar);
@@ -328,7 +328,7 @@ public abstract class ProductSpecification {
         } else {
             log.warn("Parameter characteristicValue is not belong to this characteristic ");
         }
-        return 0;
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
     /**
@@ -422,7 +422,6 @@ public abstract class ProductSpecification {
      */
     public List<ProductSpecCharUse> retrieveLeafCharacteristic(String charName, ProductSpecCharacteristic specChar,
                                                                Date time) {
-
         List<ProductSpecCharUse> charUses = new ArrayList<ProductSpecCharUse>();
         List<ProductSpecCharacteristic> subProdSpecChar = null;
 
@@ -454,18 +453,16 @@ public abstract class ProductSpecification {
      */
     public int specifyCardinality(String charName, ProductSpecCharacteristic specChar, int minCardinality, int maxCardinality) {
         if (CommonUtils.checkParamIsNull(specChar)) {
-            return 0;
+            return ProductSpecErrorEnum.PROD_SPEC_CHAR_IS_NULL.getCode();
         }
         if (StringUtils.isEmpty(charName)) {
-            return 0;
+            return ProductSpecErrorEnum.CHAR_USE_NAME_IS_NULL.getCode();
         }
         ProductSpecCharUse charUse = this.retrieveProdSpecCharUse(charName, specChar);
         if (null != charUse) {
-            charUse.specifyCardinality(minCardinality, maxCardinality);
-            return 0;
+            return charUse.specifyCardinality(minCardinality, maxCardinality);
         } else {
-            log.warn("Parameter characteristic is not used");
-            return 0;
+            return ProductSpecErrorEnum.THE_SPEC_NO_USE_THE_CHAR.getCode();
         }
     }
 
@@ -560,29 +557,26 @@ public abstract class ProductSpecification {
      */
     public int associate(ProductSpecification prodSpec, String type, TimePeriod validFor) {
         if (CommonUtils.checkParamIsNull(prodSpec)) {
-            return 0;
+            return ProductSpecErrorEnum.PROD_SPEC_IS_NULL.getCode();
         }
         if (StringUtils.isEmpty(type)) {
-            return 1;
+            return ProductSpecErrorEnum.PROD_SPEC_RELATIONSHIP_TYPE_IS_NULL.getCode();
         }
 
         if (CommonUtils.checkParamIsNull(this.prodSpecRelationship)) {
             this.prodSpecRelationship = new ArrayList<ProductSpecificationRelationship>();
         }
         if (this.equals(prodSpec)) {
-            log.error("Cannot add relationship with it self!");
-            return 1;
+            return ProductSpecErrorEnum.PROD_SPEC_EQUALS_TO_CURRENT.getCode();
         }
 
         ProductSpecificationRelationship productSpecificationRelationship = new ProductSpecificationRelationship(this,
                 prodSpec, type, validFor);
         if (this.prodSpecRelationship.contains(productSpecificationRelationship)) {
-            log.error("the relationship already exist, Cannot repeatedly create relationship by the same type. ProductNumber="
-                    + prodSpec.getProductNumber() + "type=" + type);
-            return 1;
+            return ProductSpecErrorEnum.PROD_SPEC_HAS_RELATED_TO_CURRENT.getCode();
         }
         this.prodSpecRelationship.add(productSpecificationRelationship);
-        return 1;
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
     /**
@@ -672,13 +666,8 @@ public abstract class ProductSpecification {
      * @param characteristic
      */
     private ProductSpecCharUse contains(String charName, ProductSpecCharacteristic characteristic) {
-        ProductSpecCharUse charUse = this.retrieveProdSpecCharUse(name, characteristic);
-        if (null == charUse) {
-            log.error("Parameter characteristic is not used ");
-            throw new IllegalArgumentException();
-        } else {
-            return charUse;
-        }
+        ProductSpecCharUse charUse = this.retrieveProdSpecCharUse(charName, characteristic);
+        return charUse;
     }
 
     @Override

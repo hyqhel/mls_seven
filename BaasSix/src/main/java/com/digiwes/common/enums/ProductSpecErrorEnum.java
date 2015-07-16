@@ -19,7 +19,12 @@ public enum ProductSpecErrorEnum {
     PROD_SPEC_CHAR_RELATIONSHIP_TYPE_IS_NULL(286064651, "relationshipType is null"),
     PROD_SPEC_CHAR_EQUALS_TO_CURRENT(286064652, "the designated productSpecCharacteristic equal to current value"),
     PROD_SPEC_CHAR_HAS_RELATED_TO_CURRENT(286064653, "Characteristic has been established associate relationship in " +
-            "the specified time");
+            "the specified time"),
+    CHAR_USE_NAME_IS_NULL(286064654, "char use name is null"),
+    THE_CHAR_HAS_EXISTS_INSPEC(286064655, "the spec has already use the char"),
+    THE_SPEC_NO_USE_CHAR(286064656, "the spec no use any char "),
+    THE_SPEC_NO_USE_THE_CHAR(286064657, "the spec no use any char ");
+
     private int code;
     private String message;
 
