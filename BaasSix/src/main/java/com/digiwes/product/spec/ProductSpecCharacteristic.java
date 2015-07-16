@@ -13,8 +13,8 @@ import org.apache.log4j.Logger;
 public class ProductSpecCharacteristic {
     private static final Logger logger = Logger.getLogger(ProductSpecCharacteristic.class);
 
-    private Set<ProductSpecCharacteristicValue> prodSpecCharValue;
-    private List<ProductSpecCharRelationship> prodSpecCharRelationship;
+    public Set<ProductSpecCharacteristicValue> prodSpecCharValue;
+    public List<ProductSpecCharRelationship> prodSpecCharRelationship;
 
     /**
      * A unique identifier for the ProductSpecCharacteristic.
@@ -323,7 +323,7 @@ public class ProductSpecCharacteristic {
      * @param validFor
      */
     public int associate(ProductSpecCharacteristic specChar, String type, TimePeriod validFor) {
-        if(null == prodSpecCharRelationship){
+        if(CommonUtils.checkParamIsNull(prodSpecCharRelationship )){
             prodSpecCharRelationship = new ArrayList<ProductSpecCharRelationship>();
         }
         ProductSpecCharRelationship relationship=this.retrieveCharRelationship(specChar);
@@ -352,7 +352,7 @@ public class ProductSpecCharacteristic {
      * @param charSpecSeq
      */
     public int associate(ProductSpecCharacteristic specChar, String type, TimePeriod validFor, int charSpecSeq) {
-        if(null == this.prodSpecCharRelationship){
+        if(CommonUtils.checkParamIsNull(prodSpecCharRelationship )){
             this.prodSpecCharRelationship =new ArrayList<ProductSpecCharRelationship>();
         }
         ProductSpecCharRelationship relationship=this.retrieveCharRelationship(specChar);
@@ -467,8 +467,10 @@ public class ProductSpecCharacteristic {
     }
 
     public int hashCode() {
-        // TODO - implement ProductSpecCharacteristic.hashCode
-        throw new UnsupportedOperationException();
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((ID == null) ? 0 : ID.hashCode());
+        return result;
     }
 
     /**

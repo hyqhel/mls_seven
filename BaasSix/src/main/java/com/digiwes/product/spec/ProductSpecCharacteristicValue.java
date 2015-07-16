@@ -277,7 +277,17 @@ public class ProductSpecCharacteristicValue {
      * @param charValue
      */
     private ProdSpecCharValueRelationship retrieveCharValueRelationship(ProductSpecCharacteristicValue charValue) {
-        // TODO - implement ProductSpecCharacteristicValue.retrieveCharValueRelationship
+        if(CommonUtils.checkParamIsNull(charValue)){
+            logger.error("characteristic  should not be null");
+            throw new IllegalArgumentException("characteristic  should not be null");
+        }
+        if (null != prodSpecCharValueRelationship) {
+            for (ProdSpecCharValueRelationship pscvr : prodSpecCharValueRelationship) {
+                if( pscvr.getTargetCharValue().equals(charValue)){
+                    return pscvr;
+                }
+            }
+        }
         return null;
     }
 
@@ -374,7 +384,7 @@ public class ProductSpecCharacteristicValue {
             }
         }
         charValue.put("charValueRelationShip", needCharValueRelationShipValue);
-        return charValue.toString();
+        return  CommonUtils.format(charValue.toString());
     }
     public Map<String,Object> getBasicInfoToMap(){
         Map<String,Object> charValue=new HashMap<String,Object>();
@@ -395,8 +405,7 @@ public class ProductSpecCharacteristicValue {
      * Basic info of the class ouput to String
      */
     public String basicInfoToString() {
-        // TODO - implement ProductSpecCharacteristicValue.basicInfoToString
-        throw new UnsupportedOperationException();
+        return  CommonUtils.format(getBasicInfoToMap().toString());
     }
 
 
