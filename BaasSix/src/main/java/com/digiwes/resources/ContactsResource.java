@@ -22,6 +22,7 @@ public class ContactsResource {
 	@Path("count")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String getCount() {
+		System.out.print("11111111111");
 		return String.valueOf("2");
 	}
 	

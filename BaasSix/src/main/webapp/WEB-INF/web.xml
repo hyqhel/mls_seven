@@ -54,10 +54,10 @@
   
 
 	<!-- 设置Spring容器加载配置文件路径 -->
-	<!--<context-param>
+	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/classes/applicationContext.xml</param-value>
-	</context-param>-->
+	</context-param>
 	
 	<!-- 解决工程编码过滤器 -->
 
@@ -76,14 +76,14 @@
 
 	
 	<!-- Spring view分发器 -->
-	<servlet>
-		<servlet-name>dispatcher</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>dispatcher</servlet-name>
-		<url-pattern>/</url-pattern>
-	</servlet-mapping>
+	<!--<servlet>-->
+		<!--<servlet-name>dispatcher</servlet-name>-->
+		<!--<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>-->
+		<!--<load-on-startup>1</load-on-startup>-->
+	<!--</servlet>-->
+	<!--<servlet-mapping>-->
+		<!--<servlet-name>dispatcher</servlet-name>-->
+		<!--<url-pattern>/</url-pattern>-->
+	<!--</servlet-mapping>-->
   
 </web-app>
