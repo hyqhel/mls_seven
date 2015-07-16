@@ -2,6 +2,8 @@ package com.digiwes.product.spec;
 
 import java.util.*;
 import com.digiwes.basetype.*;
+import com.digiwes.common.enums.CommonErrorEnum;
+import com.digiwes.common.enums.ProductSpecErrorEnum;
 import com.digiwes.common.enums.RelationshipType;
 import com.digiwes.common.util.CommonUtils;
 import org.apache.commons.lang.StringUtils;
@@ -208,12 +210,11 @@ public class ProductSpecCharacteristic {
      */
     public int specifyCardinality(int minCardinality, int maxCardinality) {
         if (minCardinality > maxCardinality){
-            logger.error("maxCardinality is less than minCardinality");
-            throw new IllegalArgumentException("maxCardinality is less than minCardinality");
+            return ProductSpecErrorEnum.PROD_SPEC_CHAR_MAX_LESS_THAN_MIN.getCode();
         }
         this.minCardinality =minCardinality;
         this.maxCardinality =maxCardinality;
-        return 0;
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
     /**
@@ -222,18 +223,18 @@ public class ProductSpecCharacteristic {
      */
     public int assignValue(ProductSpecCharacteristicValue charVal) {
         if(CommonUtils.checkParamIsNull(charVal)){
-            throw new IllegalArgumentException("Parameter charVal should not be null");
+            return ProductSpecErrorEnum.PROD_SPEC_CHAR_VALUE_IS_NULL.getCode();
         }
         if(null == this.prodSpecCharValue){
             this.prodSpecCharValue = new HashSet<ProductSpecCharacteristicValue>();
         }
         for (ProductSpecCharacteristicValue pscv:prodSpecCharValue){
             if(pscv.equals(charVal)){
-                return 0;
+                return ProductSpecErrorEnum.THE_SPEC_CHAR_HAS_USE_THE_VALUE.getCode();
             }
         }
         this.prodSpecCharValue.add(charVal);
-        return 0;
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
     /**
@@ -242,14 +243,14 @@ public class ProductSpecCharacteristic {
      */
     public int removeValue(ProductSpecCharacteristicValue charVal) {
         if(CommonUtils.checkParamIsNull(charVal)){
-            throw new IllegalArgumentException("Parameter charVal should not be null");
+            return ProductSpecErrorEnum.PROD_SPEC_CHAR_VALUE_IS_NULL.getCode();
         }
         if(null != this.prodSpecCharValue && this.prodSpecCharValue.size()>0){
             if(prodSpecCharValue.contains(charVal)){
                 prodSpecCharValue.remove(charVal);
             }
         }
-        return  0;
+        return  CommonErrorEnum.SUCCESS.getCode();
     }
 
     /**
@@ -259,7 +260,7 @@ public class ProductSpecCharacteristic {
     public List<ProductSpecCharacteristicValue> retrieveValue(Date time) {
         List<ProductSpecCharacteristicValue> productSpecCharValues = new ArrayList<ProductSpecCharacteristicValue>();
         if(CommonUtils.checkParamIsNull(time)){
-            throw new IllegalArgumentException("DateTime should not be null.");
+            CommonErrorEnum.TIME_IS_NULL.getCode();
         }
         if ( null != this.prodSpecCharValue ) {
             for (ProductSpecCharacteristicValue charValue : prodSpecCharValue) {
@@ -277,7 +278,7 @@ public class ProductSpecCharacteristic {
      */
     public int specifyDefaultValue(ProductSpecCharacteristicValue defaultCharVal) {
         if(CommonUtils.checkParamIsNull(defaultCharVal)){
-            throw new IllegalArgumentException("Parameter  defaultCharVal should not be null.");
+            return ProductSpecErrorEnum.PROD_SPEC_CHAR_VALUE_IS_NULL.getCode();
         }
         if(null != this.prodSpecCharValue){
             for(ProductSpecCharacteristicValue productSpecCharacteristicValue:prodSpecCharValue){
@@ -288,9 +289,9 @@ public class ProductSpecCharacteristic {
                 }
             }
         }else{
-            logger.error("you set setDefaultValue  not exists");
+            return ProductSpecErrorEnum.THE_SPEC_NO_USE_VALUE.getCode();
         }
-        return 0;
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
     /**
@@ -327,21 +328,14 @@ public class ProductSpecCharacteristic {
             prodSpecCharRelationship = new ArrayList<ProductSpecCharRelationship>();
         }
         ProductSpecCharRelationship relationship=this.retrieveCharRelationship(specChar);
-        if(relationship!=null){
+        if(null != relationship){
             if(type.equals(relationship.getCharRelationshipType()) && relationship.getValidFor().isOverlap(validFor)){
-                logger.warn("Characteristic have been created in the specified time");
-                logger.warn("the exists relationship :"+relationship.toString());
-                return 0;
+               return ProductSpecErrorEnum.PROD_SPEC_CHAR_HAS_RELATED_TO_CURRENT.getCode();
             }
         }
         ProductSpecCharRelationship pship = new ProductSpecCharRelationship(this,specChar,type,validFor);
-        for(ProductSpecCharRelationship productSpecCharRelationship :prodSpecCharRelationship){
-            if(productSpecCharRelationship.equals(pship)){
-                return 0;
-            }
-        }
         prodSpecCharRelationship.add(pship);
-        return 0;
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
     /**
@@ -356,21 +350,14 @@ public class ProductSpecCharacteristic {
             this.prodSpecCharRelationship =new ArrayList<ProductSpecCharRelationship>();
         }
         ProductSpecCharRelationship relationship=this.retrieveCharRelationship(specChar);
-        if(relationship!=null){
+        if(null != relationship){
             if(type.equals(relationship.getCharRelationshipType()) && relationship.getValidFor().isOverlap(validFor)){
-                logger.warn("Characteristic have been created in the specified time");
-                logger.warn("the exists relationship :"+relationship.toString());
-                return 0;
+                return ProductSpecErrorEnum.PROD_SPEC_CHAR_HAS_RELATED_TO_CURRENT.getCode();
             }
         }
         ProductSpecCharRelationship ship = new ProductSpecCharRelationship(this,specChar,type,validFor,charSpecSeq);
-        for(ProductSpecCharRelationship productSpecCharRelationship :prodSpecCharRelationship){
-            if(productSpecCharRelationship.equals(ship)){
-                return 0;
-            }
-        }
         this.prodSpecCharRelationship.add(ship);
-        return 0;
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
     /**
@@ -379,9 +366,10 @@ public class ProductSpecCharacteristic {
      */
     public int dissociate(ProductSpecCharacteristic specChar) {
         if(CommonUtils.checkParamIsNull(specChar)){
-            throw new IllegalArgumentException("Parameter specChar should not be  null");
+            return ProductSpecErrorEnum.PROD_SPEC_CHAR_IS_NULL.getCode();
         }
         if(CommonUtils.checkParamIsNull(prodSpecCharRelationship)){
+            return ProductSpecErrorEnum.
             return 0;
         }
         for(ProductSpecCharRelationship psr:prodSpecCharRelationship){

@@ -10,7 +10,7 @@ public enum ProductSpecErrorEnum {
     PROD_SPEC_EQUALS_TO_CURRENT(286064643, "the designated productSpecification equal to current productSpecification"),
     PROD_SPEC_HAS_RELATED_TO_CURRENT(286064644, "the designated productSpecification equal to current value"),
     PROD_SPEC_CHAR_IS_NULL(286064645, "Char is null"),
-    PROD_SPEC_CHAR_MAX_LESS_THAN_MAX(286064646, "maxCardinality is less than minCardinality"),
+    PROD_SPEC_CHAR_MAX_LESS_THAN_MIN(286064646, "maxCardinality is less than minCardinality"),
     PROD_SPEC_CHAR_TYPE_DIFFERENT_CHAR_VALUE_TYPE(286064647, "The valueType of Character and the valueType of " +
             "CharacterValue are the same"),
     PROD_SPEC_CHAR_VALUE_IS_NULL(286064648, "charVal is null"),
@@ -23,7 +23,12 @@ public enum ProductSpecErrorEnum {
     CHAR_USE_NAME_IS_NULL(286064654, "char use name is null"),
     THE_CHAR_HAS_EXISTS_INSPEC(286064655, "the spec has already use the char"),
     THE_SPEC_NO_USE_CHAR(286064656, "the spec no use any char "),
-    THE_SPEC_NO_USE_THE_CHAR(286064657, "the spec no use any char ");
+    THE_SPEC_NO_USE_THE_CHAR(286064657, "the spec no use any char "),
+    THE_SPEC_CHAR_HAS_USE_THE_VALUE(286064658, "the spec no use any char "),
+    THE_SPEC_NO_USE_VALUE(286064659, "the spec no use any char "),
+    VALUE_RELATIONSHIP_EXISTING(286064660,"Characteristic value relationship has exists");
+
+
 
     private int code;
     private String message;
