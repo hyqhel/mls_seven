@@ -144,7 +144,7 @@ public abstract class ProductSpecification {
         this.name = name;
         this.productNumber = productNumber;
         this.brand = brand;
-        this.lifecycleStatus = ProdSpecStatus.STATUS_ACTIVE.getValue();
+        this.lifecycleStatus = ProdSpecStatus.ACTIVE.getValue();
     }
 
     /**
@@ -165,7 +165,7 @@ public abstract class ProductSpecification {
         this.brand = brand;
         this.validFor = validFor;
         this.description = description;
-        this.lifecycleStatus = ProdSpecStatus.STATUS_ACTIVE.getValue();
+        this.lifecycleStatus = ProdSpecStatus.ACTIVE.getValue();
     }
 
     /**
