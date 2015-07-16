@@ -28,6 +28,19 @@
     <servlet-name>Jersey REST Service</servlet-name>
     <url-pattern>/rest/*</url-pattern>
   </servlet-mapping>
+
+
+
+	<servlet>
+		<servlet-name>configServlet</servlet-name>
+		<servlet-class>com.digiwes.resources.ConfigServlet</servlet-class>
+		<init-param>
+			<param-name>jdbcUrl</param-name>
+			<param-value>/WEB-INF/config/jdbc.properties</param-value>
+		</init-param>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+
   <!-- 以下3项参数与log4j的配置相关 -->	
 	<context-param>
 		<param-name>log4jConfigLocation</param-name>

@@ -1,8 +1,8 @@
-package com.digiwes.product.spec;
+package com.digiwes.resources;
 
 
 import com.digiwes.basetype.TimePeriod;
-import com.digiwes.common.enums.ProdSpecEnum;
+import com.digiwes.common.enums.RelationshipType;
 
 public class TestProductSpecificationData {
 
@@ -124,19 +124,19 @@ public class TestProductSpecificationData {
             {"9", "number", false, "GB", new TimePeriod("2015-02-03 12:00:00", "2019-07-21 23:59:59"), "512"}};
 
     public static Object[][] relateSpecChar = {
-            {"1", "11", ProdSpecEnum.ProdSpecRelationship.AGGREGATION.getValue(), "1",
+            {"1", "11", RelationshipType.AGGREGATION.getValue(), "1",
                     new TimePeriod("2015-02-03 12:00:00", "2019-07-21 23:59:59")},
-            {"1", "12", ProdSpecEnum.ProdSpecRelationship.AGGREGATION.getValue(), "1",
+            {"1", "12", RelationshipType.AGGREGATION.getValue(), "1",
                     new TimePeriod("2015-02-03 12:00:00", "2019-07-21 23:59:59")},
-            {"1", "13", ProdSpecEnum.ProdSpecRelationship.AGGREGATION.getValue(), "1",
+            {"1", "13", RelationshipType.AGGREGATION.getValue(), "1",
                     new TimePeriod("2015-02-03 12:00:00", "2019-07-21 23:59:59")},
-            {"3", "31", ProdSpecEnum.ProdSpecRelationship.AGGREGATION.getValue(), "1",
+            {"3", "31", RelationshipType.AGGREGATION.getValue(), "1",
                     new TimePeriod("2015-02-03 12:00:00", "2019-07-21 23:59:59")},
-            {"3", "32", ProdSpecEnum.ProdSpecRelationship.AGGREGATION.getValue(), "1",
+            {"3", "32", RelationshipType.AGGREGATION.getValue(), "1",
                     new TimePeriod("2015-02-03 12:00:00", "2019-07-21 23:59:59")},
-            {"3", "33", ProdSpecEnum.ProdSpecRelationship.AGGREGATION.getValue(), "1",
+            {"3", "33", RelationshipType.AGGREGATION.getValue(), "1",
                     new TimePeriod("2015-02-03 12:00:00", "2019-07-21 23:59:59")},
-            {"3", "34", ProdSpecEnum.ProdSpecRelationship.AGGREGATION.getValue(), "1",
+            {"3", "34", RelationshipType.AGGREGATION.getValue(), "1",
                     new TimePeriod("2015-02-03 12:00:00", "2019-07-21 23:59:59")}};
     // 使用特征值（13寸mac
     // pro）（charId,canBeOveridden,isPackage,validFor,name,unique,minCardinality,maxCardinality,extensible,description,isHaveValue,valueIndex,isDefault）
