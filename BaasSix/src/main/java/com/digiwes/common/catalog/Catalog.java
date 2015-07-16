@@ -1,6 +1,8 @@
 package com.digiwes.common.catalog;
 
 import com.digiwes.basetype.*;
+import com.digiwes.product.offering.ProductOffering;
+import org.apache.commons.lang.StringUtils;
 
 public class Catalog {
 
@@ -54,29 +56,45 @@ public class Catalog {
     }
 
     /**
-     * 
+     * @param id
+     * @param name
+     * @param type
+     */
+    public Catalog(String id, String name, String type) {
+        assert StringUtils.isNotEmpty(id) : "Parameter [id] must be not null!";
+        this.ID = id;
+        this.name = name;
+        this.type = type;
+    }
+
+    /**
      * @param id
      * @param name
      * @param type
      * @param validFor
      */
     public Catalog(String id, String name, String type, TimePeriod validFor) {
-        // TODO - implement Catalog.Catalog
-        throw new UnsupportedOperationException();
+        assert StringUtils.isNotEmpty(id) : "Parameter [id] must be not null!";
+        this.ID = id;
+        this.name = name;
+        this.type = type;
+        this.validFor = validFor;
     }
 
-    /**
-     * 
-     * @param o
-     */
+    @Override
     public boolean equals(Object o) {
-        // TODO - implement Catalog.equals
-        throw new UnsupportedOperationException();
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ProductOffering that = (ProductOffering) o;
+
+        return ID.equals(that.getId());
+
     }
 
+    @Override
     public int hashCode() {
-        // TODO - implement Catalog.hashCode
-        throw new UnsupportedOperationException();
+        return ID.hashCode();
     }
 
 }
