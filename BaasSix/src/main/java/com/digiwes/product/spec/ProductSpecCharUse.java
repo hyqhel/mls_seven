@@ -262,8 +262,8 @@ public class ProductSpecCharUse {
      * @param defaultValue
      */
     public int clearDefaultValueUse(ProductSpecCharacteristicValue defaultValue) {
-        // TODO - implement ProductSpecCharUse.clearDefaultValueUse
-        throw new UnsupportedOperationException();
+        // TODO
+        return 0;
     }
 
     /**
@@ -314,8 +314,8 @@ public class ProductSpecCharUse {
     }
 
     public String toString() {
-        // TODO - implement ProductSpecCharUse.toString
-        throw new UnsupportedOperationException();
+        // TODO
+        return null;
     }
 
 }

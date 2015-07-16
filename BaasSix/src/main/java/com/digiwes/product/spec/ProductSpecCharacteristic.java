@@ -497,49 +497,21 @@ public class ProductSpecCharacteristic {
      * Basic information of the class output into the Map
      */
     protected Map getBasicInfo() {
-        Map <String,Object> result=new HashMap<String,Object>();
-        result.put("id", ID);
-        result.put("name", name);
-        result.put("unique", unique);
-        result.put("valueType",valueType);
-        result.put("extensible",extensible);
-        result.put("derivationFormula",derivationFormula);
-        result.put("maxCardinality",maxCardinality);
-        result.put("minCardinality",minCardinality);
-        result.put("validFor",validFor);
-        result.put("description",description);
-        return result;
+        // TODO
+        return null;
     }
 
     /**
      * Basic info of the class ouput to String
      */
     public String basicInfoToString() {
-       return CommonUtils.format(getBasicInfo().toString());
+        // TODO
+        return null;
     }
 
     public String toString() {
-        Map <String,Object> result=getBasicInfo();
-        List<Map<String,Object>> needValue =null;
-        if(null != prodSpecCharValue && 0!=prodSpecCharValue.size()){
-            needValue = new ArrayList<Map<String, Object>>();
-            for(ProductSpecCharacteristicValue psv:prodSpecCharValue){
-                needValue.add(psv.getBasicInfoToMap());
-            }
-        }
-        result.put("prodSpecCharValues", needValue);
-
-        List<Map<String,Object>> needCharRelationShipValue = null;
-        if(null !=prodSpecCharRelationship && 0!=prodSpecCharRelationship.size()){
-            needCharRelationShipValue = new ArrayList<Map<String, Object>>();
-            for(ProductSpecCharRelationship psr:prodSpecCharRelationship){
-                Map<String,Object> targchar = psr.getTargetProdSpecChar().getBasicInfo();
-                targchar.put("charRelationshipType", RelationshipType.getName(psr.getCharRelationshipType()));
-                needCharRelationShipValue.add(targchar);
-            }
-        }
-        result.put("charRelationShip", needCharRelationShipValue);
-        return  CommonUtils.format(result.toString());
+        // TODO
+        return null;
     }
 
 }

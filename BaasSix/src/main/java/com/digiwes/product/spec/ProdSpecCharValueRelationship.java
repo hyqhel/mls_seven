@@ -81,13 +81,13 @@ public class ProdSpecCharValueRelationship {
      * @param o
      */
     public boolean equals(int o) {
-        // TODO - implement ProdSpecCharValueRelationship.equals
-        throw new UnsupportedOperationException();
+        // TODO
+        return false;
     }
 
     public String toString() {
-        // TODO - implement ProdSpecCharValueRelationship.toString
-        throw new UnsupportedOperationException();
+        // TODO
+        return null;
     }
 
 }

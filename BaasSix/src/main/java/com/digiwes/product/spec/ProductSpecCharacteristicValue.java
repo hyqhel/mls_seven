@@ -373,39 +373,19 @@ public class ProductSpecCharacteristicValue {
 
     @Override
     public String toString() {
-        Map<String,Object> charValue=getBasicInfoToMap();
-        List<Map<String,Object>> needCharValueRelationShipValue = null;
-        if(null !=prodSpecCharValueRelationship && 0!=prodSpecCharValueRelationship.size()){
-            needCharValueRelationShipValue = new ArrayList<Map<String, Object>>();
-            for(ProdSpecCharValueRelationship psr:prodSpecCharValueRelationship){
-                Map<String,Object> targchar = psr.getTargetCharValue().getBasicInfoToMap();
-                targchar.put("charValueRelationshipType", RelationshipType.getName(psr.getCharValueRelationshipType()));
-                needCharValueRelationShipValue.add(targchar);
-            }
-        }
-        charValue.put("charValueRelationShip", needCharValueRelationShipValue);
-        return  CommonUtils.format(charValue.toString());
+        // TODO
+        return null;
     }
     public Map<String,Object> getBasicInfoToMap(){
-        Map<String,Object> charValue=new HashMap<String,Object>();
-        charValue.put("valueType", this.valueType);
-        charValue.put("unitOfMeasure", this.unitOfMeasure);
-        if(this.value!=null){
-            charValue.put("value", this.value);
-        }else{
-            charValue.put("valueFrom", this.valueFrom);
-            charValue.put("valueTo", this.valueTo);
-            charValue.put("rangeInterval", this.rangeInterval);
-        }
-        charValue.put("isDefault", this.isDefault);
-        charValue.put("validFor", this.validFor);
-        return charValue;
+        // TODO
+        return null;
     }
     /**
      * Basic info of the class ouput to String
      */
     public String basicInfoToString() {
-        return  CommonUtils.format(getBasicInfoToMap().toString());
+        // TODO
+        return null;
     }
 
 

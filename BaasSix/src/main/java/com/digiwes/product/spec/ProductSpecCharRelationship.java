@@ -172,8 +172,8 @@ public class ProductSpecCharRelationship {
     }
 
     public String toString() {
-        // TODO - implement ProductSpecCharRelationship.toString
-        throw new UnsupportedOperationException();
+        // TODO
+        return null;
     }
 
 }
