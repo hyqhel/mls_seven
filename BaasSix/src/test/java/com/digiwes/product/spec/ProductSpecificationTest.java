@@ -172,7 +172,7 @@ public class ProductSpecificationTest {
         } catch (IllegalArgumentException e) {
         }
     }
-
+/*
     @Test
     public void testAssociate() {
         ProductSpecification targetProdSpec = new AtomicProductSpecification("T001", "AppleCare For iPhone", "AppleCare");
@@ -255,7 +255,7 @@ public class ProductSpecificationTest {
                 returnCode);
         assertEquals("add relationship with srcProdSpec itSelf.", 3, this.srcProdSpec.getProdSpecRelationship().size());
         assertEquals("add relationship with srcProdSpec itSelf.", expectedRelatedSpecList, srcProdSpec.getProdSpecRelationship());
-    }
+    }*/
 
     @Test
     public void testDissociate() {
