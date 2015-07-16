@@ -21,9 +21,7 @@ public class ConfigurableProductSpecCharacteristic extends ProductSpecCharacteri
      * @param derivationFormula
      */
     public ConfigurableProductSpecCharacteristic(String id, String name, String valueType, TimePeriod validFor, String unique, int minCardinality, int maxCardinality, boolean extensible, String description, String derivationFormula) {
-        // TODO - implement ConfigurableProductSpecCharacteristic.ConfigurableProductSpecCharacteristic
         super(id,name,valueType,validFor,unique,minCardinality,maxCardinality,extensible,description,derivationFormula);
-        throw new UnsupportedOperationException();
     }
 
 }

@@ -11,18 +11,18 @@ import javax.ws.rs.core.UriInfo;
 import org.springframework.stereotype.Service;
 
 @Service
-@Path("/contacts")
-public class ContactsResource {
+@Path("/productCatalog")
+public class ProductCatalogResource {
 	@Context
 	UriInfo uriInfo;
 	@Context
 	Request request;
 
 	@GET
-	@Path("count")
-	@Produces(MediaType.TEXT_PLAIN)
-	public String getCount() {
-		System.out.print("11111111111");
+	@Path("offering")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getCount(String condition) {
+		System.out.print("condition"+condition);
 		return String.valueOf("2");
 	}
 	
