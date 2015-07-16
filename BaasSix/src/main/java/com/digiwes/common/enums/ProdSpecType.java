@@ -5,8 +5,8 @@ package com.digiwes.common.enums;
  */
 public enum ProdSpecType {
 
-    TEXT("1", "文本"),
-    NUMERIC("2", "数字"),
+    TEXT("1", "TEXT"),
+    NUMERIC("2", "NUMERIC"),
     FORTH("3", "FORTH");
 
     private String value;
