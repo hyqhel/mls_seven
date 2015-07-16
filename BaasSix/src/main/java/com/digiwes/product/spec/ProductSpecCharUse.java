@@ -195,7 +195,7 @@ public class ProductSpecCharUse {
             this.minCardinality = minCardinality;
             this.maxCardinality = maxCardinality;
         } else {
-            return ProductSpecErrorEnum.PROD_SPEC_CHAR_MAX_LESS_THAN_MAX.getCode();
+            return ProductSpecErrorEnum.PROD_SPEC_CHAR_MAX_LESS_THAN_MIN.getCode();
         }
         return CommonErrorEnum.SUCCESS.getCode();
     }
