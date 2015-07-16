@@ -366,9 +366,10 @@ public class ProductSpecCharacteristic {
      */
     public int dissociate(ProductSpecCharacteristic specChar) {
         if(CommonUtils.checkParamIsNull(specChar)){
-            throw new IllegalArgumentException("Parameter specChar should not be  null");
+            return ProductSpecErrorEnum.PROD_SPEC_CHAR_IS_NULL.getCode();
         }
         if(CommonUtils.checkParamIsNull(prodSpecCharRelationship)){
+            return ProductSpecErrorEnum.
             return 0;
         }
         for(ProductSpecCharRelationship psr:prodSpecCharRelationship){
