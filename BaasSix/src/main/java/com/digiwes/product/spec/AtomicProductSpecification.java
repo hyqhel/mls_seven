@@ -1,6 +1,9 @@
 package com.digiwes.product.spec;
 
 import com.digiwes.basetype.*;
+import com.digiwes.common.util.CommonUtils;
+
+import java.util.Map;
 
 /**
  * A type of ProductSpecification that does not have any subordinate ProductSpecifications, that is, an AtomicProductSpecification is a leaf-level ProductSpecification.
@@ -8,19 +11,15 @@ import com.digiwes.basetype.*;
 public class AtomicProductSpecification extends ProductSpecification {
 
     /**
-     * 
      * @param productNumber
      * @param name
      * @param brand
      */
     public AtomicProductSpecification(String productNumber, String name, String brand) {
-        // TODO - implement AtomicProductSpecification.AtomicProductSpecification
-        super(productNumber,name,brand);
-        throw new UnsupportedOperationException();
+        super(productNumber, name, brand);
     }
 
     /**
-     * 
      * @param productNumber
      * @param name
      * @param brand
@@ -28,9 +27,13 @@ public class AtomicProductSpecification extends ProductSpecification {
      * @param validFor
      */
     public AtomicProductSpecification(String productNumber, String name, String brand, String description, TimePeriod validFor) {
-        // TODO - implement AtomicProductSpecification.AtomicProductSpecification
-        super(productNumber,name,brand);
-        throw new UnsupportedOperationException();
+        super(productNumber, name, brand, validFor, description);
+    }
+
+    @Override
+    public String toString() {
+        // TODO - implement ProductSpecification.toString
+        return "";
     }
 
 }
