@@ -4,7 +4,9 @@ package com.digiwes.common.enums;
  * Created by huangyq3 on 2015-07-16.
  */
 public enum CommonErrorEnum {
-    SUCCESS(0, "SUCCESS");
+    SUCCESS(0, "SUCCESS"),
+    VALIDFOR_IS_NULL(1, "the validFor is null."),
+    TIME_IS_NULL(2, "the time is null");
     private int code;
     private String message;
 
