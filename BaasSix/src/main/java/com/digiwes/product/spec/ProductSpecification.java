@@ -90,6 +90,46 @@ public abstract class ProductSpecification {
         return this.lifecycleStatus;
     }
 
+    public List<CompositeProductSpecification> getCompositeProdSpec() {
+        return compositeProdSpec;
+    }
+
+    public void setCompositeProdSpec(List<CompositeProductSpecification> compositeProdSpec) {
+        this.compositeProdSpec = compositeProdSpec;
+    }
+
+    public List<ProductSpecificationCost> getProductSpecificationCost() {
+        return productSpecificationCost;
+    }
+
+    public void setProductSpecificationCost(List<ProductSpecificationCost> productSpecificationCost) {
+        this.productSpecificationCost = productSpecificationCost;
+    }
+
+    public List<ProductSpecificationRelationship> getProdSpecRelationship() {
+        return prodSpecRelationship;
+    }
+
+    public void setProdSpecRelationship(List<ProductSpecificationRelationship> prodSpecRelationship) {
+        this.prodSpecRelationship = prodSpecRelationship;
+    }
+
+    public List<ProductSpecificationVersion> getProdSpecVersion() {
+        return prodSpecVersion;
+    }
+
+    public void setProdSpecVersion(List<ProductSpecificationVersion> prodSpecVersion) {
+        this.prodSpecVersion = prodSpecVersion;
+    }
+
+    public Set<ProductSpecCharUse> getProdSpecChar() {
+        return prodSpecChar;
+    }
+
+    public void setProdSpecChar(Set<ProductSpecCharUse> prodSpecChar) {
+        this.prodSpecChar = prodSpecChar;
+    }
+
     /**
      * Initializes a newly created {@code ProductSpecification} object so that it represents the all information. When the specification is a new one, the state of the specification will be initialized as "planned"
      *
