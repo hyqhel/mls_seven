@@ -1,8 +1,10 @@
 package com.digiwes.product.offering;
 
+import com.digiwes.common.util.CommonUtils;
+
 /**
  * A set of numbers that specifies the lower and upper limits for a ProductOffering that can be procured as part of the related BundledProductOffering.
- * 
+ * <p>
  * Values can range from 0 to unbounded.
  */
 public class BundledProdOfferOption {
@@ -10,13 +12,13 @@ public class BundledProdOfferOption {
     public ProductOffering productOffering;
     /**
      * The lower limit of related ProductOfferings that can be procured as part of the BundledProductOffering.
-     * 
+     * <p>
      * Values can range from 0 to unbounded.
      */
     private int numberRelOfferLowerLimit;
     /**
      * The upper limit of related ProductOfferings that can be procured as part of the BundledProductOffering.
-     * 
+     * <p>
      * Values can range from 0 to unbounded.
      */
     private int numberRelOfferUpperLimit;
@@ -46,19 +48,36 @@ public class BundledProdOfferOption {
     }
 
     /**
-     * 
      * @param offering
      * @param lowerLimit
      * @param upperLimit
      */
     public BundledProdOfferOption(ProductOffering offering, int lowerLimit, int upperLimit) {
-        // TODO - implement BundledProdOfferOption.BundledProdOfferOption
-        throw new UnsupportedOperationException();
+        assert !CommonUtils.checkParamIsNull(offering) : "Parameter [offering] must be not null";
+        this.productOffering = offering;
+        this.numberRelOfferLowerLimit = lowerLimit;
+        this.numberRelOfferUpperLimit = upperLimit;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BundledProdOfferOption that = (BundledProdOfferOption) o;
+
+        return productOffering.equals(that.productOffering);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return productOffering.hashCode();
     }
 
     public String toString() {
         // TODO - implement BundledProdOfferOption.toString
-        throw new UnsupportedOperationException();
+        return "";
     }
 
 }
