@@ -2,6 +2,7 @@ package com.digiwes.product.spec;
 
 import java.util.*;
 import com.digiwes.basetype.*;
+import com.digiwes.common.enums.RelationshipType;
 import com.digiwes.common.util.CommonUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -139,6 +140,22 @@ public class ProductSpecCharacteristic {
         this.validFor = validFor;
     }
 
+    public List<ProductSpecCharRelationship> getProdSpecCharRelationship() {
+        return prodSpecCharRelationship;
+    }
+
+    public Set<ProductSpecCharacteristicValue> getProdSpecCharValue() {
+        return prodSpecCharValue;
+    }
+
+    public void setProdSpecCharValue(Set<ProductSpecCharacteristicValue> prodSpecCharValue) {
+        this.prodSpecCharValue = prodSpecCharValue;
+    }
+
+    public void setProdSpecCharRelationship(List<ProductSpecCharRelationship> prodSpecCharRelationship) {
+        this.prodSpecCharRelationship = prodSpecCharRelationship;
+    }
+
     /**
      * 
      * @param id
@@ -224,17 +241,34 @@ public class ProductSpecCharacteristic {
      * @param charVal
      */
     public int removeValue(ProductSpecCharacteristicValue charVal) {
-        // TODO - implement ProductSpecCharacteristic.removeValue
-        throw new UnsupportedOperationException();
+        if(CommonUtils.checkParamIsNull(charVal)){
+            throw new IllegalArgumentException("Parameter charVal should not be null");
+        }
+        if(null != this.prodSpecCharValue && this.prodSpecCharValue.size()>0){
+            if(prodSpecCharValue.contains(charVal)){
+                prodSpecCharValue.remove(charVal);
+            }
+        }
+        return  0;
     }
 
     /**
      * 
      * @param time
      */
-    public ProductSpecCharacteristicValue[] retrieveValue(int time) {
-        // TODO - implement ProductSpecCharacteristic.retrieveValue
-        throw new UnsupportedOperationException();
+    public List<ProductSpecCharacteristicValue> retrieveValue(Date time) {
+        List<ProductSpecCharacteristicValue> productSpecCharValues = new ArrayList<ProductSpecCharacteristicValue>();
+        if(CommonUtils.checkParamIsNull(time)){
+            throw new IllegalArgumentException("DateTime should not be null.");
+        }
+        if ( null != this.prodSpecCharValue ) {
+            for (ProductSpecCharacteristicValue charValue : prodSpecCharValue) {
+                if (null != charValue.getValidFor() && 0 == charValue.getValidFor().isInTimePeriod(time)) {
+                    productSpecCharValues.add(charValue);
+                }
+            }
+        }
+        return productSpecCharValues;
     }
 
     /**
@@ -242,8 +276,21 @@ public class ProductSpecCharacteristic {
      * @param defaultCharVal
      */
     public int specifyDefaultValue(ProductSpecCharacteristicValue defaultCharVal) {
-        // TODO - implement ProductSpecCharacteristic.specifyDefaultValue
-        throw new UnsupportedOperationException();
+        if(CommonUtils.checkParamIsNull(defaultCharVal)){
+            throw new IllegalArgumentException("Parameter  defaultCharVal should not be null.");
+        }
+        if(null != this.prodSpecCharValue){
+            for(ProductSpecCharacteristicValue productSpecCharacteristicValue:prodSpecCharValue){
+                if(productSpecCharacteristicValue.equals(defaultCharVal)){
+                    if(!productSpecCharacteristicValue.isIsDefault()){
+                        productSpecCharacteristicValue.setIsDefault(true);
+                    }
+                }
+            }
+        }else{
+            logger.error("you set setDefaultValue  not exists");
+        }
+        return 0;
     }
 
     /**
@@ -252,12 +299,21 @@ public class ProductSpecCharacteristic {
      */
     public int clearDefaultValue(ProductSpecCharacteristicValue value) {
         // TODO - implement ProductSpecCharacteristic.clearDefaultValue
-        throw new UnsupportedOperationException();
+        return 0;
     }
 
-    public ProductSpecCharacteristicValue[] retrieveDefaultValue() {
-        // TODO - implement ProductSpecCharacteristic.retrieveDefaultValue
-        throw new UnsupportedOperationException();
+    public List<ProductSpecCharacteristicValue> retrieveDefaultValue() {
+        if(CommonUtils.checkParamIsNull(this.prodSpecCharValue)) {
+            return  null;
+        }else{
+            List<ProductSpecCharacteristicValue> psvcoll = new ArrayList<ProductSpecCharacteristicValue>();
+            for(ProductSpecCharacteristicValue productSpecCharacteristicValue :prodSpecCharValue){
+                if(productSpecCharacteristicValue.isIsDefault()){
+                    psvcoll.add(productSpecCharacteristicValue);
+                }
+            }
+            return psvcoll;
+        }
     }
 
     /**
@@ -267,8 +323,25 @@ public class ProductSpecCharacteristic {
      * @param validFor
      */
     public int associate(ProductSpecCharacteristic specChar, String type, TimePeriod validFor) {
-        // TODO - implement ProductSpecCharacteristic.associate
-        throw new UnsupportedOperationException();
+        if(null == prodSpecCharRelationship){
+            prodSpecCharRelationship = new ArrayList<ProductSpecCharRelationship>();
+        }
+        ProductSpecCharRelationship relationship=this.retrieveCharRelationship(specChar);
+        if(relationship!=null){
+            if(type.equals(relationship.getCharRelationshipType()) && relationship.getValidFor().isOverlap(validFor)){
+                logger.warn("Characteristic have been created in the specified time");
+                logger.warn("the exists relationship :"+relationship.toString());
+                return 0;
+            }
+        }
+        ProductSpecCharRelationship pship = new ProductSpecCharRelationship(this,specChar,type,validFor);
+        for(ProductSpecCharRelationship productSpecCharRelationship :prodSpecCharRelationship){
+            if(productSpecCharRelationship.equals(pship)){
+                return 0;
+            }
+        }
+        prodSpecCharRelationship.add(pship);
+        return 0;
     }
 
     /**
@@ -279,8 +352,25 @@ public class ProductSpecCharacteristic {
      * @param charSpecSeq
      */
     public int associate(ProductSpecCharacteristic specChar, String type, TimePeriod validFor, int charSpecSeq) {
-        // TODO - implement ProductSpecCharacteristic.associate
-        throw new UnsupportedOperationException();
+        if(null == this.prodSpecCharRelationship){
+            this.prodSpecCharRelationship =new ArrayList<ProductSpecCharRelationship>();
+        }
+        ProductSpecCharRelationship relationship=this.retrieveCharRelationship(specChar);
+        if(relationship!=null){
+            if(type.equals(relationship.getCharRelationshipType()) && relationship.getValidFor().isOverlap(validFor)){
+                logger.warn("Characteristic have been created in the specified time");
+                logger.warn("the exists relationship :"+relationship.toString());
+                return 0;
+            }
+        }
+        ProductSpecCharRelationship ship = new ProductSpecCharRelationship(this,specChar,type,validFor,charSpecSeq);
+        for(ProductSpecCharRelationship productSpecCharRelationship :prodSpecCharRelationship){
+            if(productSpecCharRelationship.equals(ship)){
+                return 0;
+            }
+        }
+        this.prodSpecCharRelationship.add(ship);
+        return 0;
     }
 
     /**
@@ -288,17 +378,37 @@ public class ProductSpecCharacteristic {
      * @param specChar
      */
     public int dissociate(ProductSpecCharacteristic specChar) {
-        // TODO - implement ProductSpecCharacteristic.dissociate
-        throw new UnsupportedOperationException();
+        if(CommonUtils.checkParamIsNull(specChar)){
+            throw new IllegalArgumentException("Parameter specChar should not be  null");
+        }
+        if(CommonUtils.checkParamIsNull(prodSpecCharRelationship)){
+            return 0;
+        }
+        for(ProductSpecCharRelationship psr:prodSpecCharRelationship){
+            if(psr.getTargetProdSpecChar().equals(specChar)){
+                prodSpecCharRelationship.remove(psr);
+            }
+        }
+        return 0;
     }
 
     /**
      * 
      * @param charRelationshipType
      */
-    public ProductSpecCharacteristic[] retrieveRelatedCharacteristic(String charRelationshipType) {
-        // TODO - implement ProductSpecCharacteristic.retrieveRelatedCharacteristic
-        throw new UnsupportedOperationException();
+    public List<ProductSpecCharacteristic> retrieveRelatedCharacteristic(String charRelationshipType) {
+        if(StringUtils.isEmpty(charRelationshipType)){
+            throw new IllegalArgumentException("type should not be null.");
+        }
+        List<ProductSpecCharacteristic>  characteristic=new ArrayList<ProductSpecCharacteristic>();
+        if ( null != prodSpecCharRelationship ) {
+            for (ProductSpecCharRelationship productSpecCharRelationship : prodSpecCharRelationship) {
+                if(charRelationshipType.equals(productSpecCharRelationship.getCharRelationshipType())){
+                    characteristic.add(productSpecCharRelationship.getTargetProdSpecChar());
+                }
+            }
+        }
+        return characteristic;
     }
 
     /**
@@ -306,9 +416,23 @@ public class ProductSpecCharacteristic {
      * @param charRelationshipType
      * @param time
      */
-    public ProductSpecCharacteristic[] retrieveRelatedCharacteristic(String charRelationshipType, Date time) {
-        // TODO - implement ProductSpecCharacteristic.retrieveRelatedCharacteristic
-        throw new UnsupportedOperationException();
+    public List<ProductSpecCharacteristic> retrieveRelatedCharacteristic(String charRelationshipType, Date time) {
+        if (StringUtils.isEmpty(charRelationshipType) ) {
+            throw new IllegalArgumentException("type or dateTime  should not be null");
+        }
+        if(CommonUtils.checkParamIsNull(time)){
+            logger.error(" dateTime  should not be null");
+            throw new IllegalArgumentException(" dateTime  should not be null");
+        }
+        List<ProductSpecCharacteristic>  characteristic=new ArrayList<ProductSpecCharacteristic>();;
+        if (null !=prodSpecCharRelationship ) {
+            for (ProductSpecCharRelationship productSpecCharRelationship : prodSpecCharRelationship) {
+                if(charRelationshipType.equals(productSpecCharRelationship.getCharRelationshipType()) && 0 == productSpecCharRelationship.getValidFor().isInTimePeriod(time)){
+                    characteristic.add(productSpecCharRelationship.getTargetProdSpecChar());
+                }
+            }
+        }
+        return characteristic;
     }
 
     /**
@@ -318,8 +442,18 @@ public class ProductSpecCharacteristic {
      * @param characteristic
      */
     private ProductSpecCharRelationship retrieveCharRelationship(ProductSpecCharacteristic characteristic) {
-        // TODO - implement ProductSpecCharacteristic.retrieveCharRelationship
-        throw new UnsupportedOperationException();
+        if(CommonUtils.checkParamIsNull(characteristic)){
+            logger.error("characteristic  should not be null");
+            throw new IllegalArgumentException("characteristic  should not be null");
+        }
+        if (null !=prodSpecCharRelationship) {
+            for (ProductSpecCharRelationship productSpecCharRelationship : prodSpecCharRelationship) {
+                if( productSpecCharRelationship.getTargetProdSpecChar().equals(characteristic)){
+                    return productSpecCharRelationship;
+                }
+            }
+        }
+        return null;
     }
 
     /**
@@ -329,7 +463,7 @@ public class ProductSpecCharacteristic {
      */
     public int modifyRelationshipValidPeriod(ProductSpecCharacteristic prodSpecChar, TimePeriod validFor) {
         // TODO - implement ProductSpecCharacteristic.modifyRelationshipValidPeriod
-        throw new UnsupportedOperationException();
+        return 0;
     }
 
     public int hashCode() {
@@ -342,29 +476,68 @@ public class ProductSpecCharacteristic {
      * @param o
      */
     public boolean equals(Object o) {
-        // TODO - implement ProductSpecCharacteristic.equals
-        throw new UnsupportedOperationException();
+        if (this == o)
+            return true;
+        if (o == null)
+            return false;
+        if (!(o instanceof ProductSpecCharacteristic))
+            return false;
+        ProductSpecCharacteristic other = (ProductSpecCharacteristic) o;
+        if (ID == null) {
+            if (other.ID != null)
+                return false;
+        } else if (!ID.equals(other.ID))
+            return false;
+        return true;
     }
 
     /**
      * Basic information of the class output into the Map
      */
     protected Map getBasicInfo() {
-        // TODO - implement ProductSpecCharacteristic.getBasicInfo
-        throw new UnsupportedOperationException();
+        Map <String,Object> result=new HashMap<String,Object>();
+        result.put("id", ID);
+        result.put("name", name);
+        result.put("unique", unique);
+        result.put("valueType",valueType);
+        result.put("extensible",extensible);
+        result.put("derivationFormula",derivationFormula);
+        result.put("maxCardinality",maxCardinality);
+        result.put("minCardinality",minCardinality);
+        result.put("validFor",validFor);
+        result.put("description",description);
+        return result;
     }
 
     /**
      * Basic info of the class ouput to String
      */
     public String basicInfoToString() {
-        // TODO - implement ProductSpecCharacteristic.basicInfoToString
-        throw new UnsupportedOperationException();
+       return CommonUtils.format(getBasicInfo().toString());
     }
 
     public String toString() {
-        // TODO - implement ProductSpecCharacteristic.toString
-        throw new UnsupportedOperationException();
+        Map <String,Object> result=getBasicInfo();
+        List<Map<String,Object>> needValue =null;
+        if(null != prodSpecCharValue && 0!=prodSpecCharValue.size()){
+            needValue = new ArrayList<Map<String, Object>>();
+            for(ProductSpecCharacteristicValue psv:prodSpecCharValue){
+                needValue.add(psv.getBasicInfoToMap());
+            }
+        }
+        result.put("prodSpecCharValues", needValue);
+
+        List<Map<String,Object>> needCharRelationShipValue = null;
+        if(null !=prodSpecCharRelationship && 0!=prodSpecCharRelationship.size()){
+            needCharRelationShipValue = new ArrayList<Map<String, Object>>();
+            for(ProductSpecCharRelationship psr:prodSpecCharRelationship){
+                Map<String,Object> targchar = psr.getTargetProdSpecChar().getBasicInfo();
+                targchar.put("charRelationshipType", RelationshipType.getName(psr.getCharRelationshipType()));
+                needCharRelationShipValue.add(targchar);
+            }
+        }
+        result.put("charRelationShip", needCharRelationShipValue);
+        return  CommonUtils.format(result.toString());
     }
 
 }

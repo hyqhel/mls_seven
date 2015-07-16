@@ -48,6 +48,22 @@ public class ProductSpecCharRelationship {
         this.validFor = validFor;
     }
 
+    public ProductSpecCharacteristic getTargetProdSpecChar() {
+        return targetProdSpecChar;
+    }
+
+    public ProductSpecCharacteristic getSourceProdSpecChar() {
+        return sourceProdSpecChar;
+    }
+
+    public void setTargetProdSpecChar(ProductSpecCharacteristic targetProdSpecChar) {
+        this.targetProdSpecChar = targetProdSpecChar;
+    }
+
+    public void setSourceProdSpecChar(ProductSpecCharacteristic sourceProdSpecChar) {
+        this.sourceProdSpecChar = sourceProdSpecChar;
+    }
+
     /**
      * 
      * @param srourceSpecChar

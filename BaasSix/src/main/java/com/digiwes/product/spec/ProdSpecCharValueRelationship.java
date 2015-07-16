@@ -5,7 +5,7 @@ import com.digiwes.basetype.*;
 public class ProdSpecCharValueRelationship {
 
     public ProductSpecCharacteristicValue sourceCharValue;
-    public ProductSpecCharacteristicValue productSpecCharacteristicValue;
+    public ProductSpecCharacteristicValue targetCharValue;
     /**
      * A categorization of the relationship between values, such as aggregation, migration, substitution, dependency, exclusivity.
      */
@@ -29,6 +29,22 @@ public class ProdSpecCharValueRelationship {
 
     public void setValidFor(TimePeriod validFor) {
         this.validFor = validFor;
+    }
+
+    public ProductSpecCharacteristicValue getSourceCharValue() {
+        return sourceCharValue;
+    }
+
+    public void setSourceCharValue(ProductSpecCharacteristicValue sourceCharValue) {
+        this.sourceCharValue = sourceCharValue;
+    }
+
+    public ProductSpecCharacteristicValue getTargetCharValue() {
+        return targetCharValue;
+    }
+
+    public void setTargetCharValue(ProductSpecCharacteristicValue targetCharValue) {
+        this.targetCharValue = targetCharValue;
     }
 
     /**
