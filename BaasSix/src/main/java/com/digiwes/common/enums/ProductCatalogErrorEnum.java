@@ -4,7 +4,10 @@ package com.digiwes.common.enums;
  * Created by huangyq3 on 2015-07-16.
  */
 public enum ProductCatalogErrorEnum {
-    SUCCESS(0, "SUCCESS");
+    PUBLISH_REPETITIVE_OFFERING(285736960, "Cannot publish the repetitive Offering!"),
+    RETIRED_REPETITIVE_OFFERING(285736961, "the Object of ProductOffering Has not been published to the " +
+            "ProductCatalog."),
+    IS_NOT_PUBLISH_OFFERING(285736962, "the Object of ProductOffering Has not been published in the ProductCatalog.");
     private int code;
     private String message;
 
