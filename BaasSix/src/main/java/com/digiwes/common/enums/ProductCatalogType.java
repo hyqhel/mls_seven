@@ -4,8 +4,8 @@ package com.digiwes.common.enums;
  * Created by liuwei29 on 2015/7/16.
  */
 public enum ProductCatalogType {
-    WEB("1", "web"),
-    BOOK("2", "book");
+    WEB("1", "WEB"),
+    BOOK("2", "BOOK");
     private String value;
     private String name;
 

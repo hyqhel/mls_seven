@@ -4,27 +4,27 @@ package com.digiwes.common.enums;
  * Created by huangyq3 on 2015-07-16.
  */
 public enum ProductCatalogErrorEnum {
-    SUCCESS(0,"SUCCESS");
-    private int value;
-    private String name;
+    SUCCESS(0, "SUCCESS");
+    private int code;
+    private String message;
 
-    ProductCatalogErrorEnum(int value, String name) {
-        this.value = value;
-        this.name = name;
+    ProductCatalogErrorEnum(int code, String message) {
+        this.code = code;
+        this.message = message;
     }
 
-    public int getValue() {
-        return this.value;
+    public int getCode() {
+        return this.code;
     }
 
-    public String getName() {
-        return this.name;
+    public String getMessage() {
+        return this.message;
     }
 
-    public static String getName(int value) {
+    public static String getMessage(int code) {
         for (ProductCatalogErrorEnum c : ProductCatalogErrorEnum.values()) {
-            if (value == c.getValue()) {
-                return c.name;
+            if (code == c.getCode()) {
+                return c.message;
             }
         }
         return "";

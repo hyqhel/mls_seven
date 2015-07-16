@@ -5,9 +5,9 @@ package com.digiwes.common.enums;
  */
 public enum ProdSpecStatus {
 
-    STATUS_INACTIVE("0", "不活跃"),
-    STATUS_ACTIVE("1", "活跃"),
-    STATUS_PLANED("2", "计划的");
+    INACTIVE("0", "INACTIVE"),
+    ACTIVE("1", "ACTIVE"),
+    PLANED("2", "PLANED");
 
     private String value;
     private String name;

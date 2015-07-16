@@ -4,29 +4,27 @@ package com.digiwes.common.enums;
  * Created by huangyq3 on 2015-07-16.
  */
 public enum CommonErrorEnum {
-    SUCCESS(0,"SUCCESS"),
-    TIME_IS_NULL(1,"Time is null."),
-    VALIDFOR_IS_NULL(2,"validFor is null");
-    private int value;
-    private String name;
+    SUCCESS(0, "SUCCESS");
+    private int code;
+    private String message;
 
-    CommonErrorEnum(int value, String name) {
-        this.value = value;
-        this.name = name;
+    CommonErrorEnum(int code, String message) {
+        this.code = code;
+        this.message = message;
     }
 
-    public int getValue() {
-        return this.value;
+    public int getCode() {
+        return this.code;
     }
 
-    public String getName() {
-        return this.name;
+    public String getMessage() {
+        return this.message;
     }
 
-    public static String getName(int value) {
+    public static String getMessage(int code) {
         for (CommonErrorEnum c : CommonErrorEnum.values()) {
-            if (value == c.getValue()) {
-                return c.name;
+            if (code == c.getCode()) {
+                return c.message;
             }
         }
         return "";
