@@ -48,13 +48,19 @@ public class ProdSpecCharValueUse {
      * @param validFor
      */
     public ProdSpecCharValueUse(ProductSpecCharacteristicValue charVal, boolean isDefault, TimePeriod validFor) {
-        // TODO - implement ProdSpecCharValueUse.ProdSpecCharValueUse
-        throw new UnsupportedOperationException();
+        this.prodSpecCharValue = charVal;
+        this.isDefault = isDefault;
+        this.validFor = validFor;
     }
 
     public int hashCode() {
-        // TODO - implement ProdSpecCharValueUse.hashCode
-        throw new UnsupportedOperationException();
+        final int prime = 31;
+        int result = 1;
+        result = prime
+                * result
+                + ((prodSpecCharValue == null) ? 0 : prodSpecCharValue
+                .hashCode());
+        return result;
     }
 
     /**
@@ -62,8 +68,19 @@ public class ProdSpecCharValueUse {
      * @param o
      */
     public boolean equals(Object o) {
-        // TODO - implement ProdSpecCharValueUse.equals
-        throw new UnsupportedOperationException();
+        if (this == o)
+            return true;
+        if (o == null)
+            return false;
+        if (getClass() != o.getClass())
+            return false;
+        ProdSpecCharValueUse other = (ProdSpecCharValueUse) o;
+        if (prodSpecCharValue == null) {
+            if (other.prodSpecCharValue != null)
+                return false;
+        } else if (!prodSpecCharValue.equals(other.prodSpecCharValue))
+            return false;
+        return true;
     }
 
     public String toString() {

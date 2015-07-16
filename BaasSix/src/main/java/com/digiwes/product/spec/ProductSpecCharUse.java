@@ -253,8 +253,8 @@ public class ProductSpecCharUse {
     }
 
     public ProdSpecCharValueUse[] retrieveDefaultValueUse() {
-        // TODO - implement ProductSpecCharUse.retrieveDefaultValueUse
-        throw new UnsupportedOperationException();
+        // TODO - implement ProductSpecCharUse.retrieveDefaultValueUse\
+        return  null;
     }
 
     /**

@@ -55,34 +55,68 @@ public class ProdSpecCharValueRelationship {
      * @param validFor
      */
     public ProdSpecCharValueRelationship(ProductSpecCharacteristicValue srourceCharValue, ProductSpecCharacteristicValue targetCharValue, String relationType, TimePeriod validFor) {
-        // TODO - implement ProdSpecCharValueRelationship.ProdSpecCharValueRelationship
-        throw new UnsupportedOperationException();
+        this.sourceCharValue = sourceCharValue;
+        this.targetCharValue = targetCharValue;
+        this.validFor = validFor;
+        this.charValueRelationshipType = relationType;
     }
 
-    /**
-     * 
-     * @param srourceCharValue
-     * @param targetCharValueId
-     * @param relationType
-     * @param validFor
-     */
-    public ProdSpecCharValueRelationship(ProductSpecCharacteristicValue srourceCharValue, String targetCharValueId, String relationType, TimePeriod validFor) {
-        // TODO - implement ProdSpecCharValueRelationship.ProdSpecCharValueRelationship
-        throw new UnsupportedOperationException();
-    }
 
     public int hashCode() {
-        // TODO - implement ProdSpecCharValueRelationship.hashCode
-        throw new UnsupportedOperationException();
+        final int prime = 31;
+        int result = 1;
+        result = prime
+                * result
+                + ((charValueRelationshipType == null) ? 0
+                : charValueRelationshipType.hashCode());
+        result = prime
+                * result
+                + ((targetCharValue == null) ? 0
+                : targetCharValue.hashCode());
+        result = prime * result
+                + ((validFor == null) ? 0 : validFor.hashCode());
+        return result;
     }
 
     /**
      * 
      * @param o
      */
-    public boolean equals(int o) {
-        // TODO
-        return false;
+    public boolean equals(Object o) {
+        if (this == o){
+            return true;
+        }
+        if (o == null){
+            return false;
+        }
+        if (getClass() != o.getClass()){
+            return false;
+        }
+        ProdSpecCharValueRelationship other = (ProdSpecCharValueRelationship) o;
+        if (charValueRelationshipType == null) {
+            if (other.charValueRelationshipType != null){
+                return false;
+            }
+        } else if (!charValueRelationshipType
+                .equals(other.charValueRelationshipType)){
+            return false;
+        }
+        if (targetCharValue == null) {
+            if (other.targetCharValue != null){
+                return false;
+            }
+        } else if (!targetCharValue
+                .equals(other.targetCharValue)){
+            return false;
+        }
+        if (validFor == null) {
+            if (other.validFor != null){
+                return false;
+            }
+        } else if (!validFor.equals(other.validFor)){
+            return false;
+        }
+        return true;
     }
 
     public String toString() {
