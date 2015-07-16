@@ -1,11 +1,13 @@
 package com.digiwes.product.spec;
 
 import com.digiwes.basetype.*;
+import org.apache.log4j.Logger;
 
 /**
  * A aggregation, migration, substitution, dependency, or exclusivity relationship between/among ProductSpecCharacteristics.
  */
 public class ProductSpecCharRelationship {
+    private static final Logger logger = Logger.getLogger(ProductSpecCharRelationship.class);
 
     public ProductSpecCharacteristic targetProdSpecChar;
     public ProductSpecCharacteristic sourceProdSpecChar;
@@ -72,8 +74,18 @@ public class ProductSpecCharRelationship {
      * @param validFor
      */
     public ProductSpecCharRelationship(ProductSpecCharacteristic srourceSpecChar, ProductSpecCharacteristic targetSpecChar, String relationType, TimePeriod validFor) {
-        // TODO - implement ProductSpecCharRelationship.ProductSpecCharRelationship
-        throw new UnsupportedOperationException();
+        if (null == srourceSpecChar) {
+            logger.error("srcProdSpecChar should not be null");
+            throw new IllegalArgumentException("srcProdSpecChar should not be null");
+        }
+        if (null == targetSpecChar) {
+            logger.error("targetProdSpecChar should not be null");
+            throw new IllegalArgumentException("targetProdSpecChar should not be null");
+        }
+        this.sourceProdSpecChar = srourceSpecChar;
+        this.targetProdSpecChar = targetSpecChar;
+        this.charRelationshipType = relationType;
+        this.validFor = validFor;
     }
 
     /**
@@ -85,13 +97,36 @@ public class ProductSpecCharRelationship {
      * @param specSeq
      */
     public ProductSpecCharRelationship(ProductSpecCharacteristic srourceSpecChar, ProductSpecCharacteristic targetSpecChar, String relationType, TimePeriod validFor, int specSeq) {
-        // TODO - implement ProductSpecCharRelationship.ProductSpecCharRelationship
-        throw new UnsupportedOperationException();
+        if (null == srourceSpecChar) {
+            logger.error("srcProdSpecChar should not be null");
+            throw new IllegalArgumentException("srcProdSpecChar should not be null");
+        }
+        if (null == targetSpecChar) {
+            logger.error("targetProdSpecChar should not be null");
+            throw new IllegalArgumentException("targetProdSpecChar should not be null");
+        }
+        this.sourceProdSpecChar = srourceSpecChar;
+        this.targetProdSpecChar = targetSpecChar;
+        this.charRelationshipType = relationType;
+        this.validFor = validFor;
+        this.charSpecSeq = specSeq;
     }
 
     public int hashCode() {
-        // TODO - implement ProductSpecCharRelationship.hashCode
-        throw new UnsupportedOperationException();
+        final int prime = 31;
+        int result = 1;
+        result = prime
+                * result
+                + ((charRelationshipType == null) ? 0 : charRelationshipType
+                .hashCode());
+        result = prime
+                * result
+                + ((targetProdSpecChar == null) ? 0 : targetProdSpecChar
+                .hashCode());
+        result = prime * result
+                + ((validFor == null) ? 0 : validFor.hashCode());
+        result = prime * result + charSpecSeq;
+        return result;
     }
 
     /**
@@ -99,8 +134,41 @@ public class ProductSpecCharRelationship {
      * @param o
      */
     public boolean equals(Object o) {
-        // TODO - implement ProductSpecCharRelationship.equals
-        throw new UnsupportedOperationException();
+        if (this == o){
+            return true;
+        }
+        if (o == null){
+            return false;
+        }
+        if (!(o instanceof ProductSpecCharRelationship)){
+            return false;
+        }
+        ProductSpecCharRelationship other = (ProductSpecCharRelationship) o;
+        if (charRelationshipType == null) {
+            if (other.charRelationshipType != null){
+                return false;
+            }
+        } else if (!charRelationshipType.equals(other.charRelationshipType)){
+            return false;
+        }
+        if (targetProdSpecChar == null) {
+            if (other.targetProdSpecChar != null){
+                return false;
+            }
+        } else if (!targetProdSpecChar.equals(other.targetProdSpecChar)){
+            return false;
+        }
+        if (charSpecSeq != other.charSpecSeq){
+            return false;
+        }
+        if (validFor == null) {
+            if (other.validFor != null){
+                return false;
+            }
+        } else if (!validFor.equals(other.validFor)){
+            return false;
+        }
+        return true;
     }
 
     public String toString() {
