@@ -17,7 +17,6 @@ public enum ProductCatalogType {
     public String getValue() {
         return this.value;
     }
-
     public String getName() {
         return this.name;
     }

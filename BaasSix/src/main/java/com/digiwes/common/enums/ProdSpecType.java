@@ -5,9 +5,10 @@ package com.digiwes.common.enums;
  */
 public enum ProdSpecType {
 
-    TEXT("1", "ÎÄ±¾"),
-    NUMERIC("2", "Êý×Ö"),
+    TEXT("1", "æ–‡æœ¬"),
+    NUMERIC("2", "æ•°å­—"),
     FORTH("3", "FORTH");
+
     private String value;
     private String name;
 

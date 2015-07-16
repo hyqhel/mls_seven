@@ -5,9 +5,10 @@ package com.digiwes.common.enums;
  */
 public enum ProdSpecStatus {
 
-    STATUS_INACTIVE("0", "≤ªªÓ‘æ"),
-    STATUS_ACTIVE("1", "ªÓ‘æ"),
-    STATUS_PLANED("2", "º∆ªÆµƒ");
+    STATUS_INACTIVE("0", "‰∏çÊ¥ªË∑É"),
+    STATUS_ACTIVE("1", "Ê¥ªË∑É"),
+    STATUS_PLANED("2", "ËÆ°ÂàíÁöÑ");
+
     private String value;
     private String name;
 

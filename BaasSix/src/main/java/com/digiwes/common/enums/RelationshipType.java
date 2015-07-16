@@ -4,11 +4,11 @@ package com.digiwes.common.enums;
  * Created by liuwei29 on 2015/7/16.
  */
 public enum RelationshipType {
-    AGGREGATION("1", "æ€∫œ"),
-    DEPENDENCY("2", "“¿¿µ"),
-    MIGRATION("3", "«®“∆"),
-    SUBSTITUTION("4", "ÃÊªª"),
-    EXCLUSIVITY("5", "ª•≥‚");
+    AGGREGATION("1", "ËÅöÂêà"),
+    DEPENDENCY("2", "‰æùËµñ"),
+    MIGRATION("3", "ËøÅÁßª"),
+    SUBSTITUTION("4", "ÊõøÊç¢"),
+    EXCLUSIVITY("5", "‰∫íÊñ•");
     private String value;
     private String name;
 
@@ -20,7 +20,6 @@ public enum RelationshipType {
     public String getValue() {
         return this.value;
     }
-
     public String getName() {
         return this.name;
     }
