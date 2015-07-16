@@ -199,7 +199,7 @@ public class ProductSpecCharacteristicValue {
         }
         for (ProdSpecCharValueRelationship psvr : prodSpecCharValueRelationship) {
             if (psvr.equals(charValue)) {
-                return ProductSpecErrorEnum.VALUE_RELATIONSHIP_EXISTING.getCode();
+                return ProductSpecErrorEnum.CHAR_VALUE_RELATIONSHIP_EXISTING.getCode();
             }
         }
         prodSpecCharValueRelationship.add(pship);

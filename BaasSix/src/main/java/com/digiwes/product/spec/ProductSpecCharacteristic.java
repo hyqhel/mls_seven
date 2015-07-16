@@ -230,7 +230,7 @@ public class ProductSpecCharacteristic {
         }
         for (ProductSpecCharacteristicValue pscv:prodSpecCharValue){
             if(pscv.equals(charVal)){
-                return ProductSpecErrorEnum.THE_SPEC_CHAR_HAS_USE_THE_VALUE.getCode();
+                return ProductSpecErrorEnum.CHAR_ALREADY_USE_THE_VALUE.getCode();
             }
         }
         this.prodSpecCharValue.add(charVal);
@@ -289,7 +289,7 @@ public class ProductSpecCharacteristic {
                 }
             }
         }else{
-            return ProductSpecErrorEnum.THE_SPEC_NO_USE_VALUE.getCode();
+            return ProductSpecErrorEnum.CHAR_NO_VALUE.getCode();
         }
         return CommonErrorEnum.SUCCESS.getCode();
     }

@@ -213,10 +213,10 @@ public class ProductSpecCharUse {
             if (!prodSpecCharValue.contains(charValueUse)) {
                 this.prodSpecCharValue.add(charValueUse);
             } else {
-                return ProductSpecErrorEnum.PROD_CHAR_USE_HAS_EXISTS_THE_VALUE.getCode();
+                return ProductSpecErrorEnum.SPEC_CHAR_ALREADY_USE_THE_VALUE.getCode();
             }
         } else {
-            return ProductSpecErrorEnum.THE_CHAR_NOT_EXISTS_THE_VALUE.getCode();
+            return ProductSpecErrorEnum.CHAR_NOT_EXISTS_THE_VALUE.getCode();
         }
         return CommonErrorEnum.SUCCESS.getCode();
     }
@@ -241,10 +241,10 @@ public class ProductSpecCharUse {
             if (null != valueUse) {
                 valueUse.setIsDefault(true);
             } else {
-                return ProductSpecErrorEnum.PROD_CHAR_USE_NOT_USE_THE_VALUE.getCode();
+                return ProductSpecErrorEnum.SPEC_CHAR_NOT_USE_THE_VALUE.getCode();
             }
         } else {
-            return ProductSpecErrorEnum.THE_SPEC_NO_USE_VALUE.getCode();
+            return ProductSpecErrorEnum.SPEC_NO_CHAR_VALUE.getCode();
         }
         return CommonErrorEnum.SUCCESS.getCode();
     }

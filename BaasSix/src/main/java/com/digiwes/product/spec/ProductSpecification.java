@@ -194,7 +194,7 @@ public abstract class ProductSpecification {
             ProductSpecCharUse prodSpecCharUse = new ProductSpecCharUse(specChar, canBeOveridden, isPackage, validFor, charName);
             prodSpecChar.add(prodSpecCharUse);
         } else {
-            return ProductSpecErrorEnum.THE_CHAR_HAS_EXISTS_INSPEC.getCode();
+            return ProductSpecErrorEnum.SPEC_ALREADY_EXISTS_THE_CHAR.getCode();
         }
         return CommonErrorEnum.SUCCESS.getCode();
     }
@@ -230,7 +230,7 @@ public abstract class ProductSpecification {
                     validFor, charName, unique, minCardinality, maxCardinality, extensible, description);
             prodSpecChar.add(prodSpecCharUse);
         } else {
-            return ProductSpecErrorEnum.THE_CHAR_HAS_EXISTS_INSPEC.getCode();
+            return ProductSpecErrorEnum.SPEC_ALREADY_EXISTS_THE_CHAR.getCode();
         }
         return CommonErrorEnum.SUCCESS.getCode();
     }
@@ -309,7 +309,7 @@ public abstract class ProductSpecification {
     public int specifyDefaultCharacteristicValue(String charName, ProductSpecCharacteristic specChar, ProductSpecCharacteristicValue defaultCharValue) {
         //the parameter of specChar is null
         if (CommonUtils.checkParamIsNull(prodSpecChar)) {
-            return ProductSpecErrorEnum.THE_SPEC_NO_USE_CHAR.getCode();
+            return ProductSpecErrorEnum.SPEC_NO_CHAR.getCode();
         }
         if (CommonUtils.checkParamIsNull(specChar)) {
             return ProductSpecErrorEnum.PROD_SPEC_CHAR_IS_NULL.getCode();
@@ -462,7 +462,7 @@ public abstract class ProductSpecification {
         if (null != charUse) {
             return charUse.specifyCardinality(minCardinality, maxCardinality);
         } else {
-            return ProductSpecErrorEnum.THE_SPEC_NO_USE_THE_CHAR.getCode();
+            return ProductSpecErrorEnum.SPEC_NO_USE_THE_CHAR.getCode();
         }
     }
 

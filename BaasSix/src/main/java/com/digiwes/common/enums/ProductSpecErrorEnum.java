@@ -21,17 +21,20 @@ public enum ProductSpecErrorEnum {
     PROD_SPEC_CHAR_HAS_RELATED_TO_CURRENT(286064653, "Characteristic has been established associate relationship in " +
             "the specified time"),
     CHAR_USE_NAME_IS_NULL(286064654, "char use name is null"),
-    THE_CHAR_HAS_EXISTS_INSPEC(286064655, "the spec has already use the char"),
-    THE_SPEC_NO_USE_CHAR(286064656, "the spec no use any char "),
-    THE_SPEC_NO_USE_THE_CHAR(286064657, "the spec no use any char "),
-    THE_SPEC_CHAR_HAS_USE_THE_VALUE(286064658, "the spec no use any char "),
-    THE_SPEC_NO_USE_VALUE(286064659, "the spec no use any char "),
-    VALUE_RELATIONSHIP_EXISTING(286064660,"Characteristic value relationship has exists"),
-    CHAR_RELATIONSHIP_IS_NULL(286064661,"Characteristic value relationship has exists"),
-    PROD_CHAR_USE_HAS_EXISTS_THE_VALUE(286064662,"Characteristic value relationship has exists"),
-    THE_CHAR_NOT_EXISTS_THE_VALUE(286064663,"Characteristic value relationship has exists"),
-    PROD_CHAR_USE_NOT_USE_THE_VALUE(286064664,"Characteristic value relationship has exists");
 
+    //spec char
+    SPEC_NO_CHAR(286064655, "spec no char "),
+    SPEC_ALREADY_EXISTS_THE_CHAR(286064656, "spec has already use the char"),
+    SPEC_NO_USE_THE_CHAR(286064657, "the spec no use  the char "),
+    SPEC_NO_CHAR_VALUE(286064658, "the spec no use char value "),
+    SPEC_CHAR_ALREADY_USE_THE_VALUE(286064659,"spec characteristic value already the value"),
+    SPEC_CHAR_NOT_USE_THE_VALUE(286064660,"spec characteristic  not use the value"),
+    //char
+    CHAR_ALREADY_USE_THE_VALUE(286064661, "the Characteristic already use the value "),
+    CHAR_VALUE_RELATIONSHIP_EXISTING(286064662,"Characteristic value relationship has exists"),
+    CHAR_RELATIONSHIP_IS_NULL(286064663,"Characteristic  relationship null"),
+    CHAR_NOT_EXISTS_THE_VALUE(286064664,"Characteristic not exists the value"),
+    CHAR_NO_VALUE(286064665,"Characteristic not exists the value");
 
 
     private int code;
