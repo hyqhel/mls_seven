@@ -1,7 +1,10 @@
 package com.digiwes.product.spec;
 
 import java.util.*;
+
 import com.digiwes.basetype.*;
+import com.digiwes.common.enums.CommonErrorEnum;
+import com.digiwes.common.enums.ProductSpecErrorEnum;
 import com.digiwes.common.enums.RelationshipType;
 import com.digiwes.common.util.CommonUtils;
 import org.apache.commons.lang.StringUtils;
@@ -41,7 +44,7 @@ public class ProductSpecCharacteristicValue {
     private String valueTo;
     /**
      * An indicator that specifies the inclusion or exclusion of the valueFrom and valueTo attributes.
-     * 
+     * <p>
      * Possible values are "open", "closed", "closedBottom" and "closedTop".
      */
     private String rangeInterval;
@@ -115,7 +118,6 @@ public class ProductSpecCharacteristicValue {
     }
 
     /**
-     * 
      * @param valueType
      * @param isDefault
      * @param unitOfMeasure
@@ -123,8 +125,8 @@ public class ProductSpecCharacteristicValue {
      * @param value
      */
     public ProductSpecCharacteristicValue(String valueType, boolean isDefault, String unitOfMeasure, TimePeriod validFor, String value) {
-        assert !StringUtils.isEmpty(valueType):"valueType should not be null";
-        assert !StringUtils.isEmpty(value):"value should not be null";
+        assert !StringUtils.isEmpty(valueType) : "valueType should not be null";
+        assert !StringUtils.isEmpty(value) : "value should not be null";
         this.valueType = valueType;
         this.unitOfMeasure = unitOfMeasure;
         this.validFor = validFor;
@@ -133,7 +135,6 @@ public class ProductSpecCharacteristicValue {
     }
 
     /**
-     * 
      * @param valueType
      * @param isDefault
      * @param unitOfMeasure
@@ -143,38 +144,36 @@ public class ProductSpecCharacteristicValue {
      * @param rangeInterval
      */
     public ProductSpecCharacteristicValue(String valueType, boolean isDefault, String unitOfMeasure, TimePeriod validFor, String valueFrom, String valueTo, String rangeInterval) {
-        assert !StringUtils.isEmpty(valueType):"valueType should not be null";
-        assert !CommonUtils.checkParamIsNull(validFor):"validFor should not be null";
+        assert !StringUtils.isEmpty(valueType) : "valueType should not be null";
+        assert !CommonUtils.checkParamIsNull(validFor) : "validFor should not be null";
         if (StringUtils.isEmpty(valueFrom) && StringUtils.isEmpty(valueTo)) {
             logger.error("valueFrom and valueTo should not be null at the same time.");
             throw new IllegalArgumentException("valueFrom and valueTo should not be null at the same time.");
-        }else if(StringUtils.isEmpty(valueFrom)){
+        } else if (StringUtils.isEmpty(valueFrom)) {
             logger.error("valueFrom should not be null .");
             throw new IllegalArgumentException("valueFrom should not be null .");
-        }else if(StringUtils.isEmpty(valueTo)){
-            valueTo=valueFrom;
+        } else if (StringUtils.isEmpty(valueTo)) {
+            valueTo = valueFrom;
         }
         this.valueType = valueType;
         this.unitOfMeasure = unitOfMeasure;
         this.validFor = validFor;
         this.valueFrom = valueFrom;
         this.valueTo = valueTo;
-        this.rangeInterval=rangeInterval;
+        this.rangeInterval = rangeInterval;
     }
 
     /**
-     * 
      * @param unitOfMeasure
      * @param value
      */
     public int specifyValue(String unitOfMeasure, String value) {
         this.unitOfMeasure = unitOfMeasure;
         this.value = value;
-        return 0;
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
     /**
-     * 
      * @param unitOfMeasure
      * @param valueFrom
      * @param valueTo
@@ -185,55 +184,53 @@ public class ProductSpecCharacteristicValue {
         this.valueFrom = valueFrom;
         this.valueTo = valueTo;
         this.rangeInterval = rangeInterval;
-        return 0;
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
     /**
-     * 
      * @param charValue
      * @param relationType
      * @param validFor
      */
     public int associate(ProductSpecCharacteristicValue charValue, String relationType, TimePeriod validFor) {
-        ProdSpecCharValueRelationship pship = new ProdSpecCharValueRelationship(this,charValue,relationType,validFor);
-        if(null == prodSpecCharValueRelationship){
+        ProdSpecCharValueRelationship pship = new ProdSpecCharValueRelationship(this, charValue, relationType, validFor);
+        if (null == prodSpecCharValueRelationship) {
             prodSpecCharValueRelationship = new ArrayList<ProdSpecCharValueRelationship>();
         }
-        for(ProdSpecCharValueRelationship psvr :prodSpecCharValueRelationship){
-            if(psvr.equals(charValue)){
-                return 0;
+        for (ProdSpecCharValueRelationship psvr : prodSpecCharValueRelationship) {
+            if (psvr.equals(charValue)) {
+                return ProductSpecErrorEnum.VALUE_RELATIONSHIP_EXISTING.getCode();
             }
         }
         prodSpecCharValueRelationship.add(pship);
-        return 0;
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
     /**
-     * 
      * @param charValue
      */
     public int dissociate(ProductSpecCharacteristicValue charValue) {
-        if(CommonUtils.checkParamIsNull(prodSpecCharValueRelationship)){
-            return 0;
-        }
-        for(ProdSpecCharValueRelationship psvr :prodSpecCharValueRelationship){
-            if(psvr.equals(charValue)){
-                prodSpecCharValueRelationship.remove(psvr);
+        if (!CommonUtils.checkParamIsNull(prodSpecCharValueRelationship)) {
+            for (ProdSpecCharValueRelationship psvr : prodSpecCharValueRelationship) {
+                if (psvr.equals(charValue)) {
+                    prodSpecCharValueRelationship.remove(psvr);
+                }
             }
         }
-        return 0;
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
     /**
-     * 
      * @param relationType
      */
     public List<ProductSpecCharacteristicValue> retrieveRelatedCharValue(String relationType) {
-        if(StringUtils.isEmpty(relationType)){
-            throw new IllegalArgumentException(" relationType  should not be null .");
-        }
+
         List<ProductSpecCharacteristicValue> prodSpecCharValues = new ArrayList<ProductSpecCharacteristicValue>();
-        if ( null != prodSpecCharValueRelationship  && prodSpecCharValueRelationship.size() > 0) {
+        if (StringUtils.isEmpty(relationType)) {
+            return prodSpecCharValues;
+        }
+
+        if (null != prodSpecCharValueRelationship && prodSpecCharValueRelationship.size() > 0) {
             prodSpecCharValues = new ArrayList<ProductSpecCharacteristicValue>();
             for (ProdSpecCharValueRelationship relationship : prodSpecCharValueRelationship) {
                 if (relationship.getCharValueRelationshipType() != null
@@ -246,19 +243,15 @@ public class ProductSpecCharacteristicValue {
     }
 
     /**
-     * 
      * @param relationType
      * @param time
      */
     public List<ProductSpecCharacteristicValue> retrieveRelatedCharValue(String relationType, Date time) {
-        if(StringUtils.isEmpty(relationType)){
-            throw new IllegalArgumentException(" relationType  should not be null .");
-        }
-        if(CommonUtils.checkParamIsNull(time)){
-            throw new IllegalArgumentException(" DateTime should not be null .");
-        }
         List<ProductSpecCharacteristicValue> prodSpecCharValues = new ArrayList<ProductSpecCharacteristicValue>();
-        if ( null != prodSpecCharValueRelationship  && prodSpecCharValueRelationship.size() > 0) {
+        if (StringUtils.isEmpty(relationType) || CommonUtils.checkParamIsNull(time)) {
+            return prodSpecCharValues;
+        }
+        if (null != prodSpecCharValueRelationship && prodSpecCharValueRelationship.size() > 0) {
             prodSpecCharValues = new ArrayList<ProductSpecCharacteristicValue>();
             for (ProdSpecCharValueRelationship relationship : prodSpecCharValueRelationship) {
                 if (relationship.getCharValueRelationshipType() != null
@@ -273,18 +266,15 @@ public class ProductSpecCharacteristicValue {
     }
 
     /**
-     * 
      * @param charValue
      */
     private ProdSpecCharValueRelationship retrieveCharValueRelationship(ProductSpecCharacteristicValue charValue) {
-        if(CommonUtils.checkParamIsNull(charValue)){
-            logger.error("characteristic  should not be null");
-            throw new IllegalArgumentException("characteristic  should not be null");
-        }
-        if (null != prodSpecCharValueRelationship) {
-            for (ProdSpecCharValueRelationship pscvr : prodSpecCharValueRelationship) {
-                if( pscvr.getTargetCharValue().equals(charValue)){
-                    return pscvr;
+        if (!CommonUtils.checkParamIsNull(charValue)) {
+            if (null != prodSpecCharValueRelationship) {
+                for (ProdSpecCharValueRelationship pscvr : prodSpecCharValueRelationship) {
+                    if (pscvr.getTargetCharValue().equals(charValue)) {
+                        return pscvr;
+                    }
                 }
             }
         }
@@ -376,10 +366,12 @@ public class ProductSpecCharacteristicValue {
         // TODO
         return null;
     }
-    public Map<String,Object> getBasicInfoToMap(){
+
+    public Map<String, Object> getBasicInfoToMap() {
         // TODO
         return null;
     }
+
     /**
      * Basic info of the class ouput to String
      */
