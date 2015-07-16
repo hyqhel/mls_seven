@@ -1,13 +1,20 @@
 package com.digiwes.product.offering;
 
 import java.util.*;
+
+import com.digiwes.common.enums.ProductOfferingStatus;
+import com.digiwes.common.util.CommonUtils;
 import com.digiwes.product.offering.price.*;
 import com.digiwes.basetype.*;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 /**
  * The presentation of one or more ProductSpecifications to the marketplace for sale, rental, or lease for a ProductOfferingPrice. A ProductOffering may target one or more MarketSegments, be included in one or more ProductCatalog, presented in support of one or more ProductStrategies, and made available in one or more Places. ProductOffering may represent a simple offering of a single ProductSpecification or could represent a bundling of one or more other ProductOffering.
  */
 public abstract class ProductOffering {
+
+    private static Logger logger = Logger.getLogger(ProductOffering.class);
 
     public List<ProductOfferingPrice> productOfferingPrice;
     public List<ProductOfferingRelationship> prodOfferingRelationship;
@@ -68,91 +75,135 @@ public abstract class ProductOffering {
         return this.status;
     }
 
+
     /**
-     * 
      * @param id
      * @param name
      * @param description
      * @param validFor
      */
     public ProductOffering(String id, String name, String description, TimePeriod validFor) {
-        // TODO - implement ProductOffering.ProductOffering
-        throw new UnsupportedOperationException();
+
+        assert StringUtils.isNotEmpty(id) : "Param [id] must be not null!";
+
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.validFor = validFor;
+        this.status = ProductOfferingStatus.PLANNED.getValue();
     }
 
     /**
-     * 
      * @param offering
      * @param relationType
      * @param validFor
      */
     public int associate(ProductOffering offering, String relationType, TimePeriod validFor) {
-        // TODO - implement ProductOffering.associate
-        throw new UnsupportedOperationException();
+        if (null == this.prodOfferingRelationship) {
+            this.prodOfferingRelationship = new ArrayList<ProductOfferingRelationship>();
+        }
+        if (CommonUtils.checkParamIsNull(offering)) {
+            return 0;
+        }
+        if (StringUtils.isEmpty(relationType)) {
+            logger.error("Parameter [relationType] cannot be null. ID="
+                    + offering.getId() + "relationType=" + relationType);
+            return 0;
+        }
+        if (this.equals(offering)) {
+            logger.error("Cannot add relationship with it self! ID=" + offering.getId() + "relationType=" + relationType);
+            return 0;
+        }
+        if (this.prodOfferingRelationship.size() > 0) {
+            for (ProductOfferingRelationship offeringRelationship : this.prodOfferingRelationship) {
+                if (offering.equals(offeringRelationship.getTargetOffering()) && relationType.equals
+                        (offeringRelationship.getTypeRelationship()) && offeringRelationship.getValidFor().isOverlap(validFor)) {
+                    logger.error("the relationship already exist as the same timePeriod. Cannot add relationship." +
+                            "  ID=" + offering.getId() + "relationType=" + relationType);
+                    return 0;
+
+                }
+            }
+        }
+
+        ProductOfferingRelationship offeringRelationship = new ProductOfferingRelationship(this, offering, relationType, validFor);
+        this.prodOfferingRelationship.add(offeringRelationship);
+        return 0;
     }
 
     /**
-     * 
      * @param offering
      */
     public int dissociate(ProductOffering offering) {
         // TODO - implement ProductOffering.dissociate
-        throw new UnsupportedOperationException();
+        return 0;
     }
 
     /**
-     * 
      * @param relationType
      */
-    public ProductOffering[] retrieveRelatedOffering(String relationType) {
-        // TODO - implement ProductOffering.retrieveRelatedOffering
-        throw new UnsupportedOperationException();
+    public List<ProductOffering> retrieveRelatedOffering(String relationType) {
+        List<ProductOffering> offerings = new ArrayList<ProductOffering>();
+        if (StringUtils.isNotEmpty(relationType)) {
+            if (null != this.prodOfferingRelationship && this.prodOfferingRelationship.size() > 0) {
+                for (ProductOfferingRelationship relationship : prodOfferingRelationship) {
+                    if (relationType.equals(relationship.getTypeRelationship())) {
+                        offerings.add(relationship.getTargetOffering());
+                    }
+                }
+            }
+        }
+        return offerings;
     }
 
     /**
-     * 
      * @param relationType
      * @param time
      */
-    public ProductOffering[] retrieveRelatedOffering(String relationType, Date time) {
-        // TODO - implement ProductOffering.retrieveRelatedOffering
-        throw new UnsupportedOperationException();
+    public List<ProductOffering> retrieveRelatedOffering(String relationType, Date time) {
+        List<ProductOffering> offerings = new ArrayList<ProductOffering>();
+
+        if (StringUtils.isNotEmpty(relationType) && CommonUtils.checkParamIsNull(time)) {
+            if (null != this.prodOfferingRelationship && this.prodOfferingRelationship.size() > 0) {
+                for (ProductOfferingRelationship relationship : prodOfferingRelationship) {
+                    if (relationType.equals(relationship.getTypeRelationship()) && 0 == relationship.getValidFor().isInTimePeriod(time) && 0 == relationship.getValidFor().isInTimePeriod(time)) {
+                        offerings.add(relationship.getTargetOffering());
+                    }
+                }
+            }
+        }
+        return offerings;
     }
 
     /**
-     * 
      * @param price
      */
     public int specifyPrice(ProductOfferingPrice price) {
         // TODO - implement ProductOffering.specifyPrice
-        throw new UnsupportedOperationException();
+        return 0;
     }
 
     /**
-     * 
      * @param price
      */
     private int removePrice(ProductOfferingPrice price) {
         // TODO - implement ProductOffering.removePrice
-        throw new UnsupportedOperationException();
+        return 0;
     }
 
     /**
-     * 
      * @param newPrice
      */
     public void alterPrice(ProductOfferingPrice[] newPrice) {
         // TODO - implement ProductOffering.alterPrice
-        throw new UnsupportedOperationException();
     }
 
     /**
-     * 
      * @param time
      */
-    public ProductOfferingPrice[] retrievePrice(Date time) {
+    public List<ProductOfferingPrice> retrievePrice(Date time) {
         // TODO - implement ProductOffering.retrievePrice
-        throw new UnsupportedOperationException();
+        return null;
     }
 
     /**
@@ -160,7 +211,7 @@ public abstract class ProductOffering {
      */
     protected Map getBasicInfo() {
         // TODO - implement ProductOffering.getBasicInfo
-        throw new UnsupportedOperationException();
+        return null;
     }
 
     /**
@@ -168,16 +219,22 @@ public abstract class ProductOffering {
      */
     public String basicInfoToString() {
         // TODO - implement ProductOffering.basicInfoToString
-        throw new UnsupportedOperationException();
+        return null;
     }
 
-    /**
-     * 
-     * @param o
-     */
+    @Override
     public boolean equals(Object o) {
-        // TODO - implement ProductOffering.equals
-        throw new UnsupportedOperationException();
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ProductOffering that = (ProductOffering) o;
+
+        return id.equals(that.id);
+
     }
 
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
 }

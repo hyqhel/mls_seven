@@ -1,7 +1,9 @@
 package com.digiwes.product.offering;
 
+import com.digiwes.common.util.CommonUtils;
 import com.digiwes.product.spec.*;
 import com.digiwes.basetype.*;
+import org.apache.log4j.Logger;
 
 import java.util.Map;
 
@@ -10,10 +12,19 @@ import java.util.Map;
  */
 public class SimpleProductOffering extends ProductOffering {
 
+    private static Logger logger = Logger.getLogger(SimpleProductOffering.class);
+
     ProductSpecification productSpecification;
 
+    public ProductSpecification getProductSpecification() {
+        return productSpecification;
+    }
+
+    public void setProductSpecification(ProductSpecification productSpecification) {
+        this.productSpecification = productSpecification;
+    }
+
     /**
-     * 
      * @param id
      * @param name
      * @param description
@@ -21,9 +32,11 @@ public class SimpleProductOffering extends ProductOffering {
      * @param prodSpec
      */
     public SimpleProductOffering(String id, String name, String description, TimePeriod validFor, ProductSpecification prodSpec) {
-        // TODO - implement SimpleProductOffering.SimpleProductOffering
+
         super(id, name, description, validFor);
-        throw new UnsupportedOperationException();
+
+        assert !CommonUtils.checkParamIsNull(prodSpec) : "Param [prodSpec] must be not null!";
+        this.productSpecification = prodSpec;
     }
 
     /**
@@ -31,12 +44,12 @@ public class SimpleProductOffering extends ProductOffering {
      */
     protected Map getBasicInfo() {
         // TODO - implement SimpleProductOffering.getBasicInfo
-        throw new UnsupportedOperationException();
+        return null;
     }
 
     public String toString() {
         // TODO - implement SimpleProductOffering.toString
-        throw new UnsupportedOperationException();
+        return "";
     }
 
 }
