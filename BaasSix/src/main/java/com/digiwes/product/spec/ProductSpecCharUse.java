@@ -5,6 +5,7 @@ import com.digiwes.basetype.*;
 import com.digiwes.common.enums.CommonErrorEnum;
 import com.digiwes.common.enums.ProductSpecErrorEnum;
 import com.digiwes.common.util.CommonUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 public class ProductSpecCharUse {
@@ -145,9 +146,8 @@ public class ProductSpecCharUse {
      * @param name
      */
     public ProductSpecCharUse(ProductSpecCharacteristic specChar, boolean canBeOveridden, boolean isPackage, TimePeriod validFor, String name) {
-        if(CommonUtils.checkParamIsNull(specChar) || CommonUtils.checkParamIsNull(name) ) {
-
-        }
+        assert !CommonUtils.checkParamIsNull(specChar):"id should not be null";
+        assert !CommonUtils.checkParamIsNull(name):"id should not be null";
         this.prodSpecChar = specChar;
         this.name = name;
         this.canBeOveridden = canBeOveridden;
@@ -170,10 +170,7 @@ public class ProductSpecCharUse {
      */
     public ProductSpecCharUse(ProductSpecCharacteristic specChar, boolean canBeOveridden, boolean isPackage, TimePeriod validFor, String name, String unique, int minCardinality, int maxCardinality, boolean extensible, String description) {
         CommonUtils.checkParamIsNull(specChar);
-        if (null == name || "".equals(name)) {
-            logger.error("parameter name is error ��the parameter is null . ");
-            throw new IllegalArgumentException("name should not be null .");
-        }
+        assert !CommonUtils.checkParamIsNull(name):"id should not be null";
         this.prodSpecChar = specChar;
         this.canBeOveridden = canBeOveridden;
         this.isPackage = isPackage;
@@ -208,7 +205,6 @@ public class ProductSpecCharUse {
      */
     public int assignValue(ProductSpecCharacteristicValue charValue, boolean isDefault, TimePeriod validFor) {
         CommonUtils.checkParamIsNull(charValue);
-
         if (prodSpecChar.getProdSpecCharValue() != null && prodSpecChar.getProdSpecCharValue().contains(charValue)) {
             ProdSpecCharValueUse charValueUse = new ProdSpecCharValueUse(charValue, isDefault, validFor);
             if (null == this.prodSpecCharValue) {
@@ -217,12 +213,12 @@ public class ProductSpecCharUse {
             if (!prodSpecCharValue.contains(charValueUse)) {
                 this.prodSpecCharValue.add(charValueUse);
             } else {
-                logger.warn("The charValue is already in use . ");
+                return ProductSpecErrorEnum.PROD_CHAR_USE_HAS_EXISTS_THE_VALUE.getCode();
             }
         } else {
-            logger.warn("The charValue isn't belong to the characteristic .");
+            return ProductSpecErrorEnum.THE_CHAR_NOT_EXISTS_THE_VALUE.getCode();
         }
-        return 0;
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
     /**
@@ -245,12 +241,12 @@ public class ProductSpecCharUse {
             if (null != valueUse) {
                 valueUse.setIsDefault(true);
             } else {
-                logger.warn("Parameter characteristicValue is not used");
+                return ProductSpecErrorEnum.PROD_CHAR_USE_NOT_USE_THE_VALUE.getCode();
             }
         } else {
-            logger.warn("There is no used characteristicValue ");
+            return ProductSpecErrorEnum.THE_SPEC_NO_USE_VALUE.getCode();
         }
-        return 0;
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
     public ProdSpecCharValueUse[] retrieveDefaultValueUse() {

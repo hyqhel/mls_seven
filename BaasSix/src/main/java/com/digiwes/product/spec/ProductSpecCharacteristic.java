@@ -369,15 +369,14 @@ public class ProductSpecCharacteristic {
             return ProductSpecErrorEnum.PROD_SPEC_CHAR_IS_NULL.getCode();
         }
         if(CommonUtils.checkParamIsNull(prodSpecCharRelationship)){
-            return ProductSpecErrorEnum.
-            return 0;
+            return ProductSpecErrorEnum.CHAR_RELATIONSHIP_IS_NULL.getCode();
         }
         for(ProductSpecCharRelationship psr:prodSpecCharRelationship){
             if(psr.getTargetProdSpecChar().equals(specChar)){
                 prodSpecCharRelationship.remove(psr);
             }
         }
-        return 0;
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
     /**
@@ -385,10 +384,10 @@ public class ProductSpecCharacteristic {
      * @param charRelationshipType
      */
     public List<ProductSpecCharacteristic> retrieveRelatedCharacteristic(String charRelationshipType) {
-        if(StringUtils.isEmpty(charRelationshipType)){
-            throw new IllegalArgumentException("type should not be null.");
-        }
         List<ProductSpecCharacteristic>  characteristic=new ArrayList<ProductSpecCharacteristic>();
+        if(StringUtils.isEmpty(charRelationshipType)){
+            return characteristic;
+        }
         if ( null != prodSpecCharRelationship ) {
             for (ProductSpecCharRelationship productSpecCharRelationship : prodSpecCharRelationship) {
                 if(charRelationshipType.equals(productSpecCharRelationship.getCharRelationshipType())){
@@ -405,14 +404,13 @@ public class ProductSpecCharacteristic {
      * @param time
      */
     public List<ProductSpecCharacteristic> retrieveRelatedCharacteristic(String charRelationshipType, Date time) {
+        List<ProductSpecCharacteristic>  characteristic=new ArrayList<ProductSpecCharacteristic>();;
         if (StringUtils.isEmpty(charRelationshipType) ) {
-            throw new IllegalArgumentException("type or dateTime  should not be null");
+            return characteristic;
         }
         if(CommonUtils.checkParamIsNull(time)){
-            logger.error(" dateTime  should not be null");
-            throw new IllegalArgumentException(" dateTime  should not be null");
+            return characteristic;
         }
-        List<ProductSpecCharacteristic>  characteristic=new ArrayList<ProductSpecCharacteristic>();;
         if (null !=prodSpecCharRelationship ) {
             for (ProductSpecCharRelationship productSpecCharRelationship : prodSpecCharRelationship) {
                 if(charRelationshipType.equals(productSpecCharRelationship.getCharRelationshipType()) && 0 == productSpecCharRelationship.getValidFor().isInTimePeriod(time)){
@@ -431,8 +429,7 @@ public class ProductSpecCharacteristic {
      */
     private ProductSpecCharRelationship retrieveCharRelationship(ProductSpecCharacteristic characteristic) {
         if(CommonUtils.checkParamIsNull(characteristic)){
-            logger.error("characteristic  should not be null");
-            throw new IllegalArgumentException("characteristic  should not be null");
+            return  null;
         }
         if (null !=prodSpecCharRelationship) {
             for (ProductSpecCharRelationship productSpecCharRelationship : prodSpecCharRelationship) {

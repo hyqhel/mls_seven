@@ -26,7 +26,11 @@ public enum ProductSpecErrorEnum {
     THE_SPEC_NO_USE_THE_CHAR(286064657, "the spec no use any char "),
     THE_SPEC_CHAR_HAS_USE_THE_VALUE(286064658, "the spec no use any char "),
     THE_SPEC_NO_USE_VALUE(286064659, "the spec no use any char "),
-    VALUE_RELATIONSHIP_EXISTING(286064660,"Characteristic value relationship has exists");
+    VALUE_RELATIONSHIP_EXISTING(286064660,"Characteristic value relationship has exists"),
+    CHAR_RELATIONSHIP_IS_NULL(286064661,"Characteristic value relationship has exists"),
+    PROD_CHAR_USE_HAS_EXISTS_THE_VALUE(286064662,"Characteristic value relationship has exists"),
+    THE_CHAR_NOT_EXISTS_THE_VALUE(286064663,"Characteristic value relationship has exists"),
+    PROD_CHAR_USE_NOT_USE_THE_VALUE(286064664,"Characteristic value relationship has exists");
 
 
 

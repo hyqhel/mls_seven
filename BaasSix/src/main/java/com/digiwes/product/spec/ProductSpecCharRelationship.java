@@ -1,6 +1,9 @@
 package com.digiwes.product.spec;
 
 import com.digiwes.basetype.*;
+import com.digiwes.common.enums.ProductSpecErrorEnum;
+import com.digiwes.common.util.CommonUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 /**
@@ -74,14 +77,8 @@ public class ProductSpecCharRelationship {
      * @param validFor
      */
     public ProductSpecCharRelationship(ProductSpecCharacteristic srourceSpecChar, ProductSpecCharacteristic targetSpecChar, String relationType, TimePeriod validFor) {
-        if (null == srourceSpecChar) {
-            logger.error("srcProdSpecChar should not be null");
-            throw new IllegalArgumentException("srcProdSpecChar should not be null");
-        }
-        if (null == targetSpecChar) {
-            logger.error("targetProdSpecChar should not be null");
-            throw new IllegalArgumentException("targetProdSpecChar should not be null");
-        }
+        assert !CommonUtils.checkParamIsNull(srourceSpecChar):"srcProdSpecChar should not be null";
+        assert !CommonUtils.checkParamIsNull(targetSpecChar):"targetProdSpecChar should not be null";
         this.sourceProdSpecChar = srourceSpecChar;
         this.targetProdSpecChar = targetSpecChar;
         this.charRelationshipType = relationType;
@@ -97,14 +94,8 @@ public class ProductSpecCharRelationship {
      * @param specSeq
      */
     public ProductSpecCharRelationship(ProductSpecCharacteristic srourceSpecChar, ProductSpecCharacteristic targetSpecChar, String relationType, TimePeriod validFor, int specSeq) {
-        if (null == srourceSpecChar) {
-            logger.error("srcProdSpecChar should not be null");
-            throw new IllegalArgumentException("srcProdSpecChar should not be null");
-        }
-        if (null == targetSpecChar) {
-            logger.error("targetProdSpecChar should not be null");
-            throw new IllegalArgumentException("targetProdSpecChar should not be null");
-        }
+        assert !CommonUtils.checkParamIsNull(srourceSpecChar):"srcProdSpecChar should not be null";
+        assert !CommonUtils.checkParamIsNull(targetSpecChar):"targetProdSpecChar should not be null";
         this.sourceProdSpecChar = srourceSpecChar;
         this.targetProdSpecChar = targetSpecChar;
         this.charRelationshipType = relationType;
