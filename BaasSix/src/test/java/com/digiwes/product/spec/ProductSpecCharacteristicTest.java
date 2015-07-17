@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by huangyq3 on 2015-07-16.
@@ -37,11 +38,9 @@ public class ProductSpecCharacteristicTest {
     @Test
     public void testAssignValue()  {
         ProductSpecCharacteristicValue prodSpecCharValues = null;
-        try {
-            prodSpecCharOwn.assignValue(prodSpecCharValues);
-            fail("param is not illegal");
-        } catch (Exception e) {
-        }
+        int returncode = prodSpecCharOwn.assignValue(prodSpecCharValues);
+        assertEquals("param is not illegal", 286064667, returncode);
+
         ProductSpecCharacteristicValue prodSpecCharValue = new ProductSpecCharacteristicValue("1", false,"GHz", validFor, "8", "", "");
         //exceptChar.getProdSpecCharValue().add(prodSpecCharValue);
 

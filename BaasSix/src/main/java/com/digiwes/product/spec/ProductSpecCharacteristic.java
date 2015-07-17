@@ -223,7 +223,7 @@ public class ProductSpecCharacteristic {
      */
     public int assignValue(ProductSpecCharacteristicValue charVal) {
         if(CommonUtils.checkParamIsNull(charVal)){
-            return ProductSpecErrorEnum.PROD_SPEC_CHAR_VALUE_IS_NULL.getCode();
+            return ProductSpecErrorEnum.CHAR_VALUE_IS_NULL.getCode();
         }
         if(null == this.prodSpecCharValue){
             this.prodSpecCharValue = new HashSet<ProductSpecCharacteristicValue>();
@@ -243,7 +243,7 @@ public class ProductSpecCharacteristic {
      */
     public int removeValue(ProductSpecCharacteristicValue charVal) {
         if(CommonUtils.checkParamIsNull(charVal)){
-            return ProductSpecErrorEnum.PROD_SPEC_CHAR_VALUE_IS_NULL.getCode();
+            return ProductSpecErrorEnum.CHAR_VALUE_IS_NULL.getCode();
         }
         if(null != this.prodSpecCharValue && this.prodSpecCharValue.size()>0){
             if(prodSpecCharValue.contains(charVal)){
@@ -278,7 +278,7 @@ public class ProductSpecCharacteristic {
      */
     public int specifyDefaultValue(ProductSpecCharacteristicValue defaultCharVal) {
         if(CommonUtils.checkParamIsNull(defaultCharVal)){
-            return ProductSpecErrorEnum.PROD_SPEC_CHAR_VALUE_IS_NULL.getCode();
+            return ProductSpecErrorEnum.CHAR_VALUE_IS_NULL.getCode();
         }
         if(null != this.prodSpecCharValue){
             for(ProductSpecCharacteristicValue productSpecCharacteristicValue:prodSpecCharValue){

@@ -13,7 +13,6 @@ public enum ProductSpecErrorEnum {
     PROD_SPEC_CHAR_MAX_LESS_THAN_MIN(286064646, "maxCardinality is less than minCardinality"),
     PROD_SPEC_CHAR_TYPE_DIFFERENT_CHAR_VALUE_TYPE(286064647, "The valueType of Character and the valueType of " +
             "CharacterValue are the same"),
-    PROD_SPEC_CHAR_VALUE_IS_NULL(286064648, "charVal is null"),
     PROD_SPEC_CHAR_VALUE_NOT_BELONG_TO_CHAR(286064649, "The charValue do not belong to this char"),
     PROD_SPEC_CHAR_HAS_NO_CHAR_VALUE(286064650, "no charValue under the current char"),
     PROD_SPEC_CHAR_RELATIONSHIP_TYPE_IS_NULL(286064651, "relationshipType is null"),
@@ -34,7 +33,10 @@ public enum ProductSpecErrorEnum {
     CHAR_VALUE_RELATIONSHIP_EXISTING(286064662,"Characteristic value relationship has exists"),
     CHAR_RELATIONSHIP_IS_NULL(286064663,"Characteristic  relationship null"),
     CHAR_NOT_EXISTS_THE_VALUE(286064664,"Characteristic not exists the value"),
-    CHAR_NO_VALUE(286064665,"Characteristic not exists the value");
+    CHAR_NO_VALUE(286064665,"Characteristic not exists the value"),
+    CHAR_IS_NULL(286064666,"Characteristic is null"),
+    CHAR_VALUE_IS_NULL(286064667,"Characteristic is null");
+
 
 
     private int code;
