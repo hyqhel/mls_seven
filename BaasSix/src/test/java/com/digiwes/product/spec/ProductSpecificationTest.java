@@ -12,16 +12,16 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import  com.digiwes.resources.TestProductSpecificationData;
+
+import com.digiwes.resources.TestProductSpecificationData;
+
 import static org.junit.Assert.*;
 
 /**
  * Created by huangyq3 on 2015-07-16.
  */
 public class ProductSpecificationTest {
-    private Logger logger = Logger.getLogger(ProductSpecificationTest.class);
     private ProductSpecification prodSpec = null;
-    private ProductSpecification expectProdSpec = null;
     private TimePeriod validFor = null;
     private ProductSpecification srcProdSpec = null;
 
@@ -30,11 +30,10 @@ public class ProductSpecificationTest {
         srcProdSpec = new AtomicProductSpecification("S001", "iPhone6", "Apple iPhone");
         validFor = new TimePeriod("2015-02-03 12:00:00", "2015-07-21 23:59:59");
         prodSpec = new AtomicProductSpecification("mac-13", "13-inch MacBook Pro", "apple");
-        expectProdSpec = new AtomicProductSpecification("mac-13", "13-inch MacBook Pro", "apple");
     }
 
     @Test
-    public void testAttachCharacteristic(){
+    public void testAttachCharacteristic() {
         ProductSpecCharacteristic characteristic = this.createChar(TestProductSpecificationData.specChar[4]);
         ProductSpecCharacteristic characteristic2 = this.createChar(TestProductSpecificationData.specChar[4]);
         Set<ProductSpecCharUse> expectCharUse = new HashSet<ProductSpecCharUse>();
@@ -53,14 +52,14 @@ public class ProductSpecificationTest {
         assertEquals("and one exists characteristic but use different name，check size ", 2, prodSpec.getProdSpecChar().size());
         assertEquals("and one exists characteristic but use different name，check content", expectCharUse, prodSpec.getProdSpecChar());
 
-        int returncode =  prodSpec.attachCharacteristic("CPU", null, false, false, validFor);
-        assertEquals("add a characteristic value but characteristic is null", ProductSpecErrorEnum.CHAR_IS_NULL.getCode(), returncode);
+        int returnCode = prodSpec.attachCharacteristic("CPU", null, false, false, validFor);
+        assertEquals("add a characteristic value but characteristic is null", ProductSpecErrorEnum.CHAR_IS_NULL.getCode(), returnCode);
 
-        returncode = prodSpec.attachCharacteristic(null, characteristic2, false, false, validFor);
-        assertEquals("add a characteristic value but characteristic name is null", ProductSpecErrorEnum.CHAR_USE_NAME_IS_NULL.getCode(), returncode);
+        returnCode = prodSpec.attachCharacteristic(null, characteristic2, false, false, validFor);
+        assertEquals("add a characteristic value but characteristic name is null", ProductSpecErrorEnum.CHAR_USE_NAME_IS_NULL.getCode(), returnCode);
 
-        returncode = prodSpec.attachCharacteristic("", characteristic2, false, false, validFor);
-        assertEquals("add a characteristic value but characteristic name is null", ProductSpecErrorEnum.CHAR_USE_NAME_IS_NULL.getCode(), returncode);
+        returnCode = prodSpec.attachCharacteristic("", characteristic2, false, false, validFor);
+        assertEquals("add a characteristic value but characteristic name is null", ProductSpecErrorEnum.CHAR_USE_NAME_IS_NULL.getCode(), returnCode);
 
     }
 
@@ -92,11 +91,11 @@ public class ProductSpecificationTest {
         assertEquals("add a exists  characteristic value and check size", 1, prodSpec.getProdSpecChar().iterator().next().getProdSpecCharValue().size());
         assertTrue("add a exists  characteristic value and check context", prodSpec.getProdSpecChar().iterator().next().getProdSpecCharValue().contains(charValueUse));
 
-        int returncode =  prodSpec.assignCharacteristicValue("CPU", characteristic3, charValue3, false, validFor);
-        assertEquals("add a characteristic value but the characteristic  not exists in spec ", ProductSpecErrorEnum.CHAR_NO_VALUE.getCode(),returncode);
+        int returncode = prodSpec.assignCharacteristicValue("CPU", characteristic3, charValue3, false, validFor);
+        assertEquals("add a characteristic value but the characteristic  not exists in spec ", ProductSpecErrorEnum.CHAR_NO_VALUE.getCode(), returncode);
 
-        returncode =  prodSpec.assignCharacteristicValue("CPU", characteristic, null, false, validFor);
-        assertEquals("add a null value for characteristic", ProductSpecErrorEnum.CHAR_VALUE_IS_NULL.getCode(),returncode);
+        returncode = prodSpec.assignCharacteristicValue("CPU", characteristic, null, false, validFor);
+        assertEquals("add a null value for characteristic", ProductSpecErrorEnum.CHAR_VALUE_IS_NULL.getCode(), returncode);
 
         returncode = prodSpec.assignCharacteristicValue("CPU", null, charValue2, false, validFor);
         assertEquals("add a characteristic value but characteristic is null", ProductSpecErrorEnum.CHAR_IS_NULL.getCode(), returncode);
@@ -107,7 +106,7 @@ public class ProductSpecificationTest {
     }
 
     @Test
-    public void testSpecifyDefaultCharacteristicValue(){
+    public void testSpecifyDefaultCharacteristicValue() {
         ProductSpecCharacteristic characteristic = this.createChar(TestProductSpecificationData.specChar[4]);
         ProductSpecCharacteristicValue charValue1 = this.createValue(TestProductSpecificationData.specCharValue[9]);
         ProductSpecCharacteristicValue charValue2 = this.createValue(TestProductSpecificationData.specCharValue[10]);
@@ -130,20 +129,23 @@ public class ProductSpecificationTest {
         expectCharValueUse2.add(charValueUse4);
 
         prodSpec.specifyDefaultCharacteristicValue("CPU", characteristic, charValue2);
-        assertEquals("set one defalut value for a  characteristic ", expectCharValueUse2, prodSpec.getProdSpecChar().iterator().next().getProdSpecCharValue());
+        assertEquals("set one default value for a  characteristic ", expectCharValueUse2, prodSpec.getProdSpecChar()
+                .iterator().next().getProdSpecCharValue());
 
         int returncode = prodSpec.specifyDefaultCharacteristicValue("CPU", characteristic, null);
-        assertEquals("set one defalut value for a characteristic by null value", ProductSpecErrorEnum.CHAR_VALUE_IS_NULL.getCode(), returncode);
+        assertEquals("set one default value for a characteristic by null value", ProductSpecErrorEnum.CHAR_VALUE_IS_NULL.getCode(), returncode);
 
         ProductSpecCharacteristicValue charValue3 = this.createValue(TestProductSpecificationData.specCharValue[11]);
         prodSpec.specifyDefaultCharacteristicValue("CPU", characteristic, charValue3);
-        assertEquals("set one a default value for  characteristicuse,but the value not exists characteristic", expectCharValueUse2, prodSpec.getProdSpecChar().iterator().next().getProdSpecCharValue());
+        assertEquals("set one a default value for  characteristic use,but the value not exists characteristic",
+                expectCharValueUse2, prodSpec.getProdSpecChar().iterator().next().getProdSpecCharValue());
 
         returncode = prodSpec.specifyDefaultCharacteristicValue("CPU", null, charValue2);
-        assertEquals("set one null  characteristic a default value", ProductSpecErrorEnum.CHAR_IS_NULL.getCode(),returncode);
+        assertEquals("set one null  characteristic a default value", ProductSpecErrorEnum.CHAR_IS_NULL.getCode(), returncode);
 
         returncode = prodSpec.specifyDefaultCharacteristicValue("", characteristic, charValue2);
-        assertEquals("set one null name characteristicuse a default value", ProductSpecErrorEnum.CHAR_USE_NAME_IS_NULL.getCode(), returncode);
+        assertEquals("set one null name characteristic use a default value", ProductSpecErrorEnum
+                .CHAR_USE_NAME_IS_NULL.getCode(), returncode);
 
     }
 
@@ -237,10 +239,10 @@ public class ProductSpecificationTest {
     }
 
     @Test
-    public void testRetrieveRelatedProdSpec(){
+    public void testRetrieveRelatedProdSpec() {
 
         // *********** Case1 *************
-        String dependencyType =RelationshipType.DEPENDENCY.getValue();
+        String dependencyType = RelationshipType.DEPENDENCY.getValue();
         String aggregationType = RelationshipType.AGGREGATION.getValue();
         ProductSpecification targetProdSpecDependency1 = new AtomicProductSpecification("T001", "AppleCare For iPhone",
                 "AppleCare");
@@ -284,9 +286,9 @@ public class ProductSpecificationTest {
     }
 
     private ProductSpecCharacteristic createChar(Object[] obj) {
-            //String id, String name, String valueType, TimePeriod validFor, String unique, int minCardinality, int maxCardinality, boolean extensible, String description, String derivationFormula
-            ProductSpecCharacteristic specChar = new ProductSpecCharacteristic((String) obj[0], (String) obj[1],
-                (String) obj[2], (TimePeriod) obj[3], (String) obj[4], (Integer) obj[5], (Integer) obj[5],false,"","");
+        //String id, String name, String valueType, TimePeriod validFor, String unique, int minCardinality, int maxCardinality, boolean extensible, String description, String derivationFormula
+        ProductSpecCharacteristic specChar = new ProductSpecCharacteristic((String) obj[0], (String) obj[1],
+                (String) obj[2], (TimePeriod) obj[3], (String) obj[4], (Integer) obj[5], (Integer) obj[5], false, "", "");
         return specChar;
     }
 }
