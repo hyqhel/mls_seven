@@ -28,14 +28,14 @@ public class ProductOfferingTest {
 
     @BeforeClass
     public static void initProductSpec() {
-        specification = new AtomicProductSpecification("001SP", "11 ”¢¥Á MacBook Air SPEC", "Mac Air");
+        specification = new AtomicProductSpecification("001SP", "11 Ëã±ÂØ∏ MacBook Air SPEC", "Mac Air");
     }
     @Before
     public void initOffering() {
         String id = "S001";
-        String name = "11 ”¢¥Á MacBook Air";
+        String name = "11 Ëã±ÂØ∏ MacBook Air";
         TimePeriod validFor = new TimePeriod("2015-06-04 10:20:00", "2015-06-26 10:20:00");
-        String description = "1.6GHz À´∫À Intel Core i5 ¥¶¿Ì∆˜£¨Turbo Boost ∏ﬂ¥Ô 2.7GHz";
+        String description = "1.6GHz ÂèåÊ†∏ Intel Core i5 Â§ÑÁêÜÂô®ÔºåTurbo Boost È´òËææ 2.7GHz";
         srcOffering = new SimpleProductOffering(id, name, description, validFor, specification);
     }
 
@@ -56,7 +56,7 @@ public class ProductOfferingTest {
         assertEquals(expectedRelatedOfferingList, srcOffering.getProdOfferingRelationship());
 
         // *********** Case2 **************
-        // add the same SimpleProductOffering °¢ the same relationshipType and the same validTimePeriod again.
+        // add the same SimpleProductOffering „ÄÅ the same relationshipType and the same validTimePeriod again.
         SimpleProductOffering targetProdOffering2 = new SimpleProductOffering("T001", "AppleCare For Mac",
                 "AppleCare", targetProdOfferingValidFor, specification);
 
@@ -109,7 +109,7 @@ public class ProductOfferingTest {
                 .getProdOfferingRelationship());
 
         // *********** Case6 **************
-        // add the same SimpleProductOffering °¢ the same relationshipType and the different validTimePeriod again.
+        // add the same SimpleProductOffering „ÄÅ the same relationshipType and the different validTimePeriod again.
         TimePeriod validFor6 = new TimePeriod("2015-07-04 10:20:00", "2015-07-26 10:20:00");
         SimpleProductOffering targetProdOffering6 = new SimpleProductOffering("T001", "AppleCare For Mac",
                 "AppleCare", targetProdOfferingValidFor, specification);
@@ -225,7 +225,7 @@ public class ProductOfferingTest {
 
         // *********** Case3 **************
         List<ProductOffering> productOfferingList3 = this.srcOffering.retrieveRelatedOffering(null, validDate);
-        assertEquals("Case 3 £∫ fail when relationType is null", 0, productOfferingList3.size());
+        assertEquals("Case 3 Ôºö fail when relationType is null", 0, productOfferingList3.size());
 
 
         // *********** Case4 **************

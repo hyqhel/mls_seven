@@ -22,9 +22,9 @@ public class BundledProductOfferingTest {
     @Before
     public void initOffering() {
         String id = "0001OF";
-        String name = "11 Ó¢´ç MacBook Air";
+        String name = "11 è‹±å¯¸ MacBook Air";
         TimePeriod validFor = new TimePeriod("2015-06-04 10:20:00", "2015-06-26 10:20:00");
-        String description = "13 Ó¢´çÅä±¸ Retina ÏÔÊ¾ÆÁµÄ MacBook Pro";
+        String description = "13 è‹±å¯¸é…å¤‡ Retina æ˜¾ç¤ºå±çš„ MacBook Pro";
         parentOffering = new BundledProductOffering(id, name, description, validFor);
         prodSpec = new AtomicProductSpecification("SP001", "Mac Book Pro", "Apple Mac Pro");
     }
@@ -32,13 +32,13 @@ public class BundledProductOfferingTest {
     public void testComposedOf()  {
 
         TimePeriod validFor = new TimePeriod("2015-06-04 10:20:00", "2015-06-26 10:20:00");
-        SimpleProductOffering subOffering1 = new SimpleProductOffering("SO001", "11 Ó¢´ç MacBook Air 2.7GHz",
-                "2.7GHz Ë«ºË Intel Core i5 ´¦ÀíÆ÷ Turbo Boost ¸ß´ï 3.1GHz", validFor, prodSpec);
+        SimpleProductOffering subOffering1 = new SimpleProductOffering("SO001", "11 è‹±å¯¸ MacBook Air 2.7GHz",
+                "2.7GHz åŒæ ¸ Intel Core i5 å¤„ç†å™¨ Turbo Boost é«˜è¾¾ 3.1GHz", validFor, prodSpec);
         parentOffering.composedOf(subOffering1);
 
         List<BundledProdOfferOption> expectedSubOfferingOptionList = new ArrayList<BundledProdOfferOption>();
-        SimpleProductOffering expectedSubOffering1 = new SimpleProductOffering("SO001", "11 Ó¢´ç MacBook Air 2.7GHz",
-                "2.7GHz Ë«ºË Intel Core i5 ´¦ÀíÆ÷ Turbo Boost ¸ß´ï 3.1GHz", validFor, prodSpec);
+        SimpleProductOffering expectedSubOffering1 = new SimpleProductOffering("SO001", "11 è‹±å¯¸ MacBook Air 2.7GHz",
+                "2.7GHz åŒæ ¸ Intel Core i5 å¤„ç†å™¨ Turbo Boost é«˜è¾¾ 3.1GHz", validFor, prodSpec);
         BundledProdOfferOption expectedBundledOfferingOption1 = new BundledProdOfferOption(expectedSubOffering1, -1,
                 -1);
         expectedSubOfferingOptionList.add(expectedBundledOfferingOption1);
@@ -58,19 +58,19 @@ public class BundledProductOfferingTest {
         assertEquals("Add the same sub offering again.", 1, parentOffering.getBundledProdOfferOption().size());
         assertEquals("Add the same sub offering again.", expectedSubOfferingOptionList, parentOffering.getBundledProdOfferOption());
 
-        SimpleProductOffering subOffering2 = new SimpleProductOffering("SO002", "11 Ó¢´ç MacBook Air 2.9GHz",
-                "2.9GHz Ë«ºË Intel Core i5 ´¦ÀíÆ÷ Turbo Boost ¸ß´ï 3.3GHz", validFor, prodSpec);
+        SimpleProductOffering subOffering2 = new SimpleProductOffering("SO002", "11 è‹±å¯¸ MacBook Air 2.9GHz",
+                "2.9GHz åŒæ ¸ Intel Core i5 å¤„ç†å™¨ Turbo Boost é«˜è¾¾ 3.3GHz", validFor, prodSpec);
         parentOffering.composedOf(subOffering2);
 
-        SimpleProductOffering expectedSubOffering2 = new SimpleProductOffering("SO002", "11 Ó¢´ç MacBook Air 2.9GHz",
-                "2.9GHz Ë«ºË Intel Core i5 ´¦ÀíÆ÷ Turbo Boost ¸ß´ï 3.1GHz", validFor, prodSpec);
+        SimpleProductOffering expectedSubOffering2 = new SimpleProductOffering("SO002", "11 è‹±å¯¸ MacBook Air 2.9GHz",
+                "2.9GHz åŒæ ¸ Intel Core i5 å¤„ç†å™¨ Turbo Boost é«˜è¾¾ 3.1GHz", validFor, prodSpec);
         BundledProdOfferOption expectedBundledOfferingOption2 = new BundledProdOfferOption(expectedSubOffering2, -1, -1);
         expectedSubOfferingOptionList.add(expectedBundledOfferingOption2);
         assertEquals("Add the different sub offering again.", 2, parentOffering.getBundledProdOfferOption().size());
         assertEquals("Add the different sub offering again.", expectedSubOfferingOptionList, parentOffering.getBundledProdOfferOption());
 
-        SimpleProductOffering subOffering3 = new SimpleProductOffering("SO003", "11 Ó¢´ç MacBook Air 2.9GHz",
-                "2.9GHz Ë«ºË Intel Core i5 ´¦ÀíÆ÷ Turbo Boost ¸ß´ï 3.3GHz", validFor, prodSpec);
+        SimpleProductOffering subOffering3 = new SimpleProductOffering("SO003", "11 è‹±å¯¸ MacBook Air 2.9GHz",
+                "2.9GHz åŒæ ¸ Intel Core i5 å¤„ç†å™¨ Turbo Boost é«˜è¾¾ 3.3GHz", validFor, prodSpec);
     }
 
     @Test

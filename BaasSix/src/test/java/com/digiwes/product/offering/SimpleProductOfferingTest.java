@@ -17,23 +17,23 @@ public class SimpleProductOfferingTest {
     public void createSimpleProductOffering() {
 
         String id = "0001OF";
-        String name = "11 ”¢¥Á MacBook Air";
+        String name = "11 Ëã±ÂØ∏ MacBook Air";
         TimePeriod validFor = new TimePeriod("2015-06-04 10:20:00", "2015-06-26 10:20:00");
-        String description = "1.6GHz À´∫À Intel Core i5 ¥¶¿Ì∆˜£¨Turbo Boost ∏ﬂ¥Ô 2.7GHz";
+        String description = "1.6GHz ÂèåÊ†∏ Intel Core i5 Â§ÑÁêÜÂô®ÔºåTurbo Boost È´òËææ 2.7GHz";
         ProductSpecification prodSpec = null;
         try {
             SimpleProductOffering offering = new SimpleProductOffering(id, name, description, validFor, prodSpec);
-            fail("fail when the prodSpec is null°£");
+            fail("fail when the prodSpec is null„ÄÇ");
         } catch (AssertionError ex) {
         }
 
-        prodSpec = new AtomicProductSpecification("001SP", "11 ”¢¥Á MacBook Air SPEC", "Mac Air");
+        prodSpec = new AtomicProductSpecification("001SP", "11 Ëã±ÂØ∏ MacBook Air SPEC", "Mac Air");
         SimpleProductOffering offering = new SimpleProductOffering(id, name, description, validFor, prodSpec);
         assertEquals("0001OF", offering.getId());
-        assertEquals("11 ”¢¥Á MacBook Air", offering.getName());
-        assertEquals("1.6GHz À´∫À Intel Core i5 ¥¶¿Ì∆˜£¨Turbo Boost ∏ﬂ¥Ô 2.7GHz", offering.getDescription());
+        assertEquals("11 Ëã±ÂØ∏ MacBook Air", offering.getName());
+        assertEquals("1.6GHz ÂèåÊ†∏ Intel Core i5 Â§ÑÁêÜÂô®ÔºåTurbo Boost È´òËææ 2.7GHz", offering.getDescription());
         assertEquals(ProductOfferingStatus.PLANNED.getValue(), offering.getStatus());
         assertEquals(new TimePeriod("2015-06-04 10:20:00", "2015-06-26 10:20:00"), offering.getValidFor());
-        assertEquals(new AtomicProductSpecification("001SP", "11 ”¢¥Á MacBook Air SPEC", "Mac Air"), offering.getProductSpecification());
+        assertEquals(new AtomicProductSpecification("001SP", "11 Ëã±ÂØ∏ MacBook Air SPEC", "Mac Air"), offering.getProductSpecification());
     }
 }

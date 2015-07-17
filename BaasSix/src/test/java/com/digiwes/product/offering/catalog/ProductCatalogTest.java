@@ -27,14 +27,14 @@ public class ProductCatalogTest {
     @Before
     public void initCatalog(){
         TimePeriod validFor = new TimePeriod("2015-06-04 10:20:00", "2015-09-26 10:20:00");
-        pcata = new ProductCatalog("1","13 ¥Á", ProductCatalogType.BOOK.getValue(),validFor);
+        pcata = new ProductCatalog("1","13 ÂØ∏", ProductCatalogType.BOOK.getValue(),validFor);
 
         String id = "0001OF";
-        String name = "11 ”¢¥Á MacBook Air";
-        String description = "1.6GHz À´∫À Intel Core i5 ¥¶¿Ì∆˜£¨Turbo Boost ∏ﬂ¥Ô 2.7GHz";
+        String name = "11 Ëã±ÂØ∏ MacBook Air";
+        String description = "1.6GHz ÂèåÊ†∏ Intel Core i5 Â§ÑÁêÜÂô®ÔºåTurbo Boost È´òËææ 2.7GHz";
 
 
-        ProductSpecification prodSpec = new AtomicProductSpecification("001SP", "11 ”¢¥Á MacBook Air SPEC", "Mac Air");
+        ProductSpecification prodSpec = new AtomicProductSpecification("001SP", "11 Ëã±ÂØ∏ MacBook Air SPEC", "Mac Air");
         poff = new SimpleProductOffering(id, name, description, validFor, prodSpec);
     }
     @Test
@@ -75,8 +75,8 @@ public class ProductCatalogTest {
         }
         TimePeriod validFor2 = new TimePeriod("2015-06-04 10:20:00", "2015-07-26 10:20:00");
         pcata.publish(poff, validFor2);
-        ProductSpecification  prodSpec = new AtomicProductSpecification("001SP", "11 ”¢¥Á MacBook Air SPEC", "Mac Air");
-        SimpleProductOffering offering1 = new SimpleProductOffering("00011F", "13 ”¢¥Á MacBook Air",  "1.6GHz À´∫À Intel Core i5 ¥¶¿Ì∆˜£¨Turbo Boost ∏ﬂ¥Ô 2.7GHz", validFor1, prodSpec);
+        ProductSpecification  prodSpec = new AtomicProductSpecification("001SP", "11 Ëã±ÂØ∏ MacBook Air SPEC", "Mac Air");
+        SimpleProductOffering offering1 = new SimpleProductOffering("00011F", "13 Ëã±ÂØ∏ MacBook Air",  "1.6GHz ÂèåÊ†∏ Intel Core i5 Â§ÑÁêÜÂô®ÔºåTurbo Boost È´òËææ 2.7GHz", validFor1, prodSpec);
         pcata.retired(offering1);
         assertEquals("retired  one  not exists offering ,check size ", 1, pcata.getProdCatalogProdOffer().size());
 
@@ -116,8 +116,8 @@ public class ProductCatalogTest {
         pcata.publish(poff, validFor1);
 
         TimePeriod validFor2 = new TimePeriod("2015-04-04 10:20:00", "2015-08-26 10:20:00");
-        ProductSpecification  prodSpec = new AtomicProductSpecification("001SP", "11 ”¢¥Á MacBook Air SPEC", "Mac Air");
-        SimpleProductOffering offering1 = new SimpleProductOffering("00011F", "13 ”¢¥Á MacBook Air",  "1.6GHz À´∫À Intel Core i5 ¥¶¿Ì∆˜£¨Turbo Boost ∏ﬂ¥Ô 2.7GHz", validFor1, prodSpec);
+        ProductSpecification  prodSpec = new AtomicProductSpecification("001SP", "11 Ëã±ÂØ∏ MacBook Air SPEC", "Mac Air");
+        SimpleProductOffering offering1 = new SimpleProductOffering("00011F", "13 Ëã±ÂØ∏ MacBook Air",  "1.6GHz ÂèåÊ†∏ Intel Core i5 Â§ÑÁêÜÂô®ÔºåTurbo Boost È´òËææ 2.7GHz", validFor1, prodSpec);
         pcata.publish(offering1, validFor2);
 
         List<ProdCatalogProdOffer> expectedProdCatalogProdList = new ArrayList<ProdCatalogProdOffer>();
