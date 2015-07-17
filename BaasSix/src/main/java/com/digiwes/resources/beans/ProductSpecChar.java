@@ -1,6 +1,8 @@
 package com.digiwes.resources.beans;
 
-public class ProductSpceChar {
+import java.util.*;
+
+public class ProductSpecChar {
 
     private String name;
     /**
@@ -15,6 +17,7 @@ public class ProductSpceChar {
      * The maximum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where five is the value for the maxCardinality.
      */
     private int maxCardinality;
+    List<ProductSpecCharValue> productSpecCharValues;
 
     public String getDescription() {
         return this.description;
@@ -38,6 +41,14 @@ public class ProductSpceChar {
 
     public void setMaxCardinality(int maxCardinality) {
         this.maxCardinality = maxCardinality;
+    }
+
+    public List<ProductSpecCharValue> getProductSpecCharValues() {
+        return this.productSpecCharValues;
+    }
+
+    public void setProductSpecCharValues(List<ProductSpecCharValue> productSpecCharValues) {
+        this.productSpecCharValues = productSpecCharValues;
     }
 
 }

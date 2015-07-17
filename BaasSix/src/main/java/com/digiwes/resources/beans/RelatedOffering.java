@@ -9,18 +9,18 @@ public class RelatedOffering {
     /**
      * A categorization of the relationship, such as supplier/partner equivalent, alternate, and so forth.
      */
-    private String typeRelationship;
+    private String relationshipType;
     /**
      * The period during which the relationship is applicable.
      */
     private TimePeriod validFor;
 
-    public String getTypeRelationship() {
-        return this.typeRelationship;
+    public String getRelationshipType() {
+        return this.relationshipType;
     }
 
-    public void setTypeRelationship(String typeRelationship) {
-        this.typeRelationship = typeRelationship;
+    public void setRelationshipType(String relationshipType) {
+        this.relationshipType = relationshipType;
     }
 
     public TimePeriod getValidFor() {

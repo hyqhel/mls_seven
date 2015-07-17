@@ -1,6 +1,7 @@
 package com.digiwes.resources.beans;
 
 import com.digiwes.basetype.*;
+import java.util.*;
 
 public class ProductSpec {
 
@@ -28,6 +29,7 @@ public class ProductSpec {
      * The condition of the product specification, such as active, inactive, planned.
      */
     private String lifecycleStatus;
+    List<ProductSpecChar> productSpecChars;
 
     public String getName() {
         return this.name;
@@ -71,6 +73,14 @@ public class ProductSpec {
 
     public String getLifecycleStatus() {
         return this.lifecycleStatus;
+    }
+
+    public List<ProductSpecChar> getProductSpecChars() {
+        return this.productSpecChars;
+    }
+
+    public void setProductSpecChars(List<ProductSpecChar> productSpecChars) {
+        this.productSpecChars = productSpecChars;
     }
 
 }

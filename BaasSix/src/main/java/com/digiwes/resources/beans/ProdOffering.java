@@ -1,5 +1,7 @@
 package com.digiwes.resources.beans;
 
+import java.util.*;
+
 public class ProdOffering {
 
     /**
@@ -19,6 +21,9 @@ public class ProdOffering {
      * The condition in which the offering exists, such as planned, obsolete, active
      */
     private String status;
+    private ProductSpec productSpec;
+    private List<BundledOffering> bundledOfferings;
+    private List<RelatedOffering> relatedOfferings;
 
     public String getId() {
         return this.id;
@@ -46,6 +51,30 @@ public class ProdOffering {
 
     public String getStatus() {
         return this.status;
+    }
+
+    public ProductSpec getProductSpec() {
+        return this.productSpec;
+    }
+
+    public void setProductSpec(ProductSpec productSpec) {
+        this.productSpec = productSpec;
+    }
+
+    public List<BundledOffering> getBundledOfferings() {
+        return this.bundledOfferings;
+    }
+
+    public void setBundledOfferings(List<BundledOffering> bundledOfferings) {
+        this.bundledOfferings = bundledOfferings;
+    }
+
+    public List<RelatedOffering> getRelatedOfferings() {
+        return this.relatedOfferings;
+    }
+
+    public void setRelatedOfferings(List<RelatedOffering> relatedOfferings) {
+        this.relatedOfferings = relatedOfferings;
     }
 
 }
