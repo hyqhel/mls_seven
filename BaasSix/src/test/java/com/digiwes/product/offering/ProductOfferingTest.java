@@ -1,6 +1,8 @@
 package com.digiwes.product.offering;
 
 import com.digiwes.basetype.TimePeriod;
+import com.digiwes.common.enums.ProductOfferingErrorEnum;
+import com.digiwes.common.enums.RelationshipType;
 import com.digiwes.product.spec.AtomicProductSpecification;
 import com.digiwes.product.spec.ProductSpecification;
 import org.junit.Before;
@@ -43,13 +45,13 @@ public class ProductOfferingTest {
         TimePeriod targetProdOfferingValidFor = new TimePeriod("2015-06-04 10:20:00", "2015-06-26 10:20:00");
         SimpleProductOffering targetProdOffering = new SimpleProductOffering("T001", "AppleCare For Mac",
                 "AppleCare", targetProdOfferingValidFor, specification);
-        String type = ProdOfferingEnum.OfferingRelationshipType.DEPENDENCY.getValue();
+        String type = RelationshipType.DEPENDENCY.getValue();
         TimePeriod validFor = new TimePeriod("2015-06-04 10:20:00", "2015-06-26 10:20:00");
         List<ProductOfferingRelationship> expectedRelatedOfferingList = new ArrayList<ProductOfferingRelationship>();
         ProductOfferingRelationship expectedRelatedOffering = new ProductOfferingRelationship(srcOffering,
                 targetProdOffering, type, validFor);
         expectedRelatedOfferingList.add(expectedRelatedOffering);
-        this.srcOffering.addRelatedOffering(targetProdOffering, type, validFor);
+        this.srcOffering.associate(targetProdOffering, type, validFor);
         assertEquals("add a normal SimpleProductOffering.", 1, this.srcOffering.getProdOfferingRelationship().size());
         assertEquals(expectedRelatedOfferingList, srcOffering.getProdOfferingRelationship());
 
@@ -57,13 +59,10 @@ public class ProductOfferingTest {
         // add the same SimpleProductOffering ¡¢ the same relationshipType and the same validTimePeriod again.
         SimpleProductOffering targetProdOffering2 = new SimpleProductOffering("T001", "AppleCare For Mac",
                 "AppleCare", targetProdOfferingValidFor, specification);
-        try {
-            this.srcOffering.addRelatedOffering(targetProdOffering2, type, validFor);
-            fail("expected IllegalArgumentException for srcProdSpec. Case: add the same SimpleProductOffering ¡¢" +
-                    " the same relationshipType and the same validTimePeriod again");
-        } catch (IllegalArgumentException e) {
-        }
 
+        int returncode = this.srcOffering.associate(targetProdOffering2, type, validFor);
+        assertEquals("the relationship already exist as the same timePeriod. Cannot associate relationship again.",
+                ProductOfferingErrorEnum.OFFERING_RELATIONSHIP_EXISTING.getCode(), returncode);
 
         assertEquals("add same SimpleProductOffering and the same relationshipType again",
                 1, this.srcOffering.getProdOfferingRelationship().size());
@@ -73,7 +72,7 @@ public class ProductOfferingTest {
         // *********** Case3 **************
         SimpleProductOffering targetProdOffering3 = new SimpleProductOffering("T002", "AppleCare For Mac",
                 "AppleCare", targetProdOfferingValidFor, specification);
-        this.srcOffering.addRelatedOffering(targetProdOffering3, type, validFor);
+        this.srcOffering.associate(targetProdOffering3, type, validFor);
 
         ProductOfferingRelationship expectedRelatedOffering3 = new ProductOfferingRelationship(srcOffering,
                 targetProdOffering3, type, validFor);
@@ -85,10 +84,10 @@ public class ProductOfferingTest {
 
         // *********** Case4 **************
         // add the same SimpleProductOffering and different relationshipType again.
-        String type4 = ProdOfferingEnum.OfferingRelationshipType.AGGREGATION.getValue();
+        String type4 = RelationshipType.AGGREGATION.getValue();
         SimpleProductOffering targetProdSpec4 = new SimpleProductOffering("T001", "AppleCare For Mac",
                 "AppleCare", targetProdOfferingValidFor, specification);
-        this.srcOffering.addRelatedOffering(targetProdSpec4, type4, validFor);
+        this.srcOffering.associate(targetProdSpec4, type4, validFor);
 
         SimpleProductOffering expectedTargetProdSpec4 = new SimpleProductOffering("T001", "AppleCare For Mac",
                 "AppleCare", targetProdOfferingValidFor, specification);
@@ -102,11 +101,9 @@ public class ProductOfferingTest {
 
         // *********** Case5 **************
         // add relationship with srcProdSpec itSelf.
-        try {
-            this.srcOffering.addRelatedOffering(this.srcOffering, type4, validFor);
-            fail("expected IllegalArgumentException for srcProdSpec");
-        } catch (IllegalArgumentException e) {
-        }
+        returncode = this.srcOffering.associate(this.srcOffering, type4, validFor);
+        assertEquals("add relationship with srcProdSpec itSelf.",ProductOfferingErrorEnum.OFFERING_ASSOCIATE_ITSELF.getCode(),
+                returncode);
         assertEquals("add relationship with srcProdSpec itSelf.", 3, this.srcOffering.getProdOfferingRelationship().size());
         assertEquals("add relationship with srcProdSpec itSelf.", expectedRelatedOfferingList, srcOffering
                 .getProdOfferingRelationship());
@@ -116,7 +113,7 @@ public class ProductOfferingTest {
         TimePeriod validFor6 = new TimePeriod("2015-07-04 10:20:00", "2015-07-26 10:20:00");
         SimpleProductOffering targetProdOffering6 = new SimpleProductOffering("T001", "AppleCare For Mac",
                 "AppleCare", targetProdOfferingValidFor, specification);
-        this.srcOffering.addRelatedOffering(targetProdOffering2, type, validFor6);
+        this.srcOffering.associate(targetProdOffering2, type, validFor6);
 
         SimpleProductOffering expectedTargetProdSpec6 = new SimpleProductOffering("T001", "AppleCare For Mac",
                 "AppleCare", targetProdOfferingValidFor, specification);
@@ -141,12 +138,12 @@ public class ProductOfferingTest {
      * by type
      */
     @Test
-    public void testRetrieveRelatedOffering()  {
+    public void testRetrieveRelatedOfferingByType()  {
 
         // *********** Case1 *************
         TimePeriod targetProdOfferingValidFor = new TimePeriod("2015-06-04 10:20:00", "2015-06-26 10:20:00");
-        String dependencyType = ProdOfferingEnum.OfferingRelationshipType.DEPENDENCY.getValue();
-        String aggregationType = ProdOfferingEnum.OfferingRelationshipType.AGGREGATION.getValue();
+        String dependencyType = RelationshipType.DEPENDENCY.getValue();
+        String aggregationType = RelationshipType.AGGREGATION.getValue();
         SimpleProductOffering targetProdOfferingDependency1 = new SimpleProductOffering("T001", "AppleCare For Mac",
                 "AppleCare", targetProdOfferingValidFor, specification);
         SimpleProductOffering targetProdOfferingAggregation1 = new SimpleProductOffering("T002", "AppleCare For Mac",
@@ -158,24 +155,21 @@ public class ProductOfferingTest {
                 "AppleCare", targetProdOfferingValidFor, specification);
         expectedRelatedOfferingList.add(expectedTargetProdOffering);
 
-        this.srcOffering.addRelatedOffering(targetProdOfferingDependency1, dependencyType, validFor);
-        this.srcOffering.addRelatedOffering(targetProdOfferingAggregation1, aggregationType, validFor);
+        this.srcOffering.associate(targetProdOfferingDependency1, dependencyType, validFor);
+        this.srcOffering.associate(targetProdOfferingAggregation1, aggregationType, validFor);
         List<ProductOffering> productOfferingList = this.srcOffering.retrieveRelatedOffering(aggregationType);
         assertEquals("retrieve Offering of a relationshipType from more than 2 type.", 1, productOfferingList.size());
         assertEquals("retrieve Offering of a relationshipType from more than 2 type.", expectedRelatedOfferingList, productOfferingList);
 
         // *********** Case2 **************
         List<ProductOffering> productOfferingList2 = this.srcOffering
-                .retrieveRelatedOffering(ProdSpecEnum.ProdSpecRelationship.EXCLUSIVITY.getValue());
+                .retrieveRelatedOffering(RelationshipType.EXCLUSIVITY.getValue());
         assertEquals("retrieve Offering from productOfferingRelationships by a no existent type.", 0,
                 productOfferingList2.size());
 
         // *********** Case3 **************
-        try {
-            this.srcOffering.retrieveRelatedOffering(null);
-            fail("Case 3 £º fail when relationType is null¡£");
-        } catch (IllegalArgumentException e) {
-        }
+        List<ProductOffering> productOfferingList3 = this.srcOffering.retrieveRelatedOffering(null);
+        assertEquals("retrieve Offering by nyll offering", 0, productOfferingList3.size());
 
         // *********** Case4 **************
         this.srcOffering.getProdOfferingRelationship().clear();
@@ -188,7 +182,7 @@ public class ProductOfferingTest {
      * by type and time
      */
     @Test
-    public void testRetrieveRelatedOffering()  {
+    public void testRetrieveRelatedOfferingByTypeAndTime()  {
 
         Date validDate = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -197,8 +191,8 @@ public class ProductOfferingTest {
         TimePeriod targetProdOfferingValidFor = new TimePeriod("2014-06-04 10:20:00", "2014-06-26 10:20:00");
         TimePeriod relationshipValidTime1 = new TimePeriod("2014-06-04 10:20:00", "2014-06-26 10:20:00");
         TimePeriod relationshipValidTime2 = new TimePeriod("2015-06-04 10:20:00", "2015-06-26 10:20:00");
-        String dependencyType = ProdOfferingEnum.OfferingRelationshipType.DEPENDENCY.getValue();
-        String aggregationType = ProdOfferingEnum.OfferingRelationshipType.AGGREGATION.getValue();
+        String dependencyType = RelationshipType.DEPENDENCY.getValue();
+        String aggregationType = RelationshipType.AGGREGATION.getValue();
         SimpleProductOffering targetProdOfferingDependency1 = new SimpleProductOffering("T001", "AppleCare For Mac",
                 "AppleCare", targetProdOfferingValidFor, specification);
         SimpleProductOffering targetProdOfferingAggregation1 = new SimpleProductOffering("T002", "AppleCare For Mac",
@@ -207,10 +201,10 @@ public class ProductOfferingTest {
 
         List<ProductOffering> expectedRelatedOfferingList = new ArrayList<ProductOffering>();
 
-        this.srcOffering.addRelatedOffering(targetProdOfferingDependency1, dependencyType, relationshipValidTime1);
-        this.srcOffering.addRelatedOffering(targetProdOfferingDependency1, dependencyType, relationshipValidTime2);
-        this.srcOffering.addRelatedOffering(targetProdOfferingAggregation1, aggregationType, relationshipValidTime1);
-        this.srcOffering.addRelatedOffering(targetProdOfferingAggregation1, aggregationType, relationshipValidTime2);
+        this.srcOffering.associate(targetProdOfferingDependency1, dependencyType, relationshipValidTime1);
+        this.srcOffering.associate(targetProdOfferingDependency1, dependencyType, relationshipValidTime2);
+        this.srcOffering.associate(targetProdOfferingAggregation1, aggregationType, relationshipValidTime1);
+        this.srcOffering.associate(targetProdOfferingAggregation1, aggregationType, relationshipValidTime2);
 
         try {
             validDate = format.parse("2015-06-05 10:21:10");
@@ -226,15 +220,13 @@ public class ProductOfferingTest {
 
         // *********** Case2 **************
         List<ProductOffering> productOfferingList2 = this.srcOffering
-                .retrieveRelatedOffering(ProdSpecEnum.ProdSpecRelationship.EXCLUSIVITY.getValue(), validDate);
+                .retrieveRelatedOffering(RelationshipType.EXCLUSIVITY.getValue(), validDate);
         assertEquals("retrieve ProductSpecification from productSpecRelationships by a no existent type.", 0, productOfferingList2.size());
 
         // *********** Case3 **************
-        try {
-            this.srcOffering.retrieveRelatedOffering(null, validDate);
-            fail("Case 3 £º fail when relationType is null¡£");
-        } catch (IllegalArgumentException e) {
-        }
+        List<ProductOffering> productOfferingList3 = this.srcOffering.retrieveRelatedOffering(null, validDate);
+        assertEquals("Case 3 £º fail when relationType is null", 0, productOfferingList3.size());
+
 
         // *********** Case4 **************
         try {

@@ -20,6 +20,23 @@ public abstract class ProductOffering {
 
     public List<ProductOfferingPrice> productOfferingPrice;
     public List<ProductOfferingRelationship> prodOfferingRelationship;
+
+    public List<ProductOfferingRelationship> getProdOfferingRelationship() {
+        return prodOfferingRelationship;
+    }
+
+    public List<ProductOfferingPrice> getProductOfferingPrice() {
+        return productOfferingPrice;
+    }
+
+    public void setProductOfferingPrice(List<ProductOfferingPrice> productOfferingPrice) {
+        this.productOfferingPrice = productOfferingPrice;
+    }
+
+    public void setProdOfferingRelationship(List<ProductOfferingRelationship> prodOfferingRelationship) {
+        this.prodOfferingRelationship = prodOfferingRelationship;
+    }
+
     /**
      * A unique identifier for the ProductOffering.
      */
@@ -158,7 +175,6 @@ public abstract class ProductOffering {
      */
     public List<ProductOffering> retrieveRelatedOffering(String relationType, Date time) {
         List<ProductOffering> offerings = new ArrayList<ProductOffering>();
-
         if (StringUtils.isNotEmpty(relationType) && CommonUtils.checkParamIsNull(time)) {
             if (null != this.prodOfferingRelationship && this.prodOfferingRelationship.size() > 0) {
                 for (ProductOfferingRelationship relationship : prodOfferingRelationship) {

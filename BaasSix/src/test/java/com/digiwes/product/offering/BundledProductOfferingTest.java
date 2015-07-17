@@ -1,6 +1,7 @@
 package com.digiwes.product.offering;
 
 import com.digiwes.basetype.TimePeriod;
+import com.digiwes.common.enums.ProductOfferingErrorEnum;
 import com.digiwes.product.spec.AtomicProductSpecification;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +26,6 @@ public class BundledProductOfferingTest {
         TimePeriod validFor = new TimePeriod("2015-06-04 10:20:00", "2015-06-26 10:20:00");
         String description = "13 英寸配备 Retina 显示屏的 MacBook Pro";
         parentOffering = new BundledProductOffering(id, name, description, validFor);
-
         prodSpec = new AtomicProductSpecification("SP001", "Mac Book Pro", "Apple Mac Pro");
     }
     @Test
@@ -46,19 +46,15 @@ public class BundledProductOfferingTest {
         assertEquals("Add a normal sub offering.", 1, parentOffering.getBundledProdOfferOption().size());
         assertEquals("Add a normal sub offering.", expectedSubOfferingOptionList, parentOffering.getBundledProdOfferOption());
 
-        try {
-            parentOffering.composedOf(subOffering1);
-            fail("Add the same sub offering again.");
-        } catch (IllegalArgumentException ex) {
-        }
+        int returncode = parentOffering.composedOf(subOffering1);
+        assertEquals("Add the same sub offering again.", ProductOfferingErrorEnum.COMPOSE_REPETITIVE_OFFERING.getCode(), returncode);
+
         assertEquals("Add the same sub offering again.", 1, parentOffering.getBundledProdOfferOption().size());
         assertEquals("Add the same sub offering again.", expectedSubOfferingOptionList, parentOffering.getBundledProdOfferOption());
 
-        try {
-            parentOffering.composedOf(null);
+            returncode = parentOffering.composedOf(null);
             fail("Add a null sub offering.");
-        } catch (IllegalArgumentException ex) {
-        }
+
         assertEquals("Add the same sub offering again.", 1, parentOffering.getBundledProdOfferOption().size());
         assertEquals("Add the same sub offering again.", expectedSubOfferingOptionList, parentOffering.getBundledProdOfferOption());
 
@@ -76,7 +72,6 @@ public class BundledProductOfferingTest {
 
         SimpleProductOffering subOffering3 = new SimpleProductOffering("SO003", "11 英寸 MacBook Air 2.9GHz",
                 "2.9GHz 双核 Intel Core i5 处理器 Turbo Boost 高达 3.3GHz", validFor, prodSpec);
-
     }
 
     @Test

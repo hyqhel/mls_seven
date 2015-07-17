@@ -32,9 +32,7 @@ public class SimpleProductOffering extends ProductOffering {
      * @param prodSpec
      */
     public SimpleProductOffering(String id, String name, String description, TimePeriod validFor, ProductSpecification prodSpec) {
-
         super(id, name, description, validFor);
-
         assert !CommonUtils.checkParamIsNull(prodSpec) : "Param [prodSpec] must be not null!";
         this.productSpecification = prodSpec;
     }
