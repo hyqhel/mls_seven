@@ -7,6 +7,7 @@ import com.digiwes.product.offering.ProductOffering;
 import com.digiwes.product.offering.SimpleProductOffering;
 import com.digiwes.product.offering.catalog.ProductCatalog;
 import com.digiwes.product.spec.*;
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServlet;
@@ -37,7 +38,7 @@ public class ConfigServlet extends HttpServlet {
         createProductOffering();
 
         TimePeriod validFor = new TimePeriod("2015-06-04 10:20:00", "2015-08-26 10:20:00");
-        ConfigData.pcata = new ProductCatalog("1", "13 英寸配备 Retina 显示屏的 MacBook Pro",
+        ConfigData.pcata = new ProductCatalog("1", "AppleCompany",
                 ProductCatalogType.WEB.getValue(), validFor);
     }
 
@@ -98,7 +99,6 @@ public class ConfigServlet extends HttpServlet {
     }
 
     public void createProductSpec() {
-
         // create product specification（2.7GHz 处理器 128 GB 存储容量）
         ConfigData.specification128 = createProductSpecification(
                 TestProductSpecificationData.specParameter1, TestProductSpecificationData.one_charData);

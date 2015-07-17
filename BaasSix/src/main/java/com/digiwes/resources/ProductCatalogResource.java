@@ -1,8 +1,6 @@
 package com.digiwes.resources;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
@@ -23,6 +21,28 @@ public class ProductCatalogResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getCount(String condition) {
 		System.out.print("condition"+condition);
+		return String.valueOf("2");
+	}
+	@POST
+	@Path("offering/publish")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String publishOffering(String offering) {
+		System.out.print("condition"+offering);
+		return String.valueOf("2");
+	}
+	@DELETE
+	@Path("offering/retire")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String retireOffering(String offering) {
+		System.out.print("condition"+offering);
+		return String.valueOf("2");
+	}
+
+	@GET
+	@Path("offering")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getOffering(String offering) {
+		System.out.print("condition"+offering);
 		return String.valueOf("2");
 	}
 	
