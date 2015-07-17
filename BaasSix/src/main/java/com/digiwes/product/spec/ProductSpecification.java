@@ -653,7 +653,7 @@ public abstract class ProductSpecification {
     private ProductSpecCharUse retrieveProdSpecCharUse(String charName, ProductSpecCharacteristic characteristic) {
         if (null != this.prodSpecChar) {
             for (ProductSpecCharUse charUse : this.prodSpecChar) {
-                if (characteristic.equals(charUse.getProdSpecChar()) && charUse.getName().equals(name)) {
+                if (characteristic.equals(charUse.getProdSpecChar()) && charUse.getName().equals(charName)) {
                     return charUse;
                 }
             }

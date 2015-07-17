@@ -109,7 +109,7 @@ public class ProdCatalogProdOffer {
 
     public String toString() {
         // TODO - implement ProdCatalogProdOffer.toString
-        throw new UnsupportedOperationException();
+        return null;
     }
 
 }

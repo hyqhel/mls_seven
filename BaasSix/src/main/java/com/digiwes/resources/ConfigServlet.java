@@ -30,7 +30,7 @@ public class ConfigServlet extends HttpServlet {
     private ProductOffering offering512 = null;*/
     public void init(){
         //create Char
-      /*  createProductSpecChar();
+        createProductSpecChar();
         //create spec
         createProductSpec();
         //create offering
@@ -38,7 +38,7 @@ public class ConfigServlet extends HttpServlet {
 
         TimePeriod validFor = new TimePeriod("2015-06-04 10:20:00", "2015-08-26 10:20:00");
         ConfigData.pcata = new ProductCatalog("1", "13 英寸配备 Retina 显示屏的 MacBook Pro",
-                ProductCatalogType.WEB.getValue(), validFor);*/
+                ProductCatalogType.WEB.getValue(), validFor);
     }
 
 

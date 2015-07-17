@@ -69,7 +69,7 @@ public class ProductCatalogTest {
         TimePeriod validFor1 = new TimePeriod("2015-06-04 10:20:00", "2015-07-26 10:20:00");
         pcata.publish(poff, validFor1);
         pcata.retired(poff);
-        assertEquals("retired  one  offering", 1, pcata.getProdCatalogProdOffer().size());
+        assertEquals("retired  one  offering check size", 1, pcata.getProdCatalogProdOffer().size());
         for(ProdCatalogProdOffer pcpo:pcata.getProdCatalogProdOffer()){
             assertTrue("retired  one  offering", 0 >= pcpo.getValidFor().getEndDateTime().compareTo(new Date()));
         }
@@ -83,17 +83,31 @@ public class ProductCatalogTest {
         TimePeriod validFor3 = new TimePeriod("2015-06-04 10:20:00", "2015-07-26 10:20:00");
         pcata.publish(offering1, validFor3);
         assertEquals("publish different offering ,check size ", 2, pcata.getProdCatalogProdOffer().size());
-        int retirecount = 0;
-        int publishcount = 0;
+
+        List<ProdCatalogProdOffer> lisretiredOffer = new ArrayList<ProdCatalogProdOffer>();
+        ProdCatalogProdOffer expectedRetiredOffering1 = new ProdCatalogProdOffer(poff,validFor1);
+        lisretiredOffer.add(expectedRetiredOffering1);
+
+        List<ProdCatalogProdOffer> listpublishOffer = new ArrayList<ProdCatalogProdOffer>();
+        ProdCatalogProdOffer expectedPublishOffering1 = new ProdCatalogProdOffer(offering1,validFor3);
+        listpublishOffer.add(expectedPublishOffering1);
+
+        List<ProdCatalogProdOffer> listResultRetiredOffer = new ArrayList<ProdCatalogProdOffer>();
+        List<ProdCatalogProdOffer> listResultPublishOffer = new ArrayList<ProdCatalogProdOffer>();
+
         for(ProdCatalogProdOffer pcpo:pcata.getProdCatalogProdOffer()){
             if(0 >= pcpo.getValidFor().getEndDateTime().compareTo(new Date())){
-               retirecount +=1;
+                listResultRetiredOffer.add(pcpo);
             }else{
-                publishcount +=1;
+                listResultPublishOffer.add(pcpo);
             }
         }
-        assertEquals("publish different offering and have one retired check retired count", 1, retirecount);
-        assertEquals("publish different offering and have one retired check publish count", 1, publishcount);
+        assertEquals("publish different offering and have one retired check retired count", 1, listResultRetiredOffer.size());
+        assertEquals("publish different offering and have one retired check retired count", lisretiredOffer, listResultRetiredOffer);
+
+        assertEquals("publish different offering and have one retired check publish count", 1, listResultPublishOffer.size());
+        assertEquals("publish different offering and have one retired check content",listpublishOffer, listResultPublishOffer);
+
     }
 
     @Test
