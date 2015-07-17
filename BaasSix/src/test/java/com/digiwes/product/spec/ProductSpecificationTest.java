@@ -53,23 +53,15 @@ public class ProductSpecificationTest {
         assertEquals("and one exists characteristic but use different name，check size ", 2, prodSpec.getProdSpecChar().size());
         assertEquals("and one exists characteristic but use different name，check content", expectCharUse, prodSpec.getProdSpecChar());
 
-        try {
-            prodSpec.attachCharacteristic("CPU", null, false, false, validFor);
-            fail("add a null characteristic");
-        } catch (IllegalArgumentException e) {
-        }
+        int returncode =  prodSpec.attachCharacteristic("CPU", null, false, false, validFor);
+        assertEquals("add a characteristic value but characteristic is null", ProductSpecErrorEnum.CHAR_IS_NULL.getCode(), returncode);
 
-        try {
-            prodSpec.attachCharacteristic(null, characteristic2, false, false, validFor);
-            fail("add a characteristic and use characteristic by null name ");
-        } catch (IllegalArgumentException e) {
-        }
+        returncode = prodSpec.attachCharacteristic(null, characteristic2, false, false, validFor);
+        assertEquals("add a characteristic value but characteristic name is null", ProductSpecErrorEnum.CHAR_USE_NAME_IS_NULL.getCode(), returncode);
 
-        try {
-            prodSpec.attachCharacteristic("", characteristic2, false, false, validFor);
-            fail("add a characteristic and use characteristic by blank name");
-        } catch (IllegalArgumentException e) {
-        }
+        returncode = prodSpec.attachCharacteristic("", characteristic2, false, false, validFor);
+        assertEquals("add a characteristic value but characteristic name is null", ProductSpecErrorEnum.CHAR_USE_NAME_IS_NULL.getCode(), returncode);
+
     }
 
     @Test
@@ -100,29 +92,18 @@ public class ProductSpecificationTest {
         assertEquals("add a exists  characteristic value and check size", 1, prodSpec.getProdSpecChar().iterator().next().getProdSpecCharValue().size());
         assertTrue("add a exists  characteristic value and check context", prodSpec.getProdSpecChar().iterator().next().getProdSpecCharValue().contains(charValueUse));
 
-        try {
-            prodSpec.assignCharacteristicValue("CPU", characteristic3, charValue3, false, validFor);
-            fail("add a characteristic value but the characteristic  not exists in spec ");
-        } catch (IllegalArgumentException e) {
-        }
+        int returncode =  prodSpec.assignCharacteristicValue("CPU", characteristic3, charValue3, false, validFor);
+        assertEquals("add a characteristic value but the characteristic  not exists in spec ", ProductSpecErrorEnum.CHAR_NO_VALUE.getCode(),returncode);
 
-        try {
-            prodSpec.assignCharacteristicValue("CPU", characteristic, null, false, validFor);
-            fail("add a null value for characteristic");
-        } catch (IllegalArgumentException e) {
-        }
+        returncode =  prodSpec.assignCharacteristicValue("CPU", characteristic, null, false, validFor);
+        assertEquals("add a null value for characteristic", ProductSpecErrorEnum.CHAR_VALUE_IS_NULL.getCode(),returncode);
 
-        try {
-            prodSpec.assignCharacteristicValue("CPU", null, charValue2, false, validFor);
-            fail("add a characteristic value but characteristic is null");
-        } catch (IllegalArgumentException e) {
-        }
+        returncode = prodSpec.assignCharacteristicValue("CPU", null, charValue2, false, validFor);
+        assertEquals("add a characteristic value but characteristic is null", ProductSpecErrorEnum.CHAR_IS_NULL.getCode(), returncode);
 
-        try {
-            prodSpec.assignCharacteristicValue("", characteristic, charValue2, false, validFor);
-            fail("add a characteristic value but characteristic name is null");
-        } catch (IllegalArgumentException e) {
-        }
+        returncode = prodSpec.assignCharacteristicValue("", characteristic, charValue2, false, validFor);
+        assertEquals("add a characteristic value but characteristic name is null", ProductSpecErrorEnum.CHAR_USE_NAME_IS_NULL.getCode(), returncode);
+
     }
 
     @Test
@@ -148,31 +129,22 @@ public class ProductSpecificationTest {
         expectCharValueUse2.add(charValueUse3);
         expectCharValueUse2.add(charValueUse4);
 
-
         prodSpec.specifyDefaultCharacteristicValue("CPU", characteristic, charValue2);
         assertEquals("set one defalut value for a  characteristic ", expectCharValueUse2, prodSpec.getProdSpecChar().iterator().next().getProdSpecCharValue());
 
-        try {
-            prodSpec.specifyDefaultCharacteristicValue("CPU", characteristic, null);
-            fail("set one defalut value for a characteristic by null value");
-        } catch (IllegalArgumentException e) {
-        }
+        int returncode = prodSpec.specifyDefaultCharacteristicValue("CPU", characteristic, null);
+        assertEquals("set one defalut value for a characteristic by null value", ProductSpecErrorEnum.CHAR_VALUE_IS_NULL.getCode(), returncode);
 
         ProductSpecCharacteristicValue charValue3 = this.createValue(TestProductSpecificationData.specCharValue[11]);
         prodSpec.specifyDefaultCharacteristicValue("CPU", characteristic, charValue3);
         assertEquals("set one a default value for  characteristicuse,but the value not exists characteristic", expectCharValueUse2, prodSpec.getProdSpecChar().iterator().next().getProdSpecCharValue());
 
-        try {
-            prodSpec.specifyDefaultCharacteristicValue("CPU", null, charValue2);
-            fail("set one null  characteristic a default value");
-        } catch (IllegalArgumentException e) {
-        }
+        returncode = prodSpec.specifyDefaultCharacteristicValue("CPU", null, charValue2);
+        assertEquals("set one null  characteristic a default value", ProductSpecErrorEnum.CHAR_IS_NULL.getCode(),returncode);
 
-        try {
-            prodSpec.specifyDefaultCharacteristicValue("", characteristic, charValue2);
-            fail("set one null name characteristicuse a default value");
-        } catch (IllegalArgumentException e) {
-        }
+        returncode = prodSpec.specifyDefaultCharacteristicValue("", characteristic, charValue2);
+        assertEquals("set one null name characteristicuse a default value", ProductSpecErrorEnum.CHAR_USE_NAME_IS_NULL.getCode(), returncode);
+
     }
 
     @Test
@@ -293,11 +265,9 @@ public class ProductSpecificationTest {
         assertEquals("retrieve ProductSpecification from productSpecRelationships by a no existent type.", 0, productSpecificationList2.size());
 
         // *********** Case3 **************
-        try {
-            List<ProductSpecification> productSpecificationList3 = this.srcProdSpec.retrieveRelatedProdSpec(null);
-            fail("Case 3 ： fail when type is null。");
-        } catch (IllegalArgumentException e) {
-        }
+        List<ProductSpecification> productSpecificationList3 = this.srcProdSpec.retrieveRelatedProdSpec(null);
+        assertEquals("Case 3 ： fail when type is null.", 0, productSpecificationList3.size());
+
 
         // *********** Case4 **************
         this.srcProdSpec.getProdSpecRelationship().clear();

@@ -181,7 +181,7 @@ public abstract class ProductSpecification {
 
         //the parameter of specChar is null
         if (CommonUtils.checkParamIsNull(specChar)) {
-            return ProductSpecErrorEnum.PROD_SPEC_CHAR_IS_NULL.getCode();
+            return ProductSpecErrorEnum.CHAR_IS_NULL.getCode();
         }
         if (StringUtils.isEmpty(charName)) {
             return ProductSpecErrorEnum.CHAR_USE_NAME_IS_NULL.getCode();
@@ -271,7 +271,7 @@ public abstract class ProductSpecification {
     public int assignCharacteristicValue(String charName, ProductSpecCharacteristic specChar, ProductSpecCharacteristicValue charValue, boolean isDefault, TimePeriod validFor) {
         //the parameter of specChar is null
         if (CommonUtils.checkParamIsNull(specChar)) {
-            return ProductSpecErrorEnum.PROD_SPEC_CHAR_IS_NULL.getCode();
+            return ProductSpecErrorEnum.CHAR_IS_NULL.getCode();
         }
         if (CommonUtils.checkParamIsNull(charValue)) {
             return ProductSpecErrorEnum.CHAR_VALUE_IS_NULL.getCode();
@@ -285,7 +285,7 @@ public abstract class ProductSpecification {
                     && specChar.getProdSpecCharValue().contains(charValue)) {
                 charUse.assignValue(charValue, isDefault, validFor);
             } else {
-                log.warn("Parameter characteristicValue is not belong to this characteristic ");
+                return ProductSpecErrorEnum.CHAR_NO_VALUE.getCode();
             }
         }
         return CommonErrorEnum.SUCCESS.getCode();
@@ -312,7 +312,7 @@ public abstract class ProductSpecification {
             return ProductSpecErrorEnum.SPEC_NO_CHAR.getCode();
         }
         if (CommonUtils.checkParamIsNull(specChar)) {
-            return ProductSpecErrorEnum.PROD_SPEC_CHAR_IS_NULL.getCode();
+            return ProductSpecErrorEnum.CHAR_IS_NULL.getCode();
         }
         if (CommonUtils.checkParamIsNull(defaultCharValue)) {
             return ProductSpecErrorEnum.CHAR_VALUE_IS_NULL.getCode();
