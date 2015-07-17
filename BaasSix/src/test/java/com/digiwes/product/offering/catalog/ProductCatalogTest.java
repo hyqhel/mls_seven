@@ -78,8 +78,22 @@ public class ProductCatalogTest {
         ProductSpecification  prodSpec = new AtomicProductSpecification("001SP", "11 Ó¢´ç MacBook Air SPEC", "Mac Air");
         SimpleProductOffering offering1 = new SimpleProductOffering("00011F", "13 Ó¢´ç MacBook Air",  "1.6GHz Ë«ºË Intel Core i5 ´¦ÀíÆ÷£¬Turbo Boost ¸ß´ï 2.7GHz", validFor1, prodSpec);
         pcata.retired(offering1);
+        assertEquals("retired  one  not exists offering ,check size ", 1, pcata.getProdCatalogProdOffer().size());
 
-        assertEquals("retired  one  offering ,check size ",2, pcata.getProdCatalogProdOffer().size());
+        TimePeriod validFor3 = new TimePeriod("2015-06-04 10:20:00", "2015-07-26 10:20:00");
+        pcata.publish(offering1, validFor3);
+        assertEquals("publish different offering ,check size ", 2, pcata.getProdCatalogProdOffer().size());
+        int retirecount = 0;
+        int publishcount = 0;
+        for(ProdCatalogProdOffer pcpo:pcata.getProdCatalogProdOffer()){
+            if(0 >= pcpo.getValidFor().getEndDateTime().compareTo(new Date())){
+               retirecount +=1;
+            }else{
+                publishcount +=1;
+            }
+        }
+        assertEquals("publish different offering and have one retired check retired count", 1, retirecount);
+        assertEquals("publish different offering and have one retired check publish count", 1, publishcount);
     }
 
     @Test

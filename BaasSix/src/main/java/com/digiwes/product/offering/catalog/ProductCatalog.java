@@ -71,7 +71,7 @@ public class ProductCatalog extends Catalog {
             return ProductCatalogErrorEnum.PUBLISH_REPETITIVE_OFFERING.getCode();
         }
         ProdCatalogProdOffer catalogProdOffer = new ProdCatalogProdOffer(offering, validFor);
-        if (!prodCatalogProdOffer.contains(catalogProdOffer)) {
+        if (!contains(offering,validFor)) {
             prodCatalogProdOffer.add(catalogProdOffer);
         } else {
             return ProductCatalogErrorEnum.PUBLISH_REPETITIVE_OFFERING.getCode();
@@ -100,7 +100,7 @@ public class ProductCatalog extends Catalog {
             return ProductCatalogErrorEnum.PUBLISH_REPETITIVE_OFFERING.getCode();
         }
         ProdCatalogProdOffer catalogProdOffer = new ProdCatalogProdOffer(offering, validFor, price);
-        if (!prodCatalogProdOffer.contains(catalogProdOffer)) {
+        if (!contains(offering,validFor)) {
             prodCatalogProdOffer.add(catalogProdOffer);
         } else {
             return ProductCatalogErrorEnum.PUBLISH_REPETITIVE_OFFERING.getCode();
@@ -234,7 +234,7 @@ public class ProductCatalog extends Catalog {
     private boolean contains(ProductOffering offering, TimePeriod validFor) {
         if (null != this.prodCatalogProdOffer && this.prodCatalogProdOffer.size() > 0) {
             for (ProdCatalogProdOffer catalogProdOffer : this.prodCatalogProdOffer) {
-                if (offering.equals(catalogProdOffer.getProdOffering()) && validFor.equals(catalogProdOffer.getValidFor
+                if (offering.equals(catalogProdOffer.getProdOffering()) && validFor.isOverlap(catalogProdOffer.getValidFor
                         ())) {
                     return true;
                 }

@@ -49,8 +49,8 @@ public class ProdCatalogProdOffer {
      * @param validFor
      */
     public ProdCatalogProdOffer(ProductOffering offering, TimePeriod validFor) {
-        assert CommonUtils.checkParamIsNull(offering) : "parameter is error the Object of offering is null. ";
-        assert CommonUtils.checkParamIsNull(validFor) : "parameter is error the validFor of offering is null. ";
+        assert !CommonUtils.checkParamIsNull(offering) : "parameter is error the Object of offering is null. ";
+        assert !CommonUtils.checkParamIsNull(validFor) : "parameter is error the validFor of offering is null. ";
         this.prodOffering = offering;
         this.validFor = validFor;
     }

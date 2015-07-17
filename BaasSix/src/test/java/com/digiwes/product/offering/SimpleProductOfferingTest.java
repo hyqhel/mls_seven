@@ -24,7 +24,7 @@ public class SimpleProductOfferingTest {
         try {
             SimpleProductOffering offering = new SimpleProductOffering(id, name, description, validFor, prodSpec);
             fail("fail when the prodSpec is null¡£");
-        } catch (IllegalArgumentException ex) {
+        } catch (AssertionError ex) {
         }
 
         prodSpec = new AtomicProductSpecification("001SP", "11 Ó¢´ç MacBook Air SPEC", "Mac Air");

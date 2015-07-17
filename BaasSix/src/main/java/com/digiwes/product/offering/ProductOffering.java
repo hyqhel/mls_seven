@@ -175,10 +175,10 @@ public abstract class ProductOffering {
      */
     public List<ProductOffering> retrieveRelatedOffering(String relationType, Date time) {
         List<ProductOffering> offerings = new ArrayList<ProductOffering>();
-        if (StringUtils.isNotEmpty(relationType) && CommonUtils.checkParamIsNull(time)) {
+        if (StringUtils.isNotEmpty(relationType) && !CommonUtils.checkParamIsNull(time)) {
             if (null != this.prodOfferingRelationship && this.prodOfferingRelationship.size() > 0) {
                 for (ProductOfferingRelationship relationship : prodOfferingRelationship) {
-                    if (relationType.equals(relationship.getTypeRelationship()) && 0 == relationship.getValidFor().isInTimePeriod(time) && 0 == relationship.getValidFor().isInTimePeriod(time)) {
+                    if (relationType.equals(relationship.getTypeRelationship()) && 0 == relationship.getValidFor().isInTimePeriod(time)) {
                         offerings.add(relationship.getTargetOffering());
                     }
                 }
