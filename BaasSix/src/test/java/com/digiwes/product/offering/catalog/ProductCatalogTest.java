@@ -42,8 +42,8 @@ public class ProductCatalogTest {
         ProductOffering offering = null ;
         TimePeriod validFor = new TimePeriod("2015-06-04 10:20:00", "2015-07-26 10:20:00");
 
-        int returncode = pcata.publish(offering, validFor);
-        assertEquals("publish one null offering to catalog ", ProductOfferingErrorEnum.OFFERING_IS_NULL.getCode(), returncode);
+        int returnCode = pcata.publish(offering, validFor);
+        assertEquals("publish one null offering to catalog ", ProductOfferingErrorEnum.OFFERING_IS_NULL.getCode(), returnCode);
 
         List<ProdCatalogProdOffer> expectedProdCatalogProdList = new ArrayList<ProdCatalogProdOffer>();
         ProdCatalogProdOffer expectedSubOffering1 = new ProdCatalogProdOffer(poff,validFor);
@@ -63,8 +63,8 @@ public class ProductCatalogTest {
     @Test
     public void testRetired(){
         ProductOffering offering = null ;
-        int returncode =  pcata.retired(offering);
-        assertEquals("retired  one null offering ", ProductOfferingErrorEnum.OFFERING_IS_NULL.getCode(), returncode);
+        int returnCode =  pcata.retired(offering);
+        assertEquals("retired  one null offering ", ProductOfferingErrorEnum.OFFERING_IS_NULL.getCode(), returnCode);
 
         TimePeriod validFor1 = new TimePeriod("2015-06-04 10:20:00", "2015-07-26 10:20:00");
         pcata.publish(poff, validFor1);
