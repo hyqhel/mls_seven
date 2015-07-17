@@ -1,6 +1,8 @@
 package com.digiwes.product.spec;
 
 import com.digiwes.basetype.TimePeriod;
+import com.digiwes.common.enums.CommonErrorEnum;
+import com.digiwes.common.enums.ProductSpecErrorEnum;
 import com.digiwes.common.enums.RelationshipType;
 import org.apache.log4j.Logger;
 import org.junit.Before;
@@ -186,18 +188,18 @@ public class ProductSpecificationTest {
         // *********** Case1 **************
         // add relationship with null spec.
         int returnCode = this.srcProdSpec.associate(null, type, validFor);
-        assertEquals("add relationship with null spec", BusinessCodeEnum.ProductSpec.PRODUCT_SPEC_100002, returnCode);
+        assertEquals("add relationship with null spec", ProductSpecErrorEnum.PROD_SPEC_IS_NULL.getCode(), returnCode);
         assertEquals("add relationship with null spec.", null, this.srcProdSpec.getProdSpecRelationship());
 
         // *********** Case2 **************
         // add relationship with null type.
         returnCode = this.srcProdSpec.associate(targetProdSpec, null, validFor);
-        assertEquals("add relationship with null type.", BusinessCodeEnum.ProductSpec.PRODUCT_SPEC_100003, returnCode);
+        assertEquals("add relationship with null type.", ProductSpecErrorEnum.PROD_SPEC_RELATIONSHIP_TYPE_IS_NULL.getCode(), returnCode);
         assertEquals("add relationship with null type.", null, this.srcProdSpec.getProdSpecRelationship());
 
         // *********** Case3 **************
         returnCode = this.srcProdSpec.associate(targetProdSpec, type, validFor);
-        assertEquals("add a normal AtomicProductSpecification.", BusinessCodeEnum.CommonCode.SUCCESS_000000,
+        assertEquals("add a normal AtomicProductSpecification.", CommonErrorEnum.SUCCESS.getCode(),
                 returnCode);
         assertEquals("add a normal AtomicProductSpecification.", 1, this.srcProdSpec.getProdSpecRelationship().size());
         assertEquals("add a normal AtomicProductSpecification.", expectedRelatedSpecList, srcProdSpec
@@ -209,8 +211,8 @@ public class ProductSpecificationTest {
                 "AppleCare");
 
         returnCode = this.srcProdSpec.associate(targetProdSpec2, type, validFor);
-        assertEquals("add same AtomicProductSpecification and the same relationshipType again", BusinessCodeEnum
-                .ProductSpec.PRODUCT_SPEC_100005, returnCode);
+        assertEquals("add same AtomicProductSpecification and the same relationshipType again", ProductSpecErrorEnum
+                .PROD_SPEC_HAS_RELATED_TO_CURRENT.getCode(), returnCode);
         assertEquals("add same AtomicProductSpecification and the same relationshipType again", 1, this.srcProdSpec
                 .getProdSpecRelationship().size());
         assertEquals("add same AtomicProductSpecification and the same relationshipType again",
@@ -225,7 +227,7 @@ public class ProductSpecificationTest {
                 targetProdSpec3, type, validFor);
         expectedRelatedSpecList.add(expectedRelatedSpec3);
         assertEquals("add a different AtomicProductSpecification and the same relationshipType again.",
-                BusinessCodeEnum.CommonCode.SUCCESS_000000, returnCode);
+                CommonErrorEnum.SUCCESS.getCode(), returnCode);
         assertEquals("add a different AtomicProductSpecification and the same relationshipType again.", 2, this
                 .srcProdSpec.getProdSpecRelationship().size());
         assertEquals("add a different AtomicProductSpecification and the same relationshipType again.",
@@ -242,7 +244,7 @@ public class ProductSpecificationTest {
                 targetProdSpec4, type4, validFor);
         expectedRelatedSpecList.add(expectedRelatedSpec4);
         assertEquals("add the same AtomicProductSpecification and different relationshipType again.",
-                BusinessCodeEnum.CommonCode.SUCCESS_000000, returnCode);
+                CommonErrorEnum.SUCCESS.getCode(), returnCode);
         assertEquals("add the same AtomicProductSpecification and different relationshipType again.", 3, this
                 .srcProdSpec.getProdSpecRelationship().size());
         assertEquals("add the same AtomicProductSpecification and different relationshipType again.",
@@ -251,7 +253,7 @@ public class ProductSpecificationTest {
         // *********** Case7 **************
         // add relationship with srcProdSpec itSelf.
         returnCode = this.srcProdSpec.associate(this.srcProdSpec, type4, validFor);
-        assertEquals("add relationship with srcProdSpec itSelf", BusinessCodeEnum.ProductSpec.PRODUCT_SPEC_100004,
+        assertEquals("add relationship with srcProdSpec itSelf", ProductSpecErrorEnum.PROD_SPEC_EQUALS_TO_CURRENT.getCode(),
                 returnCode);
         assertEquals("add relationship with srcProdSpec itSelf.", 3, this.srcProdSpec.getProdSpecRelationship().size());
         assertEquals("add relationship with srcProdSpec itSelf.", expectedRelatedSpecList, srcProdSpec.getProdSpecRelationship());

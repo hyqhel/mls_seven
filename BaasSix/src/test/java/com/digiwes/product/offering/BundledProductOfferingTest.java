@@ -52,12 +52,11 @@ public class BundledProductOfferingTest {
         assertEquals("Add the same sub offering again.", 1, parentOffering.getBundledProdOfferOption().size());
         assertEquals("Add the same sub offering again.", expectedSubOfferingOptionList, parentOffering.getBundledProdOfferOption());
 
-            returncode = parentOffering.composedOf(null);
-            fail("Add a null sub offering.");
+        returncode = parentOffering.composedOf(null);
+        assertEquals("Add a null sub offering", ProductOfferingErrorEnum.OFFERING_IS_NULL.getCode(), returncode);
 
         assertEquals("Add the same sub offering again.", 1, parentOffering.getBundledProdOfferOption().size());
         assertEquals("Add the same sub offering again.", expectedSubOfferingOptionList, parentOffering.getBundledProdOfferOption());
-
 
         SimpleProductOffering subOffering2 = new SimpleProductOffering("SO002", "11 英寸 MacBook Air 2.9GHz",
                 "2.9GHz 双核 Intel Core i5 处理器 Turbo Boost 高达 3.3GHz", validFor, prodSpec);
