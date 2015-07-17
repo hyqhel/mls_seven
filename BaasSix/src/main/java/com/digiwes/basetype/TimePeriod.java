@@ -45,7 +45,7 @@ public class TimePeriod {
     }
 
     public TimePeriod(String startDateTime, String endDateTime) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             if (StringUtils.isNotEmpty(startDateTime)) {
                 this.startDateTime = format.parse(startDateTime);

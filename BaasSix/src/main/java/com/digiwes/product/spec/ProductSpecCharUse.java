@@ -1,6 +1,7 @@
 package com.digiwes.product.spec;
 
 import java.util.*;
+
 import com.digiwes.basetype.*;
 import com.digiwes.common.enums.CommonErrorEnum;
 import com.digiwes.common.enums.ProductSpecErrorEnum;
@@ -23,7 +24,7 @@ public class ProductSpecCharUse {
     private String description;
     /**
      * An indicator that specifies if a value is unique for the specification.
-     * 
+     * <p>
      * Possible values are: "unique while value is in effect" and "unique whether value is in effect or not"
      */
     private String unique;
@@ -49,6 +50,7 @@ public class ProductSpecCharUse {
     private boolean extensible;
 
     private TimePeriod validFor;
+
     public ProductSpecCharacteristic getProdSpecChar() {
         return this.prodSpecChar;
     }
@@ -138,7 +140,6 @@ public class ProductSpecCharUse {
     }
 
     /**
-     * 
      * @param specChar
      * @param canBeOveridden
      * @param isPackage
@@ -146,8 +147,8 @@ public class ProductSpecCharUse {
      * @param name
      */
     public ProductSpecCharUse(ProductSpecCharacteristic specChar, boolean canBeOveridden, boolean isPackage, TimePeriod validFor, String name) {
-        assert !CommonUtils.checkParamIsNull(specChar):"id should not be null";
-        assert !CommonUtils.checkParamIsNull(name):"id should not be null";
+        assert !CommonUtils.checkParamIsNull(specChar) : "id should not be null";
+        assert !CommonUtils.checkParamIsNull(name) : "id should not be null";
         this.prodSpecChar = specChar;
         this.name = name;
         this.canBeOveridden = canBeOveridden;
@@ -156,7 +157,6 @@ public class ProductSpecCharUse {
     }
 
     /**
-     * 
      * @param specChar
      * @param canBeOveridden
      * @param isPackage
@@ -170,7 +170,7 @@ public class ProductSpecCharUse {
      */
     public ProductSpecCharUse(ProductSpecCharacteristic specChar, boolean canBeOveridden, boolean isPackage, TimePeriod validFor, String name, String unique, int minCardinality, int maxCardinality, boolean extensible, String description) {
         CommonUtils.checkParamIsNull(specChar);
-        assert !CommonUtils.checkParamIsNull(name):"id should not be null";
+        assert !CommonUtils.checkParamIsNull(name) : "id should not be null";
         this.prodSpecChar = specChar;
         this.canBeOveridden = canBeOveridden;
         this.isPackage = isPackage;
@@ -183,7 +183,6 @@ public class ProductSpecCharUse {
     }
 
     /**
-     * 
      * @param minCardinality
      * @param maxCardinality
      */
@@ -192,24 +191,26 @@ public class ProductSpecCharUse {
             this.minCardinality = minCardinality;
             this.maxCardinality = maxCardinality;
         } else {
-            return ProductSpecErrorEnum.PROD_SPEC_CHAR_MAX_LESS_THAN_MIN.getCode();
+            return ProductSpecErrorEnum.MAX_CARDINALITY_LESS_THAN_MIN_CARDINALITY.getCode();
         }
         return CommonErrorEnum.SUCCESS.getCode();
     }
 
     /**
-     * 
      * @param charValue
      * @param isDefault
      * @param validFor
      */
     public int assignValue(ProductSpecCharacteristicValue charValue, boolean isDefault, TimePeriod validFor) {
-        CommonUtils.checkParamIsNull(charValue);
+        if (null == this.prodSpecCharValue) {
+            this.prodSpecCharValue = new ArrayList<ProdSpecCharValueUse>();
+        }
+        if (CommonUtils.checkParamIsNull(charValue)) {
+            return ProductSpecErrorEnum.CHAR_VALUE_IS_NULL.getCode();
+        }
         if (prodSpecChar.getProdSpecCharValue() != null && prodSpecChar.getProdSpecCharValue().contains(charValue)) {
             ProdSpecCharValueUse charValueUse = new ProdSpecCharValueUse(charValue, isDefault, validFor);
-            if (null == this.prodSpecCharValue) {
-                this.prodSpecCharValue = new ArrayList<ProdSpecCharValueUse>();
-            }
+
             if (!prodSpecCharValue.contains(charValueUse)) {
                 this.prodSpecCharValue.add(charValueUse);
             } else {
@@ -222,7 +223,6 @@ public class ProductSpecCharUse {
     }
 
     /**
-     * 
      * @param charValue
      */
     public int removeValue(ProductSpecCharacteristicValue charValue) {
@@ -231,7 +231,6 @@ public class ProductSpecCharUse {
     }
 
     /**
-     * 
      * @param defaultValue
      */
     public int specifyDefaultCharacteristicValue(ProductSpecCharacteristicValue defaultValue) {
@@ -251,11 +250,10 @@ public class ProductSpecCharUse {
 
     public ProdSpecCharValueUse[] retrieveDefaultValueUse() {
         // TODO - implement ProductSpecCharUse.retrieveDefaultValueUse\
-        return  null;
+        return null;
     }
 
     /**
-     * 
      * @param defaultValue
      */
     public int clearDefaultValueUse(ProductSpecCharacteristicValue defaultValue) {
@@ -264,7 +262,6 @@ public class ProductSpecCharUse {
     }
 
     /**
-     * 
      * @param charValue
      */
     private ProdSpecCharValueUse retrieveProdSpecCharValueUse(ProductSpecCharacteristicValue charValue) {
@@ -286,7 +283,6 @@ public class ProductSpecCharUse {
     }
 
     /**
-     * 
      * @param o
      */
     public boolean equals(Object o) {
