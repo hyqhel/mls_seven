@@ -38,14 +38,6 @@ public class ProductCatalogResource {
 		return String.valueOf("2");
 	}
 
-	@GET
-	@Path("offering")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String getOffering(String offering) {
-		System.out.print("condition"+offering);
-		return String.valueOf("2");
-	}
-	
 	
 	
 }
