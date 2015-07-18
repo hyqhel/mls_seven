@@ -19,17 +19,8 @@ import java.util.Set;
  * Created by huangyq3 on 2015-07-16.
  */
 public class ConfigServlet extends HttpServlet {
-    /*private Logger logger = Logger.getLogger(ConfigServlet.class);
 
-    private ProductCatalog pcata = null;
-    private List<ProductSpecCharacteristic> productSpecChars;
-    private ProductSpecification specification128 = null;
-    private ProductSpecification specification256 = null;
-    private ProductSpecification specification512 = null;
-    private ProductOffering offering128 = null;
-    private ProductOffering offering256 = null;
-    private ProductOffering offering512 = null;*/
-    public void init(){
+    public void init() {
         //create Char
         createProductSpecChar();
         //create spec
@@ -38,8 +29,11 @@ public class ConfigServlet extends HttpServlet {
         createProductOffering();
 
         TimePeriod validFor = new TimePeriod("2015-06-04 10:20:00", "2015-08-26 10:20:00");
-        ConfigData.pcata = new ProductCatalog("1", "AppleCompany",
+        ProductCatalog productCatalog = new ProductCatalog("1", "AppleCompany",
                 ProductCatalogType.WEB.getValue(), validFor);
+
+        ConfigData.productCatalogList = new ArrayList<ProductCatalog>();
+        ConfigData.productCatalogList.add(productCatalog);
     }
 
 
@@ -154,7 +148,7 @@ public class ConfigServlet extends HttpServlet {
 
     public ProductSpecCharacteristic getCharByCharId(String id) {
         ProductSpecCharacteristic prodSpecChar = null;
-        for (int i = 0; i <ConfigData.productSpecChars.size(); i++) {
+        for (int i = 0; i < ConfigData.productSpecChars.size(); i++) {
             prodSpecChar = ConfigData.productSpecChars.get(i);
             if (id.equals(prodSpecChar.getID())) {
                 return prodSpecChar;

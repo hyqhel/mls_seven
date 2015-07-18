@@ -1,6 +1,7 @@
 package com.digiwes.resources.beans;
 
 import com.digiwes.basetype.*;
+
 import java.util.*;
 
 public class ProductSpec {
@@ -83,4 +84,7 @@ public class ProductSpec {
         this.productSpecChars = productSpecChars;
     }
 
+    public void setLifecycleStatus(String lifecycleStatus) {
+        this.lifecycleStatus = lifecycleStatus;
+    }
 }

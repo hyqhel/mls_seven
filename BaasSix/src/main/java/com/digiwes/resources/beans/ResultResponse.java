@@ -6,7 +6,7 @@ public class ResultResponse {
 
     private String message;
     private int code;
-    private List<ProdCatalogOffering> prodCatalogOfferings;
+    private ProductCatalogResponse productCatalogResponse;
 
     public String getMessage() {
         return this.message;
@@ -24,12 +24,11 @@ public class ResultResponse {
         this.code = code;
     }
 
-    public List<ProdCatalogOffering> getProdCatalogOfferings() {
-        return this.prodCatalogOfferings;
+    public ProductCatalogResponse getProductCatalogResponse() {
+        return productCatalogResponse;
     }
 
-    public void setProdCatalogOfferings(List<ProdCatalogOffering> prodCatalogOfferings) {
-        this.prodCatalogOfferings = prodCatalogOfferings;
+    public void setProductCatalogResponse(ProductCatalogResponse productCatalogResponse) {
+        this.productCatalogResponse = productCatalogResponse;
     }
-
 }

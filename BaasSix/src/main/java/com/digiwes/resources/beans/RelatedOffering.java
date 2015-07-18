@@ -31,4 +31,19 @@ public class RelatedOffering {
         this.validFor = validFor;
     }
 
+    public String getOfferingId() {
+        return offeringId;
+    }
+
+    public void setOfferingId(String offeringId) {
+        this.offeringId = offeringId;
+    }
+
+    public String getOfferingName() {
+        return offeringName;
+    }
+
+    public void setOfferingName(String offeringName) {
+        this.offeringName = offeringName;
+    }
 }

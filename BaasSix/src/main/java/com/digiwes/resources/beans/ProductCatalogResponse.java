@@ -2,9 +2,11 @@ package com.digiwes.resources.beans;
 
 import com.digiwes.basetype.*;
 
+import java.util.List;
+
 public class ProductCatalogResponse {
 
-    private ResultResponse resultResponse;
+    private List<ProdCatalogOffering> prodCatalogOfferings;
     /**
      * A unique identifier for a catalog.
      */
@@ -22,12 +24,12 @@ public class ProductCatalogResponse {
      */
     private TimePeriod validFor;
 
-    public ResultResponse getResultResponse() {
-        return this.resultResponse;
+    public List<ProdCatalogOffering> getProdCatalogOfferings() {
+        return prodCatalogOfferings;
     }
 
-    public void setResultResponse(ResultResponse resultResponse) {
-        this.resultResponse = resultResponse;
+    public void setProdCatalogOfferings(List<ProdCatalogOffering> prodCatalogOfferings) {
+        this.prodCatalogOfferings = prodCatalogOfferings;
     }
 
     public String getID() {

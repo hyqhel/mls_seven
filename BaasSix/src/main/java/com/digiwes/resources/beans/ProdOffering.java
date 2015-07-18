@@ -77,4 +77,15 @@ public class ProdOffering {
         this.relatedOfferings = relatedOfferings;
     }
 
+    public boolean isBundle() {
+        return isBundle;
+    }
+
+    public void setIsBundle(boolean isBundle) {
+        this.isBundle = isBundle;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }
