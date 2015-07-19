@@ -134,7 +134,7 @@ public class ProductCatalog extends Catalog {
             return ProductOfferingErrorEnum.OFFERING_IS_NULL.getCode();
         }
         List<ProdCatalogProdOffer> catalogOffers = retrieveProdCatalogProdOffer(offering);
-        if (null != catalogOffers) {
+        if (null != catalogOffers && 0!= catalogOffers.size()) {
             for (ProdCatalogProdOffer catalogOffer : catalogOffers) {
                 catalogOffer.getValidFor().setEndDateTime(new Date());
             }

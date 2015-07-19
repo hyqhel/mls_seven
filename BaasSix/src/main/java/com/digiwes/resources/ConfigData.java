@@ -6,6 +6,7 @@ import com.digiwes.product.spec.ProductSpecCharacteristic;
 import com.digiwes.product.spec.ProductSpecification;
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,12 +14,10 @@ import java.util.List;
  */
 public class ConfigData {
     public static ProductCatalog retrievedProductCatalog = null;
-    public static List<ProductCatalog> productCatalogList = null;
+    public static List<ProductCatalog> productCatalogList = new ArrayList<ProductCatalog>();
     public static List<ProductSpecCharacteristic> productSpecChars;
     public static ProductSpecification specification128 = null;
     public static ProductSpecification specification256 = null;
     public static ProductSpecification specification512 = null;
-    public static ProductOffering offering128 = null;
-    public static ProductOffering offering256 = null;
-    public static ProductOffering offering512 = null;
+    public static List<ProductOffering> offerings = new ArrayList<ProductOffering>();
 }

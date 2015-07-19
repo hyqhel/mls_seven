@@ -194,9 +194,13 @@ public class ConfigServlet extends HttpServlet {
     }
 
     public void createProductOffering() {
-        ConfigData.offering128 = createSimpleProductOffering(TestProductOfferingData.offering[0], ConfigData.specification128);
-        ConfigData.offering256 = createSimpleProductOffering(TestProductOfferingData.offering[1], ConfigData.specification256);
-        ConfigData.offering512 = createSimpleProductOffering(TestProductOfferingData.offering[2], ConfigData.specification512);
+        ProductOffering offering128 = null , offering256 = null,offering512 = null;
+        offering128 = createSimpleProductOffering(TestProductOfferingData.offering[0], ConfigData.specification128);
+        offering256 = createSimpleProductOffering(TestProductOfferingData.offering[1], ConfigData.specification256);
+        offering512 = createSimpleProductOffering(TestProductOfferingData.offering[2], ConfigData.specification512);
+        ConfigData.offerings.add(offering128);
+        ConfigData.offerings.add(offering256);
+        ConfigData.offerings.add(offering512);
     }
 
 }

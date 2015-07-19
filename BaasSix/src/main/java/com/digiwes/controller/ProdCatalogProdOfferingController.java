@@ -41,7 +41,7 @@ public class ProdCatalogProdOfferingController {
         return response;
     }
 
-    private ProductCatalog retrieveProductCatalog(String productCatalogId) {
+    public ProductCatalog retrieveProductCatalog(String productCatalogId) {
         for (ProductCatalog prodCatalog : ConfigData.productCatalogList) {
             if (productCatalogId.equals(prodCatalog.getID())) {
                 return prodCatalog;
@@ -49,6 +49,15 @@ public class ProdCatalogProdOfferingController {
         }
         return null;
     }
+    public ProductOffering retrieveProductOffering(String offeringId) {
+        for (ProductOffering pc : ConfigData.offerings) {
+            if (offeringId.equals(pc.getId())) {
+                return pc;
+            }
+        }
+        return null;
+    }
+
 
     private List<ProdCatalogOffering> retrieveProductOffering(List<ProdCatalogProdOffer> prodCatalogProdOffers,
                                                               List<Condition> conditions) {

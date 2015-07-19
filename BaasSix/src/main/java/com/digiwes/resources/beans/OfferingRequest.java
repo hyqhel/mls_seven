@@ -31,4 +31,13 @@ public class OfferingRequest {
     public void setProductCatalogId(String productCatalogId) {
         this.productCatalogId = productCatalogId;
     }
+
+    @Override
+    public String toString() {
+        return "OfferingRequest{" +
+                "productOfferingId='" + productOfferingId + '\'' +
+                ", validFor=" + validFor +
+                ", productCatalogId='" + productCatalogId + '\'' +
+                '}';
+    }
 }
