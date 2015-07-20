@@ -1,5 +1,11 @@
 package com.digiwes.common.util;
 
+import com.digiwes.common.enums.CommonErrorEnum;
+import com.digiwes.common.enums.ProductCatalogErrorEnum;
+import com.digiwes.common.enums.ProductOfferingErrorEnum;
+import com.digiwes.common.enums.ProductSpecErrorEnum;
+import org.apache.commons.lang.StringUtils;
+
 public class CommonUtils {
 
 
@@ -65,5 +71,27 @@ public class CommonUtils {
         if (null == paramValue || "".equals(paramValue.toString())) {
             throw new IllegalArgumentException("Parameter [" + paramName + "] must be not null. ");
         }
+    }
+
+    public static String getMessage(int code) {
+        String message = "";
+        message = CommonErrorEnum.getMessage(code);
+        if (StringUtils.isNotEmpty(message)) {
+            return message;
+        }
+
+        int abeCode = ((code) >> 16) & 0xff;
+
+        switch (abeCode) {
+            case 6:
+                message = ProductOfferingErrorEnum.getMessage(code);
+            case 8:
+                message = ProductCatalogErrorEnum.getMessage(code);
+            case 13:
+                message = ProductSpecErrorEnum.getMessage(code);
+            default:
+                message = "";
+        }
+        return message;
     }
 }

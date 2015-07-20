@@ -45,24 +45,28 @@ public class ProdCatalogProdOfferingController {
     }
 
     public ProductCatalog retrieveProductCatalog(String productCatalogId) {
-        for (ProductCatalog prodCatalog : ConfigData.productCatalogList) {
-            if (productCatalogId.equals(prodCatalog.getID())) {
-                return prodCatalog;
+        if (!StringUtils.isNotEmpty(productCatalogId)) {
+            for (ProductCatalog prodCatalog : ConfigData.productCatalogList) {
+                if (productCatalogId.equals(prodCatalog.getID())) {
+                    return prodCatalog;
+                }
             }
         }
         return null;
     }
 
     public ProductOffering retrieveProductOffering(String offeringId) {
-        for (ProductOffering pc : ConfigData.offerings) {
-            if (offeringId.equals(pc.getId())) {
-                return pc;
+        if (!StringUtils.isNotEmpty(offeringId)) {
+            for (ProductOffering pc : ConfigData.offerings) {
+                if (offeringId.equals(pc.getId())) {
+                    return pc;
+                }
             }
         }
         return null;
     }
 
-    public int publishOffering(String catalogId,String offeringId,TimePeriod validFor){
+    public int publishOffering(String catalogId, String offeringId, TimePeriod validFor) {
         ProductCatalog pc = retrieveProductCatalog(catalogId);
         int returnCode = -1;
         if (null != pc) {
@@ -71,10 +75,10 @@ public class ProdCatalogProdOfferingController {
         } else {
             returnCode = ProductCatalogErrorEnum.PRODUCT_CATALOG_IS_NULL.getCode();
         }
-        return  returnCode;
+        return returnCode;
     }
 
-    public int retiredOffering(String catalogId,String offeringId){
+    public int retiredOffering(String catalogId, String offeringId) {
         ProductCatalog pc = retrieveProductCatalog(catalogId);
         int returnCode = -1;
         if (null != pc) {
@@ -83,7 +87,7 @@ public class ProdCatalogProdOfferingController {
         } else {
             returnCode = ProductCatalogErrorEnum.PRODUCT_CATALOG_IS_NULL.getCode();
         }
-        return  returnCode;
+        return returnCode;
     }
 
     private List<ProdCatalogOffering> retrieveProductCatalogOffering(List<ProdCatalogProdOffer> prodCatalogProdOffers,

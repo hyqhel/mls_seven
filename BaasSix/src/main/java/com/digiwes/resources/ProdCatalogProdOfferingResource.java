@@ -1,6 +1,7 @@
 package com.digiwes.resources;
 
 import com.digiwes.common.enums.CommonErrorEnum;
+import com.digiwes.common.util.CommonUtils;
 import com.digiwes.controller.ProdCatalogProdOfferingController;
 import com.digiwes.product.offering.ProductOffering;
 import com.digiwes.product.offering.catalog.ProductCatalog;
@@ -33,16 +34,11 @@ public class ProdCatalogProdOfferingResource {
     public ResultData<OfferingRequest> retireOffering(OfferingRequest offeringRequest) {
         ProdCatalogProdOfferingController controller = new ProdCatalogProdOfferingController();
         int returnCode = -1;
-        returnCode = controller.retiredOffering(offeringRequest.getProductCatalogId(),offeringRequest.getProductOfferingId());
+        returnCode = controller.retiredOffering(offeringRequest.getProductCatalogId(), offeringRequest.getProductOfferingId());
         ResultData<OfferingRequest> resultData = new ResultData<OfferingRequest>();
         resultData.setData(offeringRequest);
-        String message = "";
-        if (-1 != returnCode) {
-            message = "SUCCESS";
-        } else {
-            message = "FAILED";
-        }
-        resultData.setMessage(message);
+
+        resultData.setMessage(CommonUtils.getMessage(returnCode));
         resultData.setCode(returnCode);
         return resultData;
     }
@@ -74,16 +70,11 @@ public class ProdCatalogProdOfferingResource {
     public ResultData<OfferingRequest> publishOffering(OfferingRequest offeringRequest) {
         ProdCatalogProdOfferingController controller = new ProdCatalogProdOfferingController();
         int returnCode = -1;
-        returnCode = controller.publishOffering(offeringRequest.getProductCatalogId(),offeringRequest.getProductOfferingId(),offeringRequest.getValidFor());
+        returnCode = controller.publishOffering(offeringRequest.getProductCatalogId(), offeringRequest.getProductOfferingId(), offeringRequest.getValidFor());
         ResultData<OfferingRequest> resultData = new ResultData<OfferingRequest>();
         resultData.setData(offeringRequest);
-        String message = "";
-        if (-1 != returnCode) {
-            message = "SUCCESS";
-        } else {
-            message = "FAILED";
-        }
-        resultData.setMessage(message);
+
+        resultData.setMessage(CommonUtils.getMessage(returnCode));
         resultData.setCode(returnCode);
         return resultData;
     }
