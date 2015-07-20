@@ -39,12 +39,6 @@ public class ResultData<T> implements Serializable {
 		this.message = message;
 	}
 
-	@Override
-	public String toString() {
-		return "ResultData [status=" + code + ", data=" + data + ", message="
-				+ message + "]";
-	}
-
 	public ResultData() {
 		super();
 	}
