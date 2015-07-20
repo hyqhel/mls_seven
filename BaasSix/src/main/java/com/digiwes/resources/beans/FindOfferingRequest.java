@@ -2,12 +2,22 @@ package com.digiwes.resources.beans;
 
 import com.digiwes.basetype.*;
 
+import java.util.Date;
 import java.util.List;
 
 public class FindOfferingRequest {
 
     private List<Condition> condition;
     private String productCatalogId;
+    private Date retrieveTime;
+
+    public Date getRetrieveTime() {
+        return retrieveTime;
+    }
+
+    public void setRetrieveTime(Date retrieveTime) {
+        this.retrieveTime = retrieveTime;
+    }
 
     public List<Condition> getCondition() {
         return condition;

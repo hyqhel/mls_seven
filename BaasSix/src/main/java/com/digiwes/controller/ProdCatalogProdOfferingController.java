@@ -22,7 +22,8 @@ import java.util.List;
  */
 public class ProdCatalogProdOfferingController {
 
-    public ProductCatalogResponse retrieveOffering(String productCatalogId, List<Condition> conditions) {
+    public ProductCatalogResponse retrieveOffering(String productCatalogId,Date retrieveTime, List<Condition>
+            conditions) {
         ProductCatalogResponse response = new ProductCatalogResponse();
 
         ProductCatalog productCatalog = retrieveProductCatalog(productCatalogId);
@@ -30,7 +31,7 @@ public class ProdCatalogProdOfferingController {
         List<ProdCatalogProdOffer> prodCatalogProdOffers = null;
 
         if (null != productCatalog) {
-            prodCatalogProdOffers = productCatalog.retrieveOffering(new Date());
+            prodCatalogProdOffers = productCatalog.retrieveOffering(retrieveTime);
         }
 
         productCatalogOfferings = retrieveProductCatalogOffering(prodCatalogProdOffers, conditions);

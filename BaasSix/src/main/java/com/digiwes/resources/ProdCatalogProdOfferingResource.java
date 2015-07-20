@@ -54,9 +54,7 @@ public class ProdCatalogProdOfferingResource {
 
         ProdCatalogProdOfferingController controller = new ProdCatalogProdOfferingController();
         ProductCatalogResponse productCatalogResponse = controller.retrieveOffering(findOfferingRequest
-                        .getProductCatalogId(),
-                findOfferingRequest
-                        .getCondition());
+                .getProductCatalogId(), findOfferingRequest.getRetrieveTime(), findOfferingRequest.getCondition());
 
         resultResponse.setProductCatalogResponse(productCatalogResponse);
 
