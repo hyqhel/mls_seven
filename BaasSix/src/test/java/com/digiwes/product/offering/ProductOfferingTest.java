@@ -30,6 +30,7 @@ public class ProductOfferingTest {
     public static void initProductSpec() {
         specification = new AtomicProductSpecification("001SP", "11 英寸 MacBook Air SPEC", "Mac Air");
     }
+
     @Before
     public void initOffering() {
         String id = "S001";
@@ -40,8 +41,8 @@ public class ProductOfferingTest {
     }
 
     @Test
-    public void testAssociate()  {
-// *********** Case1 **************
+    public void testAssociate() {
+        // *********** Case1 **************
         TimePeriod targetProdOfferingValidFor = new TimePeriod("2015-06-04 10:20:00", "2015-06-26 10:20:00");
         SimpleProductOffering targetProdOffering = new SimpleProductOffering("T001", "AppleCare For Mac",
                 "AppleCare", targetProdOfferingValidFor, specification);
@@ -60,9 +61,9 @@ public class ProductOfferingTest {
         SimpleProductOffering targetProdOffering2 = new SimpleProductOffering("T001", "AppleCare For Mac",
                 "AppleCare", targetProdOfferingValidFor, specification);
 
-        int returncode = this.srcOffering.associate(targetProdOffering2, type, validFor);
+        int returnCode = this.srcOffering.associate(targetProdOffering2, type, validFor);
         assertEquals("the relationship already exist as the same timePeriod. Cannot associate relationship again.",
-                ProductOfferingErrorEnum.OFFERING_RELATIONSHIP_EXISTING.getCode(), returncode);
+                ProductOfferingErrorEnum.OFFERING_RELATIONSHIP_EXISTING.getCode(), returnCode);
 
         assertEquals("add same SimpleProductOffering and the same relationshipType again",
                 1, this.srcOffering.getProdOfferingRelationship().size());
@@ -101,9 +102,9 @@ public class ProductOfferingTest {
 
         // *********** Case5 **************
         // add relationship with srcProdSpec itSelf.
-        returncode = this.srcOffering.associate(this.srcOffering, type4, validFor);
-        assertEquals("add relationship with srcProdSpec itSelf.",ProductOfferingErrorEnum.OFFERING_ASSOCIATE_ITSELF.getCode(),
-                returncode);
+        returnCode = this.srcOffering.associate(this.srcOffering, type4, validFor);
+        assertEquals("add relationship with srcProdSpec itSelf.", ProductOfferingErrorEnum.OFFERING_ASSOCIATE_ITSELF.getCode(),
+                returnCode);
         assertEquals("add relationship with srcProdSpec itSelf.", 3, this.srcOffering.getProdOfferingRelationship().size());
         assertEquals("add relationship with srcProdSpec itSelf.", expectedRelatedOfferingList, srcOffering
                 .getProdOfferingRelationship());
@@ -130,7 +131,7 @@ public class ProductOfferingTest {
     }
 
     @Test
-    public void testDissociate(){
+    public void testDissociate() {
 
     }
 
@@ -138,7 +139,7 @@ public class ProductOfferingTest {
      * by type
      */
     @Test
-    public void testRetrieveRelatedOfferingByType()  {
+    public void testRetrieveRelatedOfferingByType() {
 
         // *********** Case1 *************
         TimePeriod targetProdOfferingValidFor = new TimePeriod("2015-06-04 10:20:00", "2015-06-26 10:20:00");
@@ -182,7 +183,7 @@ public class ProductOfferingTest {
      * by type and time
      */
     @Test
-    public void testRetrieveRelatedOfferingByTypeAndTime()  {
+    public void testRetrieveRelatedOfferingByTypeAndTime() {
 
         Date validDate = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
