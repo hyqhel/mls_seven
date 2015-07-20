@@ -9,6 +9,7 @@ import com.digiwes.product.spec.ProdSpecCharValueUse;
 import com.digiwes.product.spec.ProductSpecCharUse;
 import com.digiwes.resources.ConfigData;
 import com.digiwes.resources.beans.*;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -49,6 +50,7 @@ public class ProdCatalogProdOfferingController {
         }
         return null;
     }
+
     public ProductOffering retrieveProductOffering(String offeringId) {
         for (ProductOffering pc : ConfigData.offerings) {
             if (offeringId.equals(pc.getId())) {
@@ -60,17 +62,19 @@ public class ProdCatalogProdOfferingController {
 
 
     private List<ProdCatalogOffering> retrieveProductCatalogOffering(List<ProdCatalogProdOffer> prodCatalogProdOffers,
-                                                              List<Condition> conditions) {
+                                                                     List<Condition> conditions) {
         List<ProdCatalogOffering> prodCatalogOfferings = new ArrayList<ProdCatalogOffering>();
 
         String charName = "";
         String charValue = "";
-        for (Condition condition : conditions) {
-            if ("charName".equals(condition.getCode())) {
-                charName = condition.getValue();
-            }
-            if ("charValue".equals(condition.getCode())) {
-                charValue = condition.getValue();
+        if (null != conditions) {
+            for (Condition condition : conditions) {
+                if ("charName".equals(condition.getCode())) {
+                    charName = condition.getValue();
+                }
+                if ("charValue".equals(condition.getCode())) {
+                    charValue = condition.getValue();
+                }
             }
         }
 
@@ -79,18 +83,24 @@ public class ProdCatalogProdOfferingController {
             if (prodCatalogProdOffer.getProdOffering() instanceof SimpleProductOffering) {
                 SimpleProductOffering offering = (SimpleProductOffering) prodCatalogProdOffer.getProdOffering();
                 breakKey = false;
+
                 for (ProductSpecCharUse productSpecCharUse : offering.getProductSpecification().getProdSpecChar()) {
-                    if (charName.equals(productSpecCharUse.getName())) {
-                        for (ProdSpecCharValueUse valueUse : productSpecCharUse.getProdSpecCharValue()) {
-                            if (charValue.equals(valueUse.getProdSpecCharValue().getValue())) {
-                                prodCatalogOfferings.add(ConvertUtils.convertBeanType(prodCatalogProdOffer));
-                                breakKey = true;
+                    if (StringUtils.isNotEmpty(charName)) {
+                        if (charName.equals(productSpecCharUse.getName())) {
+                            for (ProdSpecCharValueUse valueUse : productSpecCharUse.getProdSpecCharValue()) {
+                                if (charValue.equals(valueUse.getProdSpecCharValue().getValue())) {
+                                    prodCatalogOfferings.add(ConvertUtils.convertBeanType(prodCatalogProdOffer));
+                                    breakKey = true;
+                                    break;
+                                }
+                            }
+                            if (breakKey) {
                                 break;
                             }
                         }
-                        if (breakKey) {
-                            break;
-                        }
+                    } else {
+                        prodCatalogOfferings.add(ConvertUtils.convertBeanType(prodCatalogProdOffer));
+                        break;
                     }
                 }
 
