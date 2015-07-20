@@ -15,7 +15,7 @@ import org.apache.log4j.Logger;
 
 /**
  * A list of ProductOfferings for sale, with prices and illustrations, for example in book form or on the web. ProductCatalogs can be used by Customers during a self-care ordering process and may be used across one or more DistributionChannels.
- * <p>
+ * <p/>
  * A list of ProductOfferings for sale, with prices and illustrations, for example in book form or on the web. ProductCatalogs can be used by Customers during a self-care ordering process and may be used across one or more DistributionChannels.
  * ?
  */
@@ -59,8 +59,10 @@ public class ProductCatalog extends Catalog {
         if (CommonUtils.checkParamIsNull(offering)) {
             return ProductOfferingErrorEnum.OFFERING_IS_NULL.getCode();
         }
-        if (CommonUtils.checkParamIsNull(validFor)) {
-            return CommonErrorEnum.VALIDFOR_IS_NULL.getCode();
+
+        int retCode = validPublishDate(validFor);
+        if (CommonErrorEnum.SUCCESS.getCode() != retCode) {
+            return retCode;
         }
 
         if (null == prodCatalogProdOffer) {
@@ -71,7 +73,7 @@ public class ProductCatalog extends Catalog {
             return ProductCatalogErrorEnum.PUBLISH_REPETITIVE_OFFERING.getCode();
         }
         ProdCatalogProdOffer catalogProdOffer = new ProdCatalogProdOffer(offering, validFor);
-        if (!contains(offering,validFor)) {
+        if (!contains(offering, validFor)) {
             prodCatalogProdOffer.add(catalogProdOffer);
         } else {
             return ProductCatalogErrorEnum.PUBLISH_REPETITIVE_OFFERING.getCode();
@@ -100,7 +102,7 @@ public class ProductCatalog extends Catalog {
             return ProductCatalogErrorEnum.PUBLISH_REPETITIVE_OFFERING.getCode();
         }
         ProdCatalogProdOffer catalogProdOffer = new ProdCatalogProdOffer(offering, validFor, price);
-        if (!contains(offering,validFor)) {
+        if (!contains(offering, validFor)) {
             prodCatalogProdOffer.add(catalogProdOffer);
         } else {
             return ProductCatalogErrorEnum.PUBLISH_REPETITIVE_OFFERING.getCode();
@@ -134,7 +136,7 @@ public class ProductCatalog extends Catalog {
             return ProductOfferingErrorEnum.OFFERING_IS_NULL.getCode();
         }
         List<ProdCatalogProdOffer> catalogOffers = retrieveProdCatalogProdOffer(offering);
-        if (null != catalogOffers && 0!= catalogOffers.size()) {
+        if (null != catalogOffers && 0 != catalogOffers.size()) {
             for (ProdCatalogProdOffer catalogOffer : catalogOffers) {
                 catalogOffer.getValidFor().setEndDateTime(new Date());
             }
@@ -275,6 +277,21 @@ public class ProductCatalog extends Catalog {
     public String toString() {
         // TODO - implement ProductCatalog.toString
         return null;
+    }
+
+    private int validPublishDate(TimePeriod validFor) {
+        if (CommonUtils.checkParamIsNull(validFor)) {
+            return CommonErrorEnum.VALIDFOR_IS_NULL.getCode();
+        }
+
+        if (validFor.getStartDateTime().compareTo(validFor.getEndDateTime()) <= 0) {
+            return CommonErrorEnum.START_TIME_GREATER_THAN_END_TIME.getCode();
+        }
+
+        if (validFor.getStartDateTime().compareTo(new Date()) < 0) {
+            return CommonErrorEnum.START_TIME_LESS_THAN_CURRENT_TIME.getCode();
+        }
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
 }

@@ -6,7 +6,9 @@ package com.digiwes.common.enums;
 public enum CommonErrorEnum {
     SUCCESS(200, "SUCCESS"),
     VALIDFOR_IS_NULL(1, "the validFor is null."),
-    TIME_IS_NULL(2, "the time is null");
+    TIME_IS_NULL(2, "the time is null"),
+    START_TIME_GREATER_THAN_END_TIME(3, "endDateTime must not be less than startDateTime."),
+    START_TIME_LESS_THAN_CURRENT_TIME(4, "startDateTime must be less than currentTime.");
     private int code;
     private String message;
 

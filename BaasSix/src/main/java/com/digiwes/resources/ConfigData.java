@@ -13,7 +13,6 @@ import java.util.List;
  * Created by huangyq3 on 2015-07-16.
  */
 public class ConfigData {
-    public static ProductCatalog retrievedProductCatalog = null;
     public static List<ProductCatalog> productCatalogList = new ArrayList<ProductCatalog>();
     public static List<ProductSpecCharacteristic> productSpecChars;
     public static ProductSpecification specification128 = null;
