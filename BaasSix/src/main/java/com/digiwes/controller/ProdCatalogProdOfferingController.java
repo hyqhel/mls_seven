@@ -30,7 +30,7 @@ public class ProdCatalogProdOfferingController {
             prodCatalogProdOffers = productCatalog.retrieveOffering(new Date());
         }
 
-        productCatalogOfferings = retrieveProductOffering(prodCatalogProdOffers, conditions);
+        productCatalogOfferings = retrieveProductCatalogOffering(prodCatalogProdOffers, conditions);
 
         response.setID(productCatalogId);
         response.setName(productCatalog.getName());
@@ -59,7 +59,7 @@ public class ProdCatalogProdOfferingController {
     }
 
 
-    private List<ProdCatalogOffering> retrieveProductOffering(List<ProdCatalogProdOffer> prodCatalogProdOffers,
+    private List<ProdCatalogOffering> retrieveProductCatalogOffering(List<ProdCatalogProdOffer> prodCatalogProdOffers,
                                                               List<Condition> conditions) {
         List<ProdCatalogOffering> prodCatalogOfferings = new ArrayList<ProdCatalogOffering>();
 
