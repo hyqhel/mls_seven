@@ -1,6 +1,7 @@
 package com.digiwes.basetype;
 
 import com.digiwes.common.util.DateAdapter;
+import com.digiwes.common.util.DateUtils;
 import org.apache.commons.lang.StringUtils;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -18,7 +19,7 @@ public class TimePeriod {
 
     /**
      * An instant of time, starting at the TimePeriod
-     * <p/>
+     * <p>
      * Notes:
      * If null, then represents to the beginning of time
      */
@@ -26,7 +27,7 @@ public class TimePeriod {
     public Date startDateTime;
     /**
      * An instant of time, ending at the TimePeriod:
-     * <p/>
+     * <p>
      * Notes:
      * If null, then represents to the end of time
      */
@@ -50,6 +51,7 @@ public class TimePeriod {
     }
 
     public TimePeriod(String startDateTime, String endDateTime) {
+
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             if (StringUtils.isNotEmpty(startDateTime)) {
@@ -58,9 +60,15 @@ public class TimePeriod {
             if (StringUtils.isNotEmpty(endDateTime)) {
                 this.endDateTime = format.parse(endDateTime);
             }
+            if (null != this.startDateTime && null != this.endDateTime) {
+                assert this.startDateTime.compareTo(this.endDateTime) <= 0 : "startDateTime must be less than " +
+                        "endDateTime";
+            }
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+
     }
 
     public TimePeriod() {
