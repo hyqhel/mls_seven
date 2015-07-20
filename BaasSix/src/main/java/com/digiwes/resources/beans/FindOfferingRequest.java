@@ -1,7 +1,9 @@
 package com.digiwes.resources.beans;
 
 import com.digiwes.basetype.*;
+import com.digiwes.common.util.DateAdapter;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +11,8 @@ public class FindOfferingRequest {
 
     private List<Condition> condition;
     private String productCatalogId;
+
+    @XmlJavaTypeAdapter(DateAdapter.class)
     private Date retrieveTime;
 
     public Date getRetrieveTime() {
