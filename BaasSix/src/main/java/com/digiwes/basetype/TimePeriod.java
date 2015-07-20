@@ -1,6 +1,6 @@
 package com.digiwes.basetype;
 
-import com.digiwes.resources.beans.DateAdapter;
+import com.digiwes.common.util.DateAdapter;
 import org.apache.commons.lang.StringUtils;
 
 import javax.xml.bind.annotation.XmlAccessType;

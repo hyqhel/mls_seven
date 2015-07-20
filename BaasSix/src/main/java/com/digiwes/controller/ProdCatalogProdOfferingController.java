@@ -83,7 +83,6 @@ public class ProdCatalogProdOfferingController {
                     if (charName.equals(productSpecCharUse.getName())) {
                         for (ProdSpecCharValueUse valueUse : productSpecCharUse.getProdSpecCharValue()) {
                             if (charValue.equals(valueUse.getProdSpecCharValue().getValue())) {
-                                //TODO  add breakKey and add convertType
                                 prodCatalogOfferings.add(ConvertUtils.convertBeanType(prodCatalogProdOffer));
                                 breakKey = true;
                                 break;

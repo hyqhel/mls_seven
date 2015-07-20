@@ -1,4 +1,4 @@
-package com.digiwes.resources.beans;
+package com.digiwes.common.util;
 
 /**
  * Created by huangyq3 on 2015-07-20.

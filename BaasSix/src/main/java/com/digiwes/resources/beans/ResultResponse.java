@@ -1,6 +1,5 @@
 package com.digiwes.resources.beans;
 
-import java.util.*;
 
 public class ResultResponse {
 
