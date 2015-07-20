@@ -219,7 +219,7 @@ public class ProductCatalog extends Catalog {
         List<ProdCatalogProdOffer> prodCatalogProdOffers = new ArrayList<ProdCatalogProdOffer>();
         if (null != this.prodCatalogProdOffer && this.prodCatalogProdOffer.size() > 0) {
             for (ProdCatalogProdOffer catalogProdOffer : this.prodCatalogProdOffer) {
-                if (offering.equals(catalogProdOffer.getProdOffering())) {
+                if (offering.equals(catalogProdOffer.getProdOffering()) && 0 == catalogProdOffer.getValidFor().isInTimePeriod(new Date())) {
                     prodCatalogProdOffers.add(catalogProdOffer);
                 }
             }
