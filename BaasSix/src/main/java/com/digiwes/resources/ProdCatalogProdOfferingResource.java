@@ -19,7 +19,7 @@ import javax.ws.rs.core.Request;
 import javax.ws.rs.core.UriInfo;
 
 @Service
-@Path("/productCatalog")
+@Path("/catalogManagement")
 public class ProdCatalogProdOfferingResource {
 
     @Context
@@ -29,7 +29,7 @@ public class ProdCatalogProdOfferingResource {
     Request request;
 
     @POST
-    @Path("offering/retire")
+    @Path("retiredOffering")
     @Produces(MediaType.APPLICATION_JSON)
     public ResultData<OfferingRequest> retireOffering(OfferingRequest offeringRequest) {
         ProdCatalogProdOfferingController controller = new ProdCatalogProdOfferingController();
@@ -45,7 +45,7 @@ public class ProdCatalogProdOfferingResource {
 
 
     @POST
-    @Path("offering")
+    @Path("findCatalogOffering")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public ResultResponse retrieveOffering(FindOfferingRequest findOfferingRequest) {
@@ -65,7 +65,7 @@ public class ProdCatalogProdOfferingResource {
     }
 
     @POST
-    @Path("offering/publish")
+    @Path("publishOffering")
     @Produces(MediaType.APPLICATION_JSON)
     public ResultData<OfferingRequest> publishOffering(OfferingRequest offeringRequest) {
         ProdCatalogProdOfferingController controller = new ProdCatalogProdOfferingController();
