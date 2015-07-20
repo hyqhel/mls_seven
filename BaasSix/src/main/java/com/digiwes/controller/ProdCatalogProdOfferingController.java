@@ -1,6 +1,8 @@
 package com.digiwes.controller;
 
 import com.digiwes.basetype.Condition;
+import com.digiwes.basetype.TimePeriod;
+import com.digiwes.common.enums.ProductCatalogErrorEnum;
 import com.digiwes.common.util.ConvertUtils;
 import com.digiwes.product.offering.*;
 import com.digiwes.product.offering.catalog.ProdCatalogProdOffer;
@@ -60,6 +62,29 @@ public class ProdCatalogProdOfferingController {
         return null;
     }
 
+    public int publishOffering(String catalogId,String offeringId,TimePeriod validFor){
+        ProductCatalog pc = retrieveProductCatalog(catalogId);
+        int returnCode = -1;
+        if (null != pc) {
+            ProductOffering productOffering = retrieveProductOffering(offeringId);
+            returnCode = pc.publish(productOffering, validFor);
+        } else {
+            returnCode = ProductCatalogErrorEnum.PRODUCT_CATALOG_IS_NULL.getCode();
+        }
+        return  returnCode;
+    }
+
+    public int retiredOffering(String catalogId,String offeringId){
+        ProductCatalog pc = retrieveProductCatalog(catalogId);
+        int returnCode = -1;
+        if (null != pc) {
+            ProductOffering prodOffering = retrieveProductOffering(offeringId);
+            returnCode = pc.retired(prodOffering);
+        } else {
+            returnCode = ProductCatalogErrorEnum.PRODUCT_CATALOG_IS_NULL.getCode();
+        }
+        return  returnCode;
+    }
 
     private List<ProdCatalogOffering> retrieveProductCatalogOffering(List<ProdCatalogProdOffer> prodCatalogProdOffers,
                                                                      List<Condition> conditions) {

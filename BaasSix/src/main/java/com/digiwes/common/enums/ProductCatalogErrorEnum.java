@@ -7,7 +7,10 @@ public enum ProductCatalogErrorEnum {
     PUBLISH_REPETITIVE_OFFERING(285736960, "Cannot publish the repetitive Offering!"),
     RETIRED_REPETITIVE_OFFERING(285736961, "the Object of ProductOffering Has not been published to the " +
             "ProductCatalog."),
-    IS_NOT_PUBLISH_OFFERING(285736962, "the Object of ProductOffering Has not been published in the ProductCatalog.");
+    IS_NOT_PUBLISH_OFFERING(285736962, "the Object of ProductOffering Has not been published in the ProductCatalog."),
+    PRODUCT_CATALOG_IS_NULL(285736963, "catalog is null!");
+
+
     private int code;
     private String message;
 

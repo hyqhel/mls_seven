@@ -32,17 +32,11 @@ public class ProdCatalogProdOfferingResource {
     @Produces(MediaType.APPLICATION_JSON)
     public ResultData<OfferingRequest> retireOffering(OfferingRequest offeringRequest) {
         ProdCatalogProdOfferingController controller = new ProdCatalogProdOfferingController();
-        ProductCatalog pc = controller.retrieveProductCatalog(offeringRequest.getProductCatalogId());
         int returnCode = -1;
-        String message = "";
-        if (null != pc) {
-            ProductOffering prodOffering = controller.retrieveProductOffering(offeringRequest.getProductOfferingId());
-            returnCode = pc.retired(prodOffering);
-        } else {
-            message = "can not find this catalog!";
-        }
+        returnCode = controller.retiredOffering(offeringRequest.getProductCatalogId(),offeringRequest.getProductOfferingId());
         ResultData<OfferingRequest> resultData = new ResultData<OfferingRequest>();
         resultData.setData(offeringRequest);
+        String message = "";
         if (-1 != returnCode) {
             message = "SUCCESS";
         } else {
@@ -79,19 +73,15 @@ public class ProdCatalogProdOfferingResource {
     @Produces(MediaType.APPLICATION_JSON)
     public ResultData<OfferingRequest> publishOffering(OfferingRequest offeringRequest) {
         ProdCatalogProdOfferingController controller = new ProdCatalogProdOfferingController();
-        ProductCatalog pc = controller.retrieveProductCatalog(offeringRequest.getProductCatalogId());
         int returnCode = -1;
-        String message = "";
-        if (null != pc) {
-            ProductOffering productOffering = controller.retrieveProductOffering(offeringRequest.getProductOfferingId());
-            returnCode = pc.publish(productOffering, offeringRequest.getValidFor());
-        } else {
-            message = "can not find this catalog!";
-        }
+        returnCode = controller.publishOffering(offeringRequest.getProductCatalogId(),offeringRequest.getProductOfferingId(),offeringRequest.getValidFor());
         ResultData<OfferingRequest> resultData = new ResultData<OfferingRequest>();
         resultData.setData(offeringRequest);
+        String message = "";
         if (-1 != returnCode) {
-            message = CommonErrorEnum.getMessage(returnCode);
+            message = "SUCCESS";
+        } else {
+            message = "FAILED";
         }
         resultData.setMessage(message);
         resultData.setCode(returnCode);
