@@ -355,7 +355,6 @@ public abstract class ProductSpecification {
      */
     public List<ProductSpecCharUse> retrieveCharacteristic(Date time) {
         List<ProductSpecCharUse> prodSpecCharUseByDate = new ArrayList<ProductSpecCharUse>();
-        CommonUtils.checkParamIsNull("time", time);
         if (!CommonUtils.checkParamIsNull(time)) {
             for (ProductSpecCharUse productSpecCharUse : prodSpecChar) {
                 TimePeriod validForTime = productSpecCharUse.getProdSpecChar().getValidFor();

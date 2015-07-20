@@ -67,11 +67,11 @@ public class CommonUtils {
         return false;
     }
 
-    public static void checkParamIsNull(String paramName, Object paramValue) throws IllegalArgumentException {
-        if (null == paramValue || "".equals(paramValue.toString())) {
-            throw new IllegalArgumentException("Parameter [" + paramName + "] must be not null. ");
-        }
-    }
+//    public static void checkParamIsNull(String paramName, Object paramValue) throws IllegalArgumentException {
+//        if (null == paramValue || "".equals(paramValue.toString())) {
+//            throw new IllegalArgumentException("Parameter [" + paramName + "] must be not null. ");
+//        }
+//    }
 
     public static String getMessage(int code) {
         String message = "";
