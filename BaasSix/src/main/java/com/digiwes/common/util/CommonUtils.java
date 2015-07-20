@@ -85,10 +85,13 @@ public class CommonUtils {
         switch (abeCode) {
             case 6:
                 message = ProductOfferingErrorEnum.getMessage(code);
+                break;
             case 8:
                 message = ProductCatalogErrorEnum.getMessage(code);
+                break;
             case 13:
                 message = ProductSpecErrorEnum.getMessage(code);
+                break;
             default:
                 message = "";
         }

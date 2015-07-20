@@ -45,7 +45,7 @@ public class ProdCatalogProdOfferingController {
     }
 
     public ProductCatalog retrieveProductCatalog(String productCatalogId) {
-        if (!StringUtils.isNotEmpty(productCatalogId)) {
+        if (StringUtils.isNotEmpty(productCatalogId)) {
             for (ProductCatalog prodCatalog : ConfigData.productCatalogList) {
                 if (productCatalogId.equals(prodCatalog.getID())) {
                     return prodCatalog;
@@ -56,7 +56,7 @@ public class ProdCatalogProdOfferingController {
     }
 
     public ProductOffering retrieveProductOffering(String offeringId) {
-        if (!StringUtils.isNotEmpty(offeringId)) {
+        if (StringUtils.isNotEmpty(offeringId)) {
             for (ProductOffering pc : ConfigData.offerings) {
                 if (offeringId.equals(pc.getId())) {
                     return pc;

@@ -17,7 +17,7 @@ public enum ProductOfferingErrorEnum {
     private int code;
     private String message;
 
-    ProductOfferingErrorEnum(int code, String name) {
+    ProductOfferingErrorEnum(int code, String message) {
         this.code = code;
         this.message = message;
     }
