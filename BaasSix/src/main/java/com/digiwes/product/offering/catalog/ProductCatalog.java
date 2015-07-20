@@ -284,7 +284,7 @@ public class ProductCatalog extends Catalog {
             return CommonErrorEnum.VALIDFOR_IS_NULL.getCode();
         }
 
-        if (validFor.getStartDateTime().compareTo(validFor.getEndDateTime()) <= 0) {
+        if (validFor.getStartDateTime().compareTo(validFor.getEndDateTime()) > 0) {
             return CommonErrorEnum.START_TIME_GREATER_THAN_END_TIME.getCode();
         }
 
