@@ -31,11 +31,11 @@ public class ProdCatalogProdOfferingResource {
     @POST
     @Path("retiredOffering")
     @Produces(MediaType.APPLICATION_JSON)
-    public ResultData<OfferingRequest> retireOffering(OfferingRequest offeringRequest) {
+    public BaseResult retireOffering(OfferingRequest offeringRequest) {
         ProdCatalogProdOfferingController controller = new ProdCatalogProdOfferingController();
         int returnCode = -1;
         returnCode = controller.retiredOffering(offeringRequest.getProductCatalogId(), offeringRequest.getProductOfferingId());
-        ResultData<OfferingRequest> resultData = new ResultData<OfferingRequest>();
+        BaseResult resultData = new BaseResult();
 
         resultData.setMessage(CommonUtils.getMessage(returnCode));
         resultData.setCode(returnCode);
