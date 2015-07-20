@@ -1,7 +1,10 @@
 package com.digiwes.basetype;
 
+import com.digiwes.resources.beans.DateAdapter;
 import org.apache.commons.lang.StringUtils;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,6 +22,7 @@ public class TimePeriod {
      * Notes:
      * If null, then represents to the beginning of time
      */
+    @XmlJavaTypeAdapter(DateAdapter.class)
     public Date startDateTime;
     /**
      * An instant of time, ending at the TimePeriod:
@@ -26,6 +30,7 @@ public class TimePeriod {
      * Notes:
      * If null, then represents to the end of time
      */
+    @XmlJavaTypeAdapter(DateAdapter.class)
     public Date endDateTime;
 
     public Date getStartDateTime() {
