@@ -19,15 +19,12 @@ public class ResultData<T>  extends BaseResult implements Serializable{
 		this.data = data;
 	}
 
-
-
 	public ResultData() {
 		super();
 	}
 
 	public ResultData( T data) {
 		super();
-
 		this.data = data;
 	}
 
