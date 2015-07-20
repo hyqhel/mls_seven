@@ -11,7 +11,6 @@ public class BaseResult implements Serializable  {
 
     private int code;
 
-
     private String message;
 
     public int getCode() {
@@ -21,8 +20,6 @@ public class BaseResult implements Serializable  {
     public void setCode(int code) {
         this.code = code;
     }
-
-
 
     public String getMessage() {
         return message;
