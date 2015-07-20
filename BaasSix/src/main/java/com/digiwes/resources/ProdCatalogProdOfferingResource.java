@@ -36,7 +36,6 @@ public class ProdCatalogProdOfferingResource {
         int returnCode = -1;
         returnCode = controller.retiredOffering(offeringRequest.getProductCatalogId(), offeringRequest.getProductOfferingId());
         ResultData<OfferingRequest> resultData = new ResultData<OfferingRequest>();
-        resultData.setData(offeringRequest);
 
         resultData.setMessage(CommonUtils.getMessage(returnCode));
         resultData.setCode(returnCode);
