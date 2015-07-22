@@ -25,8 +25,27 @@ public class ProdCatalogProdOfferingResource {
     @Context
     UriInfo uriInfo;
 
+    @POST
+    @Path("/findCatalogOffering")
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public ResultResponse retrieveOffering(FindOfferingRequest findOfferingRequest) {
+        ResultResponse resultResponse = new ResultResponse();
+        resultResponse.setCode(CommonErrorEnum.SUCCESS.getCode());
+        resultResponse.setMessage(CommonErrorEnum.SUCCESS.getMessage());
+
+        ProdCatalogProdOfferingController controller = new ProdCatalogProdOfferingController();
+        ProductCatalogResponse productCatalogResponse = controller.retrieveOffering(findOfferingRequest
+                .getProductCatalogId(), findOfferingRequest.getRetrieveTime(), findOfferingRequest.getCondition());
+
+        resultResponse.setProductCatalogResponse(productCatalogResponse);
+
+        return resultResponse;
+    }
+
     @Context
     Request request;
+
 
     @POST
     @Path("retiredOffering")
@@ -42,25 +61,6 @@ public class ProdCatalogProdOfferingResource {
         return resultData;
     }
 
-
-    @POST
-    @Path("findCatalogOffering")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public ResultResponse retrieveOffering(FindOfferingRequest findOfferingRequest) {
-        ResultResponse resultResponse = new ResultResponse();
-        resultResponse.setCode(CommonErrorEnum.SUCCESS.getCode());
-        resultResponse.setMessage(CommonErrorEnum.SUCCESS.getMessage());
-
-        ProdCatalogProdOfferingController controller = new ProdCatalogProdOfferingController();
-        ProductCatalogResponse productCatalogResponse = controller.retrieveOffering(findOfferingRequest
-                .getProductCatalogId(), findOfferingRequest.getRetrieveTime(), findOfferingRequest.getCondition());
-
-        resultResponse.setProductCatalogResponse(productCatalogResponse);
-
-        return resultResponse;
-    }
-
     @POST
     @Path("publishOffering")
     @Produces(MediaType.APPLICATION_JSON)
@@ -70,9 +70,9 @@ public class ProdCatalogProdOfferingResource {
         returnCode = controller.publishOffering(offeringRequest.getProductCatalogId(), offeringRequest.getProductOfferingId(), offeringRequest.getValidFor());
         ResultData<OfferingRequest> resultData = new ResultData<OfferingRequest>();
         resultData.setData(offeringRequest);
-
         resultData.setMessage(CommonUtils.getMessage(returnCode));
         resultData.setCode(returnCode);
+
         return resultData;
     }
 

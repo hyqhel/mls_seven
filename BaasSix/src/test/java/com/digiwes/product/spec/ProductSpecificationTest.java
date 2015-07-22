@@ -27,6 +27,7 @@ public class ProductSpecificationTest {
 
     @Before
     public void initProdSpec() {
+
         srcProdSpec = new AtomicProductSpecification("S001", "iPhone6", "Apple iPhone");
         validFor = new TimePeriod("2015-02-03 12:00:00", "2015-07-21 23:59:59");
         prodSpec = new AtomicProductSpecification("mac-13", "13-inch MacBook Pro", "apple");

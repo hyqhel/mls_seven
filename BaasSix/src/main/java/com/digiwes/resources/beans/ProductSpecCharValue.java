@@ -2,6 +2,8 @@ package com.digiwes.resources.beans;
 
 import com.digiwes.basetype.*;
 
+import javax.xml.bind.annotation.XmlElement;
+
 public class ProductSpecCharValue {
 
     /**
@@ -37,6 +39,7 @@ public class ProductSpecCharValue {
     /**
      * The period of time for which the use of the CharacteristicSpecificationValue is applicable.
      */
+
     private TimePeriod validFor;
 
     public String getValueType() {
@@ -95,6 +98,7 @@ public class ProductSpecCharValue {
         this.rangeInterval = rangeInterval;
     }
 
+    @XmlElement
     public TimePeriod getValidFor() {
         return this.validFor;
     }

@@ -11,6 +11,8 @@ import com.digiwes.product.spec.ProdSpecCharValueUse;
 import com.digiwes.product.spec.ProductSpecCharUse;
 import com.digiwes.resources.ConfigData;
 import com.digiwes.resources.beans.*;
+import com.sun.istack.NotNull;
+import org.apache.commons.collections.bag.SynchronizedSortedBag;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
@@ -22,13 +24,13 @@ import java.util.List;
  */
 public class ProdCatalogProdOfferingController {
 
-    public ProductCatalogResponse retrieveOffering(String productCatalogId,Date retrieveTime, List<Condition>
+    public ProductCatalogResponse retrieveOffering(String productCatalogId, Date retrieveTime, List<Condition>
             conditions) {
         ProductCatalogResponse response = new ProductCatalogResponse();
 
         ProductCatalog productCatalog = retrieveProductCatalog(productCatalogId);
         List<ProdCatalogOffering> productCatalogOfferings = null;
-        List<ProdCatalogProdOffer> prodCatalogProdOffers = null;
+        List<ProdCatalogProdOffer> prodCatalogProdOffers = new ArrayList<ProdCatalogProdOffer>();
 
         if (null != productCatalog) {
             prodCatalogProdOffers = productCatalog.retrieveOffering(retrieveTime);
@@ -56,7 +58,8 @@ public class ProdCatalogProdOfferingController {
         return null;
     }
 
-    public ProductOffering retrieveProductOffering(String offeringId) {
+
+    public ProductOffering retrieveProductOffering( String offeringId) {
         if (StringUtils.isNotEmpty(offeringId)) {
             for (ProductOffering pc : ConfigData.offerings) {
                 if (offeringId.equals(pc.getId())) {

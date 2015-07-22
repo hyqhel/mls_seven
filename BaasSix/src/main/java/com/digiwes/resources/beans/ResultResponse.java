@@ -1,6 +1,9 @@
 package com.digiwes.resources.beans;
 
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class ResultResponse {
 
     private String message;

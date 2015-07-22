@@ -5,6 +5,7 @@ import com.digiwes.common.util.DateUtils;
 import org.apache.commons.lang.StringUtils;
 
 import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,21 +20,22 @@ public class TimePeriod {
 
     /**
      * An instant of time, starting at the TimePeriod
-     * <p>
+     * <p/>
      * Notes:
      * If null, then represents to the beginning of time
      */
-    @XmlJavaTypeAdapter(DateAdapter.class)
-    public Date startDateTime;
+
+    private Date startDateTime;
     /**
      * An instant of time, ending at the TimePeriod:
-     * <p>
+     * <p/>
      * Notes:
      * If null, then represents to the end of time
      */
-    @XmlJavaTypeAdapter(DateAdapter.class)
-    public Date endDateTime;
+    private Date endDateTime;
 
+    @XmlElement
+    @XmlJavaTypeAdapter(DateAdapter.class)
     public Date getStartDateTime() {
         return this.startDateTime;
     }
@@ -42,6 +44,8 @@ public class TimePeriod {
         this.startDateTime = startDateTime;
     }
 
+    @XmlElement
+    @XmlJavaTypeAdapter(DateAdapter.class)
     public Date getEndDateTime() {
         return this.endDateTime;
     }
