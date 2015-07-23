@@ -91,8 +91,9 @@ public class ProductCatalog extends Catalog {
         if (CommonUtils.checkParamIsNull(offering)) {
             return ProductOfferingErrorEnum.OFFERING_IS_NULL.getCode();
         }
-        if (CommonUtils.checkParamIsNull(validFor)) {
-            return CommonErrorEnum.VALIDFOR_IS_NULL.getCode();
+        int retCode = validPublishDate(validFor);
+        if (CommonErrorEnum.SUCCESS.getCode() != retCode) {
+            return retCode;
         }
         if (null == prodCatalogProdOffer) {
             prodCatalogProdOffer = new ArrayList<ProdCatalogProdOffer>();

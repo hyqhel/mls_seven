@@ -28,7 +28,7 @@ public class ProdCatalogProdOfferingResource {
     @POST
     @Path("/findCatalogOffering")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
     public ResultResponse retrieveOffering(FindOfferingRequest findOfferingRequest) {
         ResultResponse resultResponse = new ResultResponse();
         resultResponse.setCode(CommonErrorEnum.SUCCESS.getCode());
