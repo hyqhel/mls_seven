@@ -73,8 +73,22 @@ public class BundledProductOfferingTest {
                 "2.9GHz 双核 Intel Core i5 处理器 Turbo Boost 高达 3.3GHz", validFor, prodSpec);
     }
 
+
     @Test
     public void testComposeOf()  {
-
+        //bundle a null offering
+        //bundle a exists offering
+        //bundle myself offering
     }
+
+    @Test
+    public void testComposedOf1() {
+        //bundle a null offering but  lowerLimit <= upperLimit
+        //bundle a null offering but  lowerLimit > upperLimit
+        //bundle a exists  offering but  lowerLimit <= upperLimit
+        //bundle a exists  offering but  lowerLimit > upperLimit
+        //bundle myself offering but  lowerLimit <= upperLimit
+        //bundle myself offering but  lowerLimit > upperLimit
+    }
+
 }
