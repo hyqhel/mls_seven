@@ -15,7 +15,7 @@ package com.digiwes.resources.beans.Service;
 
 public class ServiceCandidateRef {
   private String id;
-
+  private String version;
   public String getId() {
     return id;
   }
@@ -54,4 +54,11 @@ public class ServiceCandidateRef {
     this.name = value;
   }
 
+  public String getVersion() {
+    return version;
+  }
+
+  public void setVersion(String version) {
+    this.version = version;
+  }
 }

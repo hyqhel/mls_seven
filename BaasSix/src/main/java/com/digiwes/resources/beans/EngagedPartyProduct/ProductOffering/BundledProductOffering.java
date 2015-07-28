@@ -34,14 +34,14 @@ public class BundledProductOffering {
     this.href = value;
   }
 
-  private String lifecycelStatus;
+  private String lifecycleStatus;
 
-  public String getLifecycelStatus() {
-    return lifecycelStatus;
+  public String getLifecycleStatus() {
+    return lifecycleStatus;
   }
 
-  public void setLifecycelStatus(String value) {
-    this.lifecycelStatus = value;
+  public void setLifecycleStatus(String lifecycleStatus) {
+    this.lifecycleStatus = lifecycleStatus;
   }
 
   private String name;

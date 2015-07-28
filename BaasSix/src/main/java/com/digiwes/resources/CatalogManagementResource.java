@@ -23,7 +23,7 @@ public class CatalogManagementResource {
     @POST
     @Consumes({ "application/json", "application/xml" })
     @Produces({ "application/json", "application/xml" })
-    public ProductOfferingResp publishOffering(ProductOfferingResp productRep )throws Exception{
+    public ProductOfferingResp publishOffering(ProductOfferingResp productRep ){
         CatalogManagementController catalogManagementController = new CatalogManagementController();
         catalogManagementController.publishProductOffering(productRep);
         return productRep;
@@ -32,7 +32,7 @@ public class CatalogManagementResource {
      * retrieveOffering
      */
     @Path("/productOffering")
-    @POST
+    @GET
     @Consumes({ "application/json", "application/xml" })
     @Produces({ "application/json", "application/xml" })
     public List<ProductOfferingResp> retrieveOffering(@PathParam("fields") String fields,@PathParam("offeringName") String offeringName,@PathParam("time") Date time) throws Exception {
