@@ -16,6 +16,7 @@ public class SimpleProductOfferingTest {
     @Test
     public void createSimpleProductOffering() {
 
+        //create a simple by null spec
         String id = "0001OF";
         String name = "11 英寸 MacBook Air";
         TimePeriod validFor = new TimePeriod("2015-06-04 10:20:00", "2015-06-26 10:20:00");
@@ -27,6 +28,7 @@ public class SimpleProductOfferingTest {
         } catch (AssertionError ex) {
         }
 
+        //create a simple by right spec
         prodSpec = new AtomicProductSpecification("001SP", "11 英寸 MacBook Air SPEC", "Mac Air");
         SimpleProductOffering offering = new SimpleProductOffering(id, name, description, validFor, prodSpec);
         assertEquals("0001OF", offering.getId());

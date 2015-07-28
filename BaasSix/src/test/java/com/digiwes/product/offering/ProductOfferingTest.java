@@ -130,11 +130,6 @@ public class ProductOfferingTest {
         System.out.println(this.srcOffering.toString());
     }
 
-    @Test
-    public void testDissociate() {
-
-    }
-
     /**
      * by type
      */
