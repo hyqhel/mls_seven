@@ -61,12 +61,18 @@ public class CommonUtils {
      * check parameter is null
      */
     public static boolean checkParamIsNull(Object obj) {
-        if (null == obj) {
-            return true;
-        }
-        return false;
+        return (null == obj);
     }
-
+    public static void checkParameterIsNulForException(Object obj,String parameterName){
+        if(checkParamIsNull(obj)){
+            throw new IllegalArgumentException(parameterName+"must not be null");
+        }
+        if(obj instanceof String ){
+            if(StringUtils.isEmpty((String )obj)){
+                throw new IllegalArgumentException(parameterName+"must not be null");
+            }
+        }
+    }
 //    public static void checkParamIsNull(String paramName, Object paramValue) throws IllegalArgumentException {
 //        if (null == paramValue || "".equals(paramValue.toString())) {
 //            throw new IllegalArgumentException("Parameter [" + paramName + "] must be not null. ");

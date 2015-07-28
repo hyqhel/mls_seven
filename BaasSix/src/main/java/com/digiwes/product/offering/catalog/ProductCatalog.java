@@ -180,6 +180,7 @@ public class ProductCatalog extends Catalog {
      * @param time
      */
     public List<ProdCatalogProdOffer> retrieveOffering(Date time) {
+        CommonUtils.checkParameterIsNulForException(time,"time");
         List<ProdCatalogProdOffer> catalogProdOffers = new ArrayList<ProdCatalogProdOffer>();
         if (null != prodCatalogProdOffer) {
             for (ProdCatalogProdOffer catalogProdOffer : prodCatalogProdOffer) {
@@ -195,8 +196,34 @@ public class ProductCatalog extends Catalog {
      * @param offeringName
      */
     public List<ProdCatalogProdOffer> retrieveOffering(String offeringName) {
-        // TODO - implement ProductCatalog.retrieveOffering
-        return null;
+        CommonUtils.checkParameterIsNulForException(offeringName,"offeringName");
+        List<ProdCatalogProdOffer> catalogProdOffers = new ArrayList<ProdCatalogProdOffer>();
+        if (null != prodCatalogProdOffer) {
+            for (ProdCatalogProdOffer catalogProdOffer : prodCatalogProdOffer) {
+                if (offeringName.equals(catalogProdOffer.getProdOffering().getName())) {
+                    catalogProdOffers.add(catalogProdOffer);
+                }
+            }
+        }
+        return catalogProdOffers;
+    }
+
+    /**
+     * @param time
+     * @param offeringName
+     */
+    public List<ProdCatalogProdOffer> retrieveOffering(String offeringName,Date time) {
+        CommonUtils.checkParameterIsNulForException(offeringName,"offeringName");
+        CommonUtils.checkParameterIsNulForException(time,"time");
+        List<ProdCatalogProdOffer> catalogProdOffers = new ArrayList<ProdCatalogProdOffer>();
+        if (null != prodCatalogProdOffer) {
+            for (ProdCatalogProdOffer catalogProdOffer : prodCatalogProdOffer) {
+                if (0 == catalogProdOffer.getValidFor().isInTimePeriod(time)&&offeringName.equals(catalogProdOffer.getProdOffering().getName())) {
+                    catalogProdOffers.add(catalogProdOffer);
+                }
+            }
+        }
+        return catalogProdOffers;
     }
 
     /**
