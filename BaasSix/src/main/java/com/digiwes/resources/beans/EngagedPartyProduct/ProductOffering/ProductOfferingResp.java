@@ -61,9 +61,6 @@ public class ProductOfferingResp{
     this.lastUpdate = lastUpdate;
   }
 
-  public boolean isBunlde() {
-    return isBunlde;
-  }
 
   public String getVersion() {
     return version;
@@ -93,14 +90,15 @@ public class ProductOfferingResp{
     this.description = value;
   }
 
-  private boolean isBunlde;
 
-  public boolean getIsBunlde() {
-    return isBunlde;
+  private boolean isBundle;
+
+  public boolean isBundle() {
+    return isBundle;
   }
 
-  public void setIsBunlde(boolean value) {
-    this.isBunlde = value;
+  public void setIsBundle(boolean isBundle) {
+    this.isBundle = isBundle;
   }
 
   private String lifecycleStatus;
@@ -123,74 +121,77 @@ public class ProductOfferingResp{
     this.validFor = value;
   }
 
-  private List<ChannelRef> channelRef;
+  private List<ChannelRef> channel;
   @XmlElement
-  public List<ChannelRef> getChannelRef() {
-    return channelRef;
+  public List<ChannelRef> getChannel() {
+    return channel;
   }
 
   public void setChannelRef(List<ChannelRef> value) {
-    this.channelRef = value;
+    this.channel = value;
   }
 
-  private List<PlaceRef> placeRef;
+  private List<PlaceRef> place;
   @XmlElement
-  public List<PlaceRef> getPlaceRef() {
-    return placeRef;
+  public List<PlaceRef> getPlace() {
+    return place;
   }
 
-  public void setPlaceRef(List<PlaceRef> value) {
-    this.placeRef = value;
+  public void setPlace(List<PlaceRef> value) {
+    this.place = value;
   }
 
-  private ProductSpecificationRef productSpecificationRef;
+  private ProductSpecificationRef productSpecification;
 
-  public ProductSpecificationRef getProductSpecificationRef() {
-    return productSpecificationRef;
+  public ProductSpecificationRef getProductSpecification() {
+    return productSpecification;
   }
 
-  public void setProductSpecificationRef(ProductSpecificationRef value) {
-    this.productSpecificationRef = value;
+  public void setProductSpecification(ProductSpecificationRef value) {
+    this.productSpecification = value;
   }
 
-  private List<CategoryRef> categoryRef;
+  private List<CategoryRef> category;
   @XmlElement
-  public List<CategoryRef> getCategoryRef() {
-    return categoryRef;
+  public List<CategoryRef> getCategory() {
+    return category;
   }
 
-  public void setCategoryRef(List<CategoryRef> value) {
-    this.categoryRef = value;
+  public void setCategory(List<CategoryRef> category) {
+    this.category = category;
   }
 
-  private ServiceCandidateRef serviceCandidateRef;
 
-  public ServiceCandidateRef getServiceCandidateRef() {
-    return serviceCandidateRef;
+
+
+  private ServiceCandidateRef serviceCandidate;
+
+  public ServiceCandidateRef getServiceCandidate() {
+    return serviceCandidate;
   }
 
-  public void setServiceCandidateRef(ServiceCandidateRef value) {
-    this.serviceCandidateRef = value;
+  public void setServiceCandidate(ServiceCandidateRef serviceCandidate) {
+    this.serviceCandidate = serviceCandidate;
   }
 
-  private ResourceCandidateRef resourceCandidateRef;
+  private ResourceCandidateRef resourceCandidate;
 
-  public ResourceCandidateRef getResourceCandidateRef() {
-    return resourceCandidateRef;
+  public ResourceCandidateRef getResourceCandidate() {
+    return resourceCandidate;
   }
 
-  public void setResourceCandidateRef(ResourceCandidateRef value) {
-    this.resourceCandidateRef = value;
+  public void setResourceCandidate(ResourceCandidateRef value) {
+    this.resourceCandidate = value;
   }
 
-  private ServiceLevelAgreementRef serviceLevelAgreementRef;
+  private ServiceLevelAgreementRef serviceLevelAgreement;
 
-  public ServiceLevelAgreementRef getServiceLevelAgreementRef() {
-    return serviceLevelAgreementRef;
+  public ServiceLevelAgreementRef getServiceLevelAgreement() {
+    return serviceLevelAgreement;
   }
 
-  public void setServiceLevelAgreementRef(ServiceLevelAgreementRef value) {
-    this.serviceLevelAgreementRef = value;
+  public void setServiceLevelAgreement(ServiceLevelAgreementRef value) {
+    this.serviceLevelAgreement = value;
   }
 
   private List<ProductOfferingTerm> productOfferingTerm;
