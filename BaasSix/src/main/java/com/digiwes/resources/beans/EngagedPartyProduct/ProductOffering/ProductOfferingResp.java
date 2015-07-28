@@ -15,6 +15,7 @@ package com.digiwes.resources.beans.EngagedPartyProduct.ProductOffering;
 
 import com.digiwes.basetype.TimePeriod;
 import com.digiwes.common.util.DateAdapter;
+import com.digiwes.product.offering.catalog.ProdCatalogProdOffer;
 import com.digiwes.resources.beans.EngagedPartyProduct.Category.CategoryRef;
 import com.digiwes.resources.beans.EngagedPartyProduct.ProductSpecification.ProductSpecificationRef;
 import com.digiwes.resources.beans.Resource.ResourceCandidateRef;
@@ -223,4 +224,10 @@ public class ProductOfferingResp{
     this.bundledProductOffering = value;
   }
 
+  public void convertFromProdCatalogProdOffeing(ProdCatalogProdOffer prodCatalogProdOffer){
+    this.id = prodCatalogProdOffer.getProdOffering().getId();
+    this.name = prodCatalogProdOffer.getProdOffering().getName();
+    this.description = prodCatalogProdOffer.getProdOffering().getDescription();
+    this.lifecycleStatus = prodCatalogProdOffer.getProdOffering().getStatus();
+  }
 }
