@@ -29,11 +29,11 @@ public class ConfigServlet extends HttpServlet {
         createProductOffering();
 
         TimePeriod validFor = new TimePeriod("2015-06-04 10:20:00", "2015-08-26 10:20:00");
-        ProductCatalog productCatalog = new ProductCatalog("1", "AppleCompany",
+         ConfigData.productCatalog = new ProductCatalog("1", "AppleCompany",
                 ProductCatalogType.WEB.getValue(), validFor);
 
         ConfigData.productCatalogList = new ArrayList<ProductCatalog>();
-        ConfigData.productCatalogList.add(productCatalog);
+        ConfigData.productCatalogList.add(ConfigData.productCatalog);
     }
 
 

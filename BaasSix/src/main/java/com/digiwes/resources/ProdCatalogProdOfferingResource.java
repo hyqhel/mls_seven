@@ -50,11 +50,12 @@ public class ProdCatalogProdOfferingResource {
     @Path("/offering")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
-    public ResultResponse findCatalogOffering(@QueryParam(value = "productCatalogId")String productCatalogId,@QueryParam(value = "retrieveTime")String retrieveTime) {
+    public ResultResponse findCatalogOffering(@QueryParam(value = "date_time") String date_time,@QueryParam(value = "productCatalogId")String productCatalogId,@QueryParam(value = "retrieveTime")String retrieveTime) {
         ResultResponse resultResponse = new ResultResponse();
         resultResponse.setCode(CommonErrorEnum.SUCCESS.getCode());
         resultResponse.setMessage(CommonErrorEnum.SUCCESS.getMessage());
 
+        System.out.println("aaaaaaa"+date_time);
         ProdCatalogProdOfferingController controller = new ProdCatalogProdOfferingController();
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date time = null;

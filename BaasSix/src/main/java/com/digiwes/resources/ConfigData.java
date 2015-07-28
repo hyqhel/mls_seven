@@ -19,4 +19,5 @@ public class ConfigData {
     public static ProductSpecification specification256 = null;
     public static ProductSpecification specification512 = null;
     public static List<ProductOffering> offerings = new ArrayList<ProductOffering>();
+    public static ProductCatalog productCatalog  = null;
 }
