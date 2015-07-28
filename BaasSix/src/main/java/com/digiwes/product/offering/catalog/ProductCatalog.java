@@ -2,6 +2,7 @@ package com.digiwes.product.offering.catalog;
 
 import com.digiwes.common.catalog.*;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import com.digiwes.basetype.*;
@@ -9,6 +10,7 @@ import com.digiwes.common.enums.CommonErrorEnum;
 import com.digiwes.common.enums.ProductCatalogErrorEnum;
 import com.digiwes.common.enums.ProductOfferingErrorEnum;
 import com.digiwes.common.util.CommonUtils;
+import com.digiwes.common.util.DateUtils;
 import com.digiwes.product.offering.*;
 import com.digiwes.product.offering.price.*;
 import org.apache.log4j.Logger;
@@ -56,29 +58,13 @@ public class ProductCatalog extends Catalog {
      */
     public int publish(ProductOffering offering, TimePeriod validFor) {
 
-        if (CommonUtils.checkParamIsNull(offering)) {
-            return ProductOfferingErrorEnum.OFFERING_IS_NULL.getCode();
-        }
-
-        int retCode = validPublishDate(validFor);
-        if (CommonErrorEnum.SUCCESS.getCode() != retCode) {
-            return retCode;
-        }
-
-        if (null == prodCatalogProdOffer) {
-            prodCatalogProdOffer = new ArrayList<ProdCatalogProdOffer>();
-        }
-        ProdCatalogProdOffer catalogOffer = retrieveProdCatalogProdOffer(offering, validFor);
-        if (null != catalogOffer) {
-            return ProductCatalogErrorEnum.PUBLISH_REPETITIVE_OFFERING.getCode();
-        }
-        ProdCatalogProdOffer catalogProdOffer = new ProdCatalogProdOffer(offering, validFor);
-        if (!contains(offering, validFor)) {
+        int code = checkOffering(offering, validFor);
+        if (CommonErrorEnum.SUCCESS.getCode() == code){
+            ProdCatalogProdOffer catalogProdOffer=new ProdCatalogProdOffer(offering,validFor);
             prodCatalogProdOffer.add(catalogProdOffer);
-        } else {
-            return ProductCatalogErrorEnum.PUBLISH_REPETITIVE_OFFERING.getCode();
+            return CommonErrorEnum.SUCCESS.getCode();
         }
-        return CommonErrorEnum.SUCCESS.getCode();
+        return code;
     }
 
     /**
@@ -224,6 +210,29 @@ public class ProductCatalog extends Catalog {
             }
         }
         return catalogProdOffers;
+    }
+    private int checkOffering(ProductOffering offering, TimePeriod validFor) {
+        if(CommonUtils.checkParamIsNull(offering)){
+            return ProductOfferingErrorEnum.OFFERING_IS_NULL.getCode();
+        }
+        int retCode = validPublishDate(validFor);
+        if(CommonErrorEnum.SUCCESS.getCode() != retCode) {
+            return retCode;
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date now = DateUtils.truncDate(new Date());
+        if(now.compareTo(validFor.getStartDateTime()) ==1){
+            return ProductCatalogErrorEnum.PUBLISH_VALIDFOR_INVALID.getCode();
+        }
+        if (contains(offering, validFor)){
+            return ProductCatalogErrorEnum.PUBLISH_REPETITIVE_OFFERING.getCode();
+        }
+
+        if(!validFor.isInTimePeriod(offering.getValidFor())){
+            return ProductCatalogErrorEnum.PUBLISH_VALIDFOR_INVALID.getCode();
+        }
+
+        return CommonErrorEnum.SUCCESS.getCode();
     }
 
     /**

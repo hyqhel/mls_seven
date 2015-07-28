@@ -240,7 +240,12 @@ public class DateUtils {
 		return getSDFormat(pattern).parse(src);
 
 	}
-	
+	public static Date truncDate( Date date){
+		date.setHours(0);
+		date.setMinutes(0);
+		date.setSeconds(0);
+		return date;
+	}
 	// 指定模式的时间格式
 	private static SimpleDateFormat getSDFormat(String pattern) {
 		return new SimpleDateFormat(pattern);

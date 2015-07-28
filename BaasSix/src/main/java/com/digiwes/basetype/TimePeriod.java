@@ -1,5 +1,6 @@
 package com.digiwes.basetype;
 
+import com.digiwes.common.util.CommonUtils;
 import com.digiwes.common.util.DateAdapter;
 import com.digiwes.common.util.DateUtils;
 import org.apache.commons.lang.StringUtils;
@@ -98,6 +99,17 @@ public class TimePeriod {
             }
         }
         return 0;
+    }
+    public boolean isInTimePeriod(TimePeriod validFor){
+        CommonUtils.checkParameterIsNulForException(validFor, "validFor");
+        if (null != this.startDateTime && null != this.endDateTime) {
+            if((-1 != this.startDateTime.compareTo(validFor.getStartDateTime()) )&& (1 != this.endDateTime.compareTo(validFor.getEndDateTime()))){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return false;
     }
 
     public boolean isOverlap(TimePeriod validFor) {
