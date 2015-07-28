@@ -3,6 +3,7 @@ package com.digiwes.product.offering;
 import java.util.*;
 
 import com.digiwes.basetype.*;
+import com.digiwes.common.enums.BusinessCode;
 import com.digiwes.common.enums.CommonErrorEnum;
 import com.digiwes.common.enums.ProductOfferingErrorEnum;
 import com.digiwes.common.util.CommonUtils;
@@ -56,7 +57,7 @@ public class BundledProductOffering extends ProductOffering {
             return ProductOfferingErrorEnum.LOWERLIMIT_GREATER_UPPERLIMIT.getCode();
         }
         if (CommonUtils.checkParamIsNull(offering)) {
-            return ProductOfferingErrorEnum.OFFERING_IS_NULL.getCode();
+            return BusinessCode.PROD_OFFERING_IS_NULL.getCode();
         }
         if (this.equals(offering)) {
             return ProductOfferingErrorEnum.OFFERING_ASSOCIATE_ITSELF.getCode();

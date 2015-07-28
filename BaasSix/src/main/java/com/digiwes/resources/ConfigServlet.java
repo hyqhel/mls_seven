@@ -3,10 +3,12 @@ package com.digiwes.resources;
 import com.digiwes.basetype.TimePeriod;
 import com.digiwes.common.enums.ProdSpecType;
 import com.digiwes.common.enums.ProductCatalogType;
+import com.digiwes.product.offering.BundledProductOffering;
 import com.digiwes.product.offering.ProductOffering;
 import com.digiwes.product.offering.SimpleProductOffering;
 import com.digiwes.product.offering.catalog.ProductCatalog;
 import com.digiwes.product.spec.*;
+import com.digiwes.resources.beans.BundledOffering;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 
@@ -193,14 +195,25 @@ public class ConfigServlet extends HttpServlet {
         return new SimpleProductOffering((String) obj[0], (String) obj[1], (String) obj[2], (TimePeriod) obj[3], prodSpec);
     }
 
+    private BundledProductOffering createBundledProductOffering(Object[] obj) {
+        return new BundledProductOffering((String) obj[0], (String) obj[1], (String) obj[2], (TimePeriod) obj[3]);
+    }
+
     public void createProductOffering() {
         ProductOffering offering128 = null , offering256 = null,offering512 = null;
+        BundledProductOffering  bundleOffer = null;
         offering128 = createSimpleProductOffering(TestProductOfferingData.offering[0], ConfigData.specification128);
         offering256 = createSimpleProductOffering(TestProductOfferingData.offering[1], ConfigData.specification256);
         offering512 = createSimpleProductOffering(TestProductOfferingData.offering[2], ConfigData.specification512);
+        bundleOffer = createBundledProductOffering(TestProductOfferingData.offering[3]);
+
+        bundleOffer.composedOf(offering128);
+        bundleOffer.composedOf(offering256);
+
         ConfigData.offerings.add(offering128);
         ConfigData.offerings.add(offering256);
         ConfigData.offerings.add(offering512);
+        ConfigData.offerings.add(bundleOffer);
     }
 
 }

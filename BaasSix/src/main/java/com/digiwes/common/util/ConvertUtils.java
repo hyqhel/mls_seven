@@ -116,17 +116,27 @@ public class ConvertUtils {
         return productSpec;
     }
 
-    public static Map<String,Object> convertMap(ProductOfferingResp offeringResp){
+    public static Map<String,Object> convertMap(ProductOfferingResp offeringResp,String fields[]){
         Map<String,Object> map = new HashMap<String, Object>();
         if(null != offeringResp){
             Class offerClass =  offeringResp.getClass();
             Field[] files = offerClass.getDeclaredFields();
             for(int i = 0 ; i < files.length; i++) {
                 Field f = files[i];
-                Object val = null;//得到此属性的值
+                Object val = null;
                 try {
-                    val = f.get(offeringResp);
-                    map.put(f.getName(),val);
+                    if(null != fields){
+                        for(String filed :fields){
+                            if(filed.equals(f.getName())){
+                                val = f.get(offeringResp);
+                                map.put(f.getName(),val);
+                                break;
+                            }
+                        }
+                    }else{
+                        val = f.get(offeringResp);
+                        map.put(f.getName(),val);
+                    }
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
@@ -134,4 +144,8 @@ public class ConvertUtils {
         }
         return map;
     }
+
+
+
+
 }

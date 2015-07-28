@@ -23,7 +23,7 @@ import org.apache.log4j.Logger;
  */
 public class ProductCatalog extends Catalog {
     private static final Logger logger = Logger.getLogger(ProductCatalog.class);
-    public List<ProdCatalogProdOffer> prodCatalogProdOffer;
+    public List<ProdCatalogProdOffer> prodCatalogProdOffer = new ArrayList<ProdCatalogProdOffer>();
 
     public List<ProdCatalogProdOffer> getProdCatalogProdOffer() {
         return prodCatalogProdOffer;
@@ -218,11 +218,6 @@ public class ProductCatalog extends Catalog {
         int retCode = validPublishDate(validFor);
         if(CommonErrorEnum.SUCCESS.getCode() != retCode) {
             return retCode;
-        }
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date now = DateUtils.truncDate(new Date());
-        if(now.compareTo(validFor.getStartDateTime()) ==1){
-            return ProductCatalogErrorEnum.PUBLISH_VALIDFOR_INVALID.getCode();
         }
         if (contains(offering, validFor)){
             return ProductCatalogErrorEnum.PUBLISH_REPETITIVE_OFFERING.getCode();

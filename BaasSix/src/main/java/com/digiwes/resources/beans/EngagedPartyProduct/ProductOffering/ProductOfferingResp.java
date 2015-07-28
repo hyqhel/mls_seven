@@ -32,10 +32,10 @@ import java.util.List;
 
 @XmlRootElement
 public class ProductOfferingResp{
-  private String id;
-  private String href;
-  private Date lastUpdate;
-  private String version;
+  public String id;
+  public String href;
+  public Date lastUpdate;
+  public String version;
 
   public String getId() {
     return id;
@@ -71,7 +71,7 @@ public class ProductOfferingResp{
     this.version = value;
   }
 
-  private String name;
+  public String name;
 
   public String getName() {
     return name;
@@ -81,7 +81,7 @@ public class ProductOfferingResp{
     this.name = value;
   }
 
-  private String description;
+  public String description;
 
   public String getDescription() {
     return description;
@@ -92,7 +92,7 @@ public class ProductOfferingResp{
   }
 
 
-  private boolean isBundle;
+  public boolean isBundle;
 
   public boolean isBundle() {
     return isBundle;
@@ -102,7 +102,7 @@ public class ProductOfferingResp{
     this.isBundle = isBundle;
   }
 
-  private String lifecycleStatus;
+  public String lifecycleStatus;
 
   public String getLifecycleStatus() {
     return lifecycleStatus;
@@ -112,7 +112,7 @@ public class ProductOfferingResp{
     this.lifecycleStatus = value;
   }
 
-  private TimePeriod validFor;
+  public TimePeriod validFor;
 
   public TimePeriod getValidFor() {
     return validFor;
@@ -122,7 +122,7 @@ public class ProductOfferingResp{
     this.validFor = value;
   }
 
-  private List<ChannelRef> channel;
+  public List<ChannelRef> channel;
   @XmlElement
   public List<ChannelRef> getChannel() {
     return channel;
@@ -132,7 +132,7 @@ public class ProductOfferingResp{
     this.channel = value;
   }
 
-  private List<PlaceRef> place;
+  public List<PlaceRef> place;
   @XmlElement
   public List<PlaceRef> getPlace() {
     return place;
@@ -142,7 +142,7 @@ public class ProductOfferingResp{
     this.place = value;
   }
 
-  private ProductSpecificationRef productSpecification;
+  public ProductSpecificationRef productSpecification;
 
   public ProductSpecificationRef getProductSpecification() {
     return productSpecification;
@@ -152,7 +152,7 @@ public class ProductOfferingResp{
     this.productSpecification = value;
   }
 
-  private List<CategoryRef> category;
+  public List<CategoryRef> category;
   @XmlElement
   public List<CategoryRef> getCategory() {
     return category;
@@ -165,7 +165,7 @@ public class ProductOfferingResp{
 
 
 
-  private ServiceCandidateRef serviceCandidate;
+  public ServiceCandidateRef serviceCandidate;
 
   public ServiceCandidateRef getServiceCandidate() {
     return serviceCandidate;
@@ -175,7 +175,7 @@ public class ProductOfferingResp{
     this.serviceCandidate = serviceCandidate;
   }
 
-  private ResourceCandidateRef resourceCandidate;
+  public ResourceCandidateRef resourceCandidate;
 
   public ResourceCandidateRef getResourceCandidate() {
     return resourceCandidate;
@@ -185,7 +185,7 @@ public class ProductOfferingResp{
     this.resourceCandidate = value;
   }
 
-  private ServiceLevelAgreementRef serviceLevelAgreement;
+  public ServiceLevelAgreementRef serviceLevelAgreement;
 
   public ServiceLevelAgreementRef getServiceLevelAgreement() {
     return serviceLevelAgreement;
@@ -195,7 +195,7 @@ public class ProductOfferingResp{
     this.serviceLevelAgreement = value;
   }
 
-  private List<ProductOfferingTerm> productOfferingTerm;
+  public List<ProductOfferingTerm> productOfferingTerm;
   @XmlElement
   public List<ProductOfferingTerm> getProductOfferingTerm() {
     return productOfferingTerm;
@@ -205,7 +205,7 @@ public class ProductOfferingResp{
     this.productOfferingTerm = value;
   }
 
-  private List<ProductOfferingPrice> productOfferingPrice;
+  public List<ProductOfferingPrice> productOfferingPrice;
   @XmlElement
   public List<ProductOfferingPrice> getProductOfferingPrice() {
     return productOfferingPrice;
@@ -215,7 +215,7 @@ public class ProductOfferingResp{
     this.productOfferingPrice = value;
   }
 
-  private List<BundledProductOffering> bundledProductOffering;
+  public List<BundledProductOffering> bundledProductOffering;
   @XmlElement
   public List<BundledProductOffering> getBundledProductOffering() {
     return bundledProductOffering;
@@ -225,12 +225,5 @@ public class ProductOfferingResp{
     this.bundledProductOffering = value;
   }
 
-  public void convertFromProdCatalogProdOffeing(ProdCatalogProdOffer prodCatalogProdOffer){
-    this.id = prodCatalogProdOffer.getProdOffering().getId();
-    this.name = prodCatalogProdOffer.getProdOffering().getName();
-    this.description = prodCatalogProdOffer.getProdOffering().getDescription();
-    this.lifecycleStatus = prodCatalogProdOffer.getProdOffering().getStatus();
-    this.productOfferingPrice=null;
-    this.validFor = prodCatalogProdOffer.getValidFor();
-  }
+
 }

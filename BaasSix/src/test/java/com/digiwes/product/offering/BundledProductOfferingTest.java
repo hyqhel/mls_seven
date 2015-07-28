@@ -1,6 +1,7 @@
 package com.digiwes.product.offering;
 
 import com.digiwes.basetype.TimePeriod;
+import com.digiwes.common.enums.BusinessCode;
 import com.digiwes.common.enums.CommonErrorEnum;
 import com.digiwes.common.enums.ProductOfferingErrorEnum;
 import com.digiwes.product.spec.AtomicProductSpecification;
@@ -56,7 +57,7 @@ public class BundledProductOfferingTest {
 
         //bundle a null simpleOffering
         returnCode = parentOffering.composedOf(null);
-        assertEquals("Add a null sub offering", ProductOfferingErrorEnum.OFFERING_IS_NULL.getCode(), returnCode);
+        assertEquals("Add a null sub offering", BusinessCode.PROD_OFFERING_IS_NULL.getCode(), returnCode);
         assertEquals("Add the same sub offering again.", 1, parentOffering.getBundledProdOfferOption().size());
         assertEquals("Add the same sub offering again.", expectedSubOfferingOptionList, parentOffering.getBundledProdOfferOption());
 
@@ -116,7 +117,7 @@ public class BundledProductOfferingTest {
 
         //bundle a null offering but  lowerLimit <= upperLimit
         returnCode = parentOffering.composeOf(null,1,2);
-        assertEquals("check code", ProductOfferingErrorEnum.OFFERING_IS_NULL.getCode(), returnCode);
+        assertEquals("check code", BusinessCode.PROD_OFFERING_IS_NULL.getCode(), returnCode);
         assertEquals("check content", expectedSubOfferingOptionList, parentOffering.getBundledProdOfferOption());
 
         //bundle a null offering but  lowerLimit > upperLimit
