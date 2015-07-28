@@ -14,6 +14,7 @@
 package com.digiwes.resources.beans.EngagedPartyProduct.ProductOffering;
 
 import com.digiwes.basetype.TimePeriod;
+import com.digiwes.common.util.DateAdapter;
 import com.digiwes.resources.beans.EngagedPartyProduct.Category.CategoryRef;
 import com.digiwes.resources.beans.EngagedPartyProduct.ProductSpecification.ProductSpecificationRef;
 import com.digiwes.resources.beans.Resource.ResourceCandidateRef;
@@ -22,9 +23,13 @@ import com.digiwes.resources.beans.Root.PlaceRef;
 import com.digiwes.resources.beans.Service.ServiceCandidateRef;
 import com.digiwes.resources.beans.Service.ServiceLevelAgreementRef;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Date;
 import java.util.List;
 
+@XmlRootElement
 public class ProductOfferingResp{
   private String id;
   private String href;
@@ -46,7 +51,8 @@ public class ProductOfferingResp{
   public void setHref(String href) {
     this.href = href;
   }
-
+  @XmlJavaTypeAdapter(DateAdapter.class)
+  @XmlElement
   public Date getLastUpdate() {
     return lastUpdate;
   }
@@ -118,7 +124,7 @@ public class ProductOfferingResp{
   }
 
   private List<ChannelRef> channelRef;
-
+  @XmlElement
   public List<ChannelRef> getChannelRef() {
     return channelRef;
   }
@@ -128,7 +134,7 @@ public class ProductOfferingResp{
   }
 
   private List<PlaceRef> placeRef;
-
+  @XmlElement
   public List<PlaceRef> getPlaceRef() {
     return placeRef;
   }
@@ -148,7 +154,7 @@ public class ProductOfferingResp{
   }
 
   private List<CategoryRef> categoryRef;
-
+  @XmlElement
   public List<CategoryRef> getCategoryRef() {
     return categoryRef;
   }
@@ -188,7 +194,7 @@ public class ProductOfferingResp{
   }
 
   private List<ProductOfferingTerm> productOfferingTerm;
-
+  @XmlElement
   public List<ProductOfferingTerm> getProductOfferingTerm() {
     return productOfferingTerm;
   }
@@ -198,7 +204,7 @@ public class ProductOfferingResp{
   }
 
   private List<ProductOfferingPrice> productOfferingPrice;
-
+  @XmlElement
   public List<ProductOfferingPrice> getProductOfferingPrice() {
     return productOfferingPrice;
   }
@@ -208,7 +214,7 @@ public class ProductOfferingResp{
   }
 
   private List<BundledProductOffering> bundledProductOffering;
-
+  @XmlElement
   public List<BundledProductOffering> getBundledProductOffering() {
     return bundledProductOffering;
   }

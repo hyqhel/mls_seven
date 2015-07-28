@@ -23,8 +23,10 @@ public class CatalogManagementResource {
     @POST
     @Consumes({ "application/json", "application/xml" })
     @Produces({ "application/json", "application/xml" })
-    public ProductOfferingResp publishOffering(ProductOfferingReq requestParame)throws Exception{
-        return null;
+    public ProductOfferingResp publishOffering(ProductOfferingResp productRep )throws Exception{
+        CatalogManagementController catalogManagementController = new CatalogManagementController();
+        catalogManagementController.publishProductOffering(productRep);
+        return productRep;
     }
     /**
      * retrieveOffering

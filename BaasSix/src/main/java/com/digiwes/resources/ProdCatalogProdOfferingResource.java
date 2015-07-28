@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Service
-@Path("/catalogManagement")
+@Path("/catalogManagements")
 public class ProdCatalogProdOfferingResource {
     @Context
     UriInfo uriInfo;
