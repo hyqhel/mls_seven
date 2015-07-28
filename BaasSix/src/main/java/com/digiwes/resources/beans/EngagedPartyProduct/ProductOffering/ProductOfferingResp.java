@@ -25,7 +25,7 @@ import com.digiwes.resources.beans.Service.ServiceLevelAgreementRef;
 import java.util.Date;
 import java.util.List;
 
-public class ProductOffering {
+public class ProductOfferingResp{
   private String id;
   private String href;
   private Date lastUpdate;

@@ -5,6 +5,7 @@ import com.digiwes.common.enums.ProductCatalogErrorEnum;
 import com.digiwes.product.offering.catalog.*;
 import com.digiwes.product.offering.*;
 import com.digiwes.resources.ConfigData;
+import com.digiwes.resources.beans.EngagedPartyProduct.ProductOffering.ProductOfferingResp;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.Date;
@@ -35,10 +36,13 @@ public class CatalogManagementController {
 	}
 
 
-	public int publishProductOffering( String offeringName, TimePeriod validFor) {
+	public int publishProductOffering(ProductOfferingResp reqProdOffering) {
 		int returnCode = -1;
-		ProductOffering productOffering = loadProductOfferingByName(offeringName);
-		returnCode = ConfigData.productCatalog.publish(productOffering, validFor);
+		ProductOffering productOffering = loadProductOfferingByName(reqProdOffering.getName());
+		returnCode = ConfigData.productCatalog.publish(productOffering, reqProdOffering.getValidFor());
+		reqProdOffering.setHref("");
+		reqProdOffering.setId("");
+		reqProdOffering.setLastUpdate(null);
 		return returnCode;
 	}
 
