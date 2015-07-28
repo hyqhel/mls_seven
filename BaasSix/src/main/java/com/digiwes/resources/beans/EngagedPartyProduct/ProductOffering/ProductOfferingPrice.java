@@ -96,4 +96,11 @@ public class ProductOfferingPrice {
     this.rate = value;
   }
 
+  public void convertFromProductPrice(ProductOfferingPrice price){
+    this.description = price.getDescription();
+    this.name = price.getName();
+    this.validFor = price.getValidFor();
+    this.rate = price.getRate();
+    this.version = price.getVersion();
+  }
 }

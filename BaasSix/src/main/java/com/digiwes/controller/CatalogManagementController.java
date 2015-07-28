@@ -11,9 +11,7 @@ import com.digiwes.resources.beans.EngagedPartyProduct.ProductOffering.ProductOf
 import org.apache.commons.lang.StringUtils;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class CatalogManagementController {
 
@@ -27,21 +25,6 @@ public class CatalogManagementController {
 		resultSearch = ConfigData.productCatalog.retrieveOffering(offeringName, time);
 		return resultSearch;
 	}
-
-	/**
-	 * 
-	 * @param fields
-	 * @param offeringName
-	 * @param time
-	 */
-	public List<ProdCatalogProdOffer> retrieveProductOffering(String fields, String offeringName, Date time) {
-		List<ProdCatalogProdOffer> resultSearch = new ArrayList<ProdCatalogProdOffer>();
-		resultSearch = ConfigData.productCatalog.retrieveOffering(offeringName, time);
-		String SearchResult = CommonUtils.format(resultSearch.toString());
-		String []filedArray = fields.split("\\,");
-		return null;
-	}
-
 
 	public int publishProductOffering(ProductOfferingResp reqProdOffering) {
 		int returnCode = -1;
@@ -64,6 +47,42 @@ public class CatalogManagementController {
 					return pc;
 				}
 			}
+		}
+		return null;
+	}
+	private List<Map<String,Object>> loadProdCatalogProdOffer(String fields, String offeringName, Date time){
+		List<ProdCatalogProdOffer> resultSearch = new ArrayList<ProdCatalogProdOffer>();
+		resultSearch = ConfigData.productCatalog.retrieveOffering(offeringName, time);
+		List<Map<String,Object>> prodOffers = new ArrayList<Map<String, Object>>();
+		String []filedArray = fields.split(",");
+		for(ProdCatalogProdOffer prodCatalogProdOffer : resultSearch){
+			Map<String,Object> prodOfferMap = new HashMap<String,Object>();
+			for(String filed :filedArray){
+				Object value = getOfferingFiledValue(filed, prodCatalogProdOffer);
+				prodOfferMap.put(filed,value);
+			}
+			prodOffers.add(prodOfferMap);
+		}
+		return prodOffers;
+	}
+	private Object getOfferingFiledValue(String filed,ProdCatalogProdOffer prodCatalogProdOffer){
+		if("id".equals(filed)){
+			return prodCatalogProdOffer.getProdOffering().getId();
+		}
+		if("name".equals(filed)){
+			return prodCatalogProdOffer.getProdOffering().getName();
+		}
+		if("description".equals(filed)){
+			return prodCatalogProdOffer.getProdOffering().getDescription();
+		}
+		if("validFor".equals(filed)){
+			return prodCatalogProdOffer.getValidFor();
+		}
+		if("status".equals(filed)){
+			return prodCatalogProdOffer.getProdOffering().getStatus();
+		}
+		if("productOfferingPrice".equals(filed)){
+			return prodCatalogProdOffer.getProductOfferingPrice();
 		}
 		return null;
 	}

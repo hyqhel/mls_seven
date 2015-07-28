@@ -6,11 +6,16 @@ import com.digiwes.product.spec.ProdSpecCharValueUse;
 import com.digiwes.product.spec.ProductSpecCharUse;
 import com.digiwes.product.spec.ProductSpecification;
 import com.digiwes.resources.beans.*;
+import com.digiwes.resources.beans.EngagedPartyProduct.ProductOffering.ProductOfferingResp;
+import com.sun.java.util.jar.pack.*;
 import org.apache.commons.beanutils.BeanUtils;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by liuwei29 on 2015/7/18.
@@ -109,5 +114,24 @@ public class ConvertUtils {
             e.printStackTrace();
         }
         return productSpec;
+    }
+
+    public static Map<String,Object> convertMap(ProductOfferingResp offeringResp){
+        Map<String,Object> map = new HashMap<String, Object>();
+        if(null != offeringResp){
+            Class offerClass =  offeringResp.getClass();
+            Field[] files = offerClass.getDeclaredFields();
+            for(int i = 0 ; i < files.length; i++) {
+                Field f = files[i];
+                Object val = null;//得到此属性的值
+                try {
+                    val = f.get(offeringResp);
+                    map.put(f.getName(),val);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return map;
     }
 }

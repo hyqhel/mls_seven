@@ -230,5 +230,7 @@ public class ProductOfferingResp{
     this.name = prodCatalogProdOffer.getProdOffering().getName();
     this.description = prodCatalogProdOffer.getProdOffering().getDescription();
     this.lifecycleStatus = prodCatalogProdOffer.getProdOffering().getStatus();
+    this.productOfferingPrice=null;
+    this.validFor = prodCatalogProdOffer.getValidFor();
   }
 }

@@ -1,5 +1,6 @@
 package com.digiwes.resources;
 
+import com.digiwes.common.util.ConvertUtils;
 import com.digiwes.controller.CatalogManagementController;
 import com.digiwes.product.offering.catalog.ProdCatalogProdOffer;
 import com.digiwes.resources.beans.EngagedPartyProduct.ProductOffering.ProductOfferingReq;
@@ -35,18 +36,19 @@ public class CatalogManagementResource {
     @GET
     @Consumes({ "application/json", "application/xml" })
     @Produces({ "application/json", "application/xml" })
-    public List<ProductOfferingResp> retrieveOffering(@PathParam("fields") String fields,@PathParam("offeringName") String offeringName,@PathParam("time") Date time) throws Exception {
+    public List<Map<String,Object>> retrieveOffering(@QueryParam("fields") String fields,@QueryParam("offeringName") String offeringName,@QueryParam("time") Date time) throws Exception {
         CatalogManagementController controller = new CatalogManagementController();
         List<ProdCatalogProdOffer> prodCatalogProdOffers = new ArrayList<ProdCatalogProdOffer>();
-        List<ProductOfferingResp> productOfferingResps = new ArrayList<ProductOfferingResp>();
+        List<Map<String,Object>> productOfferingResps = new ArrayList<Map<String,Object>>();
+        prodCatalogProdOffers = controller.retrieveProductOffering(offeringName,time);
         if(StringUtils.isEmpty(fields)){
-            prodCatalogProdOffers = controller.retrieveProductOffering(offeringName,time);
         }else{
-            prodCatalogProdOffers = controller.retrieveProductOffering(fields,offeringName,time);
         }
         for(ProdCatalogProdOffer prodCataProdOffer : prodCatalogProdOffers ){
             ProductOfferingResp offeringResp = new ProductOfferingResp();
+            offeringResp.convertFromProdCatalogProdOffeing(prodCataProdOffer);
+            productOfferingResps.add(ConvertUtils.convertMap(offeringResp));
         }
-        return null;
+        return productOfferingResps;
     }
 }
