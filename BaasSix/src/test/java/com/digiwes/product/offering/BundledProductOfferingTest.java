@@ -60,6 +60,34 @@ public class BundledProductOfferingTest {
         assertEquals("Add the same sub offering again.", 1, parentOffering.getBundledProdOfferOption().size());
         assertEquals("Add the same sub offering again.", expectedSubOfferingOptionList, parentOffering.getBundledProdOfferOption());
 
+        //bundle a simpleOffering, and itself
+         returnCode = parentOffering.composedOf(parentOffering);
+        assertEquals("Add the same sub offering again.", ProductOfferingErrorEnum.OFFERING_ASSOCIATE_ITSELF.getCode(), returnCode);
+        assertEquals("Add the same sub offering again.", 1, parentOffering.getBundledProdOfferOption().size());
+        assertEquals("Add the same sub offering again.", expectedSubOfferingOptionList, parentOffering.getBundledProdOfferOption());
+
+        //bundle two simpleOfferings ,and not same with each other
+        SimpleProductOffering subOffering3 = new SimpleProductOffering("SO003", "11 英寸 MacBook Air 2.7GHz",
+                "2.7GHz 双核 Intel Core i5 处理器 Turbo Boost 高达 3.1GHz", validFor, prodSpec);
+        SimpleProductOffering expectedSubOffering3 = new SimpleProductOffering("SO003", "11 英寸 MacBook Air 2.7GHz",
+                "2.7GHz 双核 Intel Core i5 处理器 Turbo Boost 高达 3.1GHz", validFor, prodSpec);
+        BundledProdOfferOption expectedBundledOfferingOption3 = new BundledProdOfferOption(expectedSubOffering3,-1,-1);
+        expectedSubOfferingOptionList.add(expectedBundledOfferingOption3);
+        returnCode = parentOffering.composedOf(subOffering3);
+        assertEquals("Add the same sub offering again.", CommonErrorEnum.SUCCESS.getCode(), returnCode);
+        assertEquals("Add the same sub offering again.", expectedSubOfferingOptionList, parentOffering.getBundledProdOfferOption());
+
+        //bundle a bundledOfferings
+        SimpleProductOffering subOffering4 = new SimpleProductOffering("SO003", "11 英寸 MacBook Air 2.7GHz",
+                "2.7GHz 双核 Intel Core i5 处理器 Turbo Boost 高达 3.1GHz", validFor, prodSpec);
+        BundledProductOffering  bundledProductOffering2 = new BundledProductOffering("0001OE", "11 英寸 MacBook Air",  "13 英寸配备 Retina 显示屏的 MacBook Pro", validFor);
+        bundledProductOffering2.composedOf(subOffering4);
+        BundledProdOfferOption expectedBundledOfferingOption4 = new BundledProdOfferOption(bundledProductOffering2,-1,-1);
+        expectedSubOfferingOptionList.add(expectedBundledOfferingOption4);
+        returnCode = parentOffering.composedOf(bundledProductOffering2);
+        assertEquals("Add the same sub offering again.", CommonErrorEnum.SUCCESS.getCode(), returnCode);
+        assertEquals("Add the same sub offering again.", expectedSubOfferingOptionList, parentOffering.getBundledProdOfferOption());
+
     }
     /**
      * test param ProductOffering,lowerLimit and upperLimit
