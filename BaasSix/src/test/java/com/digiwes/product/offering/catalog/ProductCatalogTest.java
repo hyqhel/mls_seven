@@ -1,10 +1,7 @@
 package com.digiwes.product.offering.catalog;
 
 import com.digiwes.basetype.TimePeriod;
-import com.digiwes.common.enums.CommonErrorEnum;
-import com.digiwes.common.enums.ProductCatalogErrorEnum;
-import com.digiwes.common.enums.ProductCatalogType;
-import com.digiwes.common.enums.ProductOfferingErrorEnum;
+import com.digiwes.common.enums.*;
 import com.digiwes.common.util.DateUtils;
 import com.digiwes.product.offering.ProductOffering;
 import com.digiwes.product.offering.SimpleProductOffering;
@@ -47,7 +44,7 @@ public class ProductCatalogTest {
 
         //publish a offering but it's null
         int errorCode =  pcata.publish(null,validFor);
-        assertEquals("compare to return errorCode.", ProductOfferingErrorEnum.OFFERING_IS_NULL.getCode(),errorCode);
+        assertEquals("compare to return errorCode.", BusinessCode.PROD_OFFERING_IS_NULL.getCode(),errorCode);
         assertEquals("expectProdCatalogProdOffer compare to catalog's prodCatalogProdOffer.", expectProdCatalogProdOffer, pcata.getProdCatalogProdOffer());
 
         //publish a offering but it's validFor is null
@@ -104,7 +101,7 @@ public class ProductCatalogTest {
         assertEquals("expectProdCatalogProdOffer compare to catalog's prodCatalogProdOffer.",expectProdCatalogProdOffer,pcata.getProdCatalogProdOffer());
 
         //publish a exists offering but the validFor include the last published time
-        TimePeriod validFor15 = new TimePeriod("2015-07-29 11:59:59","2016-12-08 23:59:59");
+        TimePeriod validFor15 = new TimePeriod("2015-07-29 21:59:59","2016-12-08 23:59:59");
         errorCode =  pcata.publish(sameProductOffering,validFor15);
         assertEquals("compare to return errorCode.", ProductCatalogErrorEnum.PUBLISH_REPETITIVE_OFFERING.getCode(), errorCode);
         assertEquals("expectProdCatalogProdOffer compare to catalog's prodCatalogProdOffer.",expectProdCatalogProdOffer,pcata.getProdCatalogProdOffer());
@@ -117,9 +114,9 @@ public class ProductCatalogTest {
         assertEquals("expectProdCatalogProdOffer compare to catalog's prodCatalogProdOffer.",expectProdCatalogProdOffer,pcata.getProdCatalogProdOffer());
 
         //publish a offering but the publish time is greater than offering's endDateTime
-        TimePeriod validFor3 = new TimePeriod("2015-07-29 11:59:59","2016-10-08 23:59:59");
+        TimePeriod validFor3 = new TimePeriod("2015-07-29 21:59:59","2016-10-08 23:59:59");
         SimpleProductOffering productOffering3 =new SimpleProductOffering("3","17-inch MacBook Pro","17-inch MacBook Pro", validFor3,prodSpec) ;
-        errorCode =  pcata.publish(productOffering3,new TimePeriod("2015-07-29 11:59:59","2016-12-08 23:59:59"));
+        errorCode =  pcata.publish(productOffering3,new TimePeriod("2015-07-29 21:59:59","2016-12-08 23:59:59"));
         assertEquals("compare to return errorCode.", ProductCatalogErrorEnum.PUBLISH_VALIDFOR_INVALID.getCode(), errorCode);
         assertEquals("expectProdCatalogProdOffer compare to catalog's prodCatalogProdOffer.",expectProdCatalogProdOffer,pcata.getProdCatalogProdOffer());
 
@@ -133,7 +130,7 @@ public class ProductCatalogTest {
         //publish an ineffective offering
         TimePeriod validFor5 = new TimePeriod("2015-09-08 11:59:59","2017-08-08 23:59:59");
         SimpleProductOffering productOffering5 =new SimpleProductOffering("3","18-inch MacBook Pro","18-inch MacBook Pro", validFor5,prodSpec) ;
-        errorCode =  pcata.publish(productOffering5,new TimePeriod("2015-07-29 11:59:59","2016-08-08 23:59:59"));
+        errorCode =  pcata.publish(productOffering5,new TimePeriod("2015-07-29 21:59:59","2016-08-08 23:59:59"));
         assertEquals("compare to return errorCode.", ProductCatalogErrorEnum.PUBLISH_VALIDFOR_INVALID.getCode(), errorCode);
         assertEquals("expectProdCatalogProdOffer compare to catalog's prodCatalogProdOffer.",expectProdCatalogProdOffer,pcata.getProdCatalogProdOffer());
 

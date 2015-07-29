@@ -12,7 +12,8 @@ public enum ProductOfferingErrorEnum {
     OFFERING_ASSOCIATE_ITSELF(285605892, "Cannot associate relationship with itself!"),
     NUMBER_REL_OFFER_LIMIT_INVALID(285605892, "Parameter [lowerLimit]、[upperLimit] is not valid."),
     LOWERLIMIT_GREATER_UPPERLIMIT(285605893, "the lowLimit must be much lower than upperLimit."),
-    COMPOSE_REPETITIVE_OFFERING(285605894, "Cannot compose the repetitive Offering!");
+    COMPOSE_REPETITIVE_OFFERING(285605894, "Cannot compose the repetitive Offering!"),
+    BUNDLE_OFFERING_NOT_EXISTS_OFFERING(285605895, "the bundle offering not exists the offering!");
 
     private int code;
     private String message;

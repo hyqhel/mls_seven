@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import com.digiwes.basetype.*;
+import com.digiwes.common.enums.BusinessCode;
 import com.digiwes.common.enums.CommonErrorEnum;
 import com.digiwes.common.enums.ProductCatalogErrorEnum;
 import com.digiwes.common.enums.ProductOfferingErrorEnum;
@@ -213,7 +214,7 @@ public class ProductCatalog extends Catalog {
     }
     private int checkOffering(ProductOffering offering, TimePeriod validFor) {
         if(CommonUtils.checkParamIsNull(offering)){
-            return ProductOfferingErrorEnum.OFFERING_IS_NULL.getCode();
+            return BusinessCode.PROD_OFFERING_IS_NULL.getCode();
         }
         int retCode = validPublishDate(validFor);
         if(CommonErrorEnum.SUCCESS.getCode() != retCode) {

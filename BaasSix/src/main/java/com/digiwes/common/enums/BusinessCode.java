@@ -52,6 +52,14 @@ public enum BusinessCode {
         return this.message;
     }
 
+    public static String getMessage(int code) {
+        for (BusinessCode c : BusinessCode.values()) {
+            if (code == c.getCode()) {
+                return c.message;
+            }
+        }
+        return "";
+    }
     /**
      *
      * @param code

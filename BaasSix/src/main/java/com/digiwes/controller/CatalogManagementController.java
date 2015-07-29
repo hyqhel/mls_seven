@@ -1,5 +1,6 @@
 package com.digiwes.controller;
 
+import com.digiwes.common.enums.BusinessCode;
 import com.digiwes.common.enums.ProductOfferingErrorEnum;
 import com.digiwes.product.offering.BundledProductOffering;
 import com.digiwes.product.offering.catalog.*;
@@ -31,8 +32,9 @@ public class CatalogManagementController {
 				for(com.digiwes.resources.beans.EngagedPartyProduct.ProductOffering.BundledProductOffering prodoffer:reqProdOffering.getBundledProductOffering()){
 					ProductOffering offer = loadProductOfferingById(prodoffer.getId());
 					if(null == offer){
-						return ProductOfferingErrorEnum.OFFERING_IS_NULL.getCode();
+						return BusinessCode.PROD_OFFERING_IS_NULL.getCode();
 					}
+
 				}
 			}
 		}

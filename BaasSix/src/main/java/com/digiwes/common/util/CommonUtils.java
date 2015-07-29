@@ -1,9 +1,6 @@
 package com.digiwes.common.util;
 
-import com.digiwes.common.enums.CommonErrorEnum;
-import com.digiwes.common.enums.ProductCatalogErrorEnum;
-import com.digiwes.common.enums.ProductOfferingErrorEnum;
-import com.digiwes.common.enums.ProductSpecErrorEnum;
+import com.digiwes.common.enums.*;
 import org.apache.commons.lang.StringUtils;
 
 public class CommonUtils {
@@ -87,8 +84,10 @@ public class CommonUtils {
         }
 
         int abeCode = ((code) >> 16) & 0xff;
-
         switch (abeCode) {
+            case 0:
+                message = BusinessCode.getMessage(code);
+                break;
             case 6:
                 message = ProductOfferingErrorEnum.getMessage(code);
                 break;
