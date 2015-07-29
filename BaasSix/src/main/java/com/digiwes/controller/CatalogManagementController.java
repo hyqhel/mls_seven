@@ -1,18 +1,12 @@
 package com.digiwes.controller;
 
-import com.digiwes.basetype.TimePeriod;
-import com.digiwes.common.enums.ProductCatalogErrorEnum;
-import com.digiwes.common.util.CommonUtils;
 import com.digiwes.product.offering.BundledProductOffering;
 import com.digiwes.product.offering.catalog.*;
 import com.digiwes.product.offering.*;
-import com.digiwes.product.spec.ProductSpecCharUse;
 import com.digiwes.resources.ConfigData;
-import com.digiwes.resources.beans.BundledOffering;
 import com.digiwes.resources.beans.EngagedPartyProduct.ProductOffering.*;
 import org.apache.commons.lang.StringUtils;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class CatalogManagementController {
@@ -31,10 +25,27 @@ public class CatalogManagementController {
 	public int publishProductOffering(ProductOfferingResp reqProdOffering) {
 		int returnCode = -1;
 		ProductOffering productOffering = loadProductOfferingByName(reqProdOffering.getName());
+		if(reqProdOffering.isBundle()){
+			if(null != reqProdOffering.getBundledProductOffering()){
+				for(com.digiwes.resources.beans.EngagedPartyProduct.ProductOffering.BundledProductOffering prodoffer:reqProdOffering.getBundledProductOffering()){
+					ProductOffering offer = loadProductOfferingById(prodoffer.getId());
+					if(null == offer){
+						//TODO return code
+					}else{
+						boolean flag = false;
+						for(BundledProdOfferOption prodOfferOption : ((BundledProductOffering)productOffering).getBundledProdOfferOption()){
+							if(offer.equals(prodOfferOption.getProductOffering())){
+								flag = true;
+							}
+						}
+						if(!flag){
+							//TODO return code
+						}
+					}
+				}
+			}
+		}
 		returnCode = ConfigData.productCatalog.publish(productOffering, reqProdOffering.getValidFor());
-		reqProdOffering.setHref("");
-		reqProdOffering.setId("");
-		reqProdOffering.setLastUpdate(new Date());
 		return returnCode;
 	}
 
@@ -46,6 +57,21 @@ public class CatalogManagementController {
 		if (StringUtils.isNotEmpty(offeringName)) {
 			for (ProductOffering pc : ConfigData.offerings) {
 				if (offeringName.equals(pc.getName())) {
+					return pc;
+				}
+			}
+		}
+		return null;
+	}
+
+	/**
+	 *
+	 * @param id
+	 */
+	public ProductOffering loadProductOfferingById(String id) {
+		if (StringUtils.isNotEmpty(id)) {
+			for (ProductOffering pc : ConfigData.offerings) {
+				if (id.equals(pc.getId())) {
 					return pc;
 				}
 			}

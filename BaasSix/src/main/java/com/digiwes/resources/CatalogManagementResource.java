@@ -1,5 +1,6 @@
 package com.digiwes.resources;
 
+import com.digiwes.common.enums.CommonErrorEnum;
 import com.digiwes.common.util.CommonUtils;
 import com.digiwes.common.util.ConvertUtils;
 import com.digiwes.controller.CatalogManagementController;
@@ -29,7 +30,11 @@ public class CatalogManagementResource {
     public ProductOfferingResp publishOffering(ProductOfferingResp productRep ){
         CatalogManagementController catalogManagementController = new CatalogManagementController();
         int code = catalogManagementController.publishProductOffering(productRep);
-        System.out.println("code"+ CommonUtils.getMessage(code));
+        if(code == CommonErrorEnum.SUCCESS.getCode()){
+            productRep.setHref("");
+            productRep.setId("");
+            productRep.setLastUpdate(new Date());
+        }
         return productRep;
     }
     /**
