@@ -15,6 +15,15 @@ package com.digiwes.resources.beans.EngagedPartyProduct.ProductSpecification;
 
 public class ProductSpecificationRef {
   private String id;
+  private String  version;
+
+  public String getVersion() {
+    return version;
+  }
+
+  public void setVersion(String version) {
+    this.version = version;
+  }
 
   public String getId() {
     return id;
