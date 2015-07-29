@@ -236,17 +236,17 @@ public class TestProductSpecificationData {
     };
 
     //原子规格1
-    public static Object[] specParameter1 = new Object[]{"mac pro-13-9288", "2.7GHz 处理器 128 GB 存储容量", "MacPro", "in_active",
+    public static Object[] specParameter1 = new Object[]{"macpro-13-9288", "2.7GHz 处理器 128 GB 存储容量", "MacPro", "in_active",
             new TimePeriod("2015-02-03 12:00:00", "2019-07-21 23:59:59"), null, "1.0.0", "", "min", 109,
             "AtomicProductSpecification"};
 
     //原子规格2
-    public static Object[] specParameter2 = new Object[]{"mac pro-13-10788", "2.7GHz 处理器 256 GB 存储容量", "MacPro", "in_active",
+    public static Object[] specParameter2 = new Object[]{"macpro-13-10788", "2.7GHz 处理器 256 GB 存储容量", "MacPro", "in_active",
             new TimePeriod("2015-02-03 12:00:00", "2019-07-21 23:59:59"), null, "1.0.0", "", "min", 109,
             "AtomicProductSpecification"};
 
     //原子规格3
-    public static Object[] specParameter3 = new Object[]{"mac pro-13-12898", "2.9GHz 处理器 512GB 存储容量", "MacPro", "in_active",
+    public static Object[] specParameter3 = new Object[]{"macpro-13-12898", "2.9GHz 处理器 512GB 存储容量", "MacPro", "in_active",
             new TimePeriod("2015-02-03 12:00:00", "2019-07-21 23:59:59"), null, "1.0.0", "", "min", 109,
             "AtomicProductSpecification"};
 

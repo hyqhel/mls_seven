@@ -7,6 +7,7 @@ import com.digiwes.product.spec.ProductSpecCharUse;
 import com.digiwes.product.spec.ProductSpecification;
 import com.digiwes.resources.beans.*;
 import com.digiwes.resources.beans.EngagedPartyProduct.ProductOffering.ProductOfferingResp;
+import com.digiwes.resources.beans.EngagedPartyProduct.ProductSpecification.ProductSpecificationRef;
 import com.sun.java.util.jar.pack.*;
 import org.apache.commons.beanutils.BeanUtils;
 
@@ -146,6 +147,44 @@ public class ConvertUtils {
     }
 
 
+    public static ProductOfferingResp convertFromProdCatalogProdOffeing(ProdCatalogProdOffer prodCatalogProdOffer){
+        ProductOfferingResp resp = new ProductOfferingResp();
+        resp.id = prodCatalogProdOffer.getProdOffering().getId();
+        resp.name = prodCatalogProdOffer.getProdOffering().getName();
+        resp.description = prodCatalogProdOffer.getProdOffering().getDescription();
+        resp.lifecycleStatus = prodCatalogProdOffer.getProdOffering().getStatus();
+        resp.productOfferingPrice=null;
+        resp.validFor = prodCatalogProdOffer.getValidFor();
+        if (prodCatalogProdOffer.getProdOffering() instanceof BundledProductOffering) {
+            resp.isBundle = true;
+            List<com.digiwes.resources.beans.EngagedPartyProduct.ProductOffering.BundledProductOffering> bundledOfferings = new ArrayList<com.digiwes.resources.beans.EngagedPartyProduct.ProductOffering.BundledProductOffering>();
+            BundledProductOffering bundledProductOffering = (BundledProductOffering) prodCatalogProdOffer.getProdOffering();
+            if (null != bundledProductOffering.getBundledProdOfferOption() && bundledProductOffering
+                    .getBundledProdOfferOption().size() > 0) {
+                for (BundledProdOfferOption bundledProdOfferOption : bundledProductOffering.getBundledProdOfferOption
+                        ()) {
+                    com.digiwes.resources.beans.EngagedPartyProduct.ProductOffering.BundledProductOffering bundledOffering = new com.digiwes.resources.beans.EngagedPartyProduct.ProductOffering.BundledProductOffering();
+                    String offerId = bundledProdOfferOption.getProductOffering().getId();
+                    bundledOffering.setId(offerId);
+                    bundledOffering.setName(bundledProdOfferOption.getProductOffering().getName());
+                    bundledOffering.setLifecycleStatus(bundledProdOfferOption.getProductOffering().getStatus());
+                    bundledOffering.setHref("http://localhost:8080/catalogManagement/productOffering/"+offerId);
+                    bundledOfferings.add(bundledOffering);
+                }
+            }
+            resp.bundledProductOffering = bundledOfferings;
+        }else{
+            resp.isBundle = false;
+            ProductSpecificationRef psr = new ProductSpecificationRef();
+            SimpleProductOffering simpleProductOffering =(SimpleProductOffering) prodCatalogProdOffer.getProdOffering();
+            String specNum = simpleProductOffering.getProductSpecification().getProductNumber();
+            psr.setId(specNum);
+            psr.setName(simpleProductOffering.getProductSpecification().getName());
+            psr.setHref("http://localhost:8080/catalogManagement/productSpecification/" + specNum);
+            resp.productSpecification = psr;
+        }
+        return resp;
+    }
 
 
 }
