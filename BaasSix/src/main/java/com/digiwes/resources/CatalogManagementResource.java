@@ -52,17 +52,20 @@ public class CatalogManagementResource {
     public List<Map<String,Object>> retrieveOffering(@QueryParam("fields") String fields,@QueryParam("offeringName") String offeringName,@QueryParam("time") String time) throws Exception {
         CatalogManagementController controller = new CatalogManagementController();
         List<ProdCatalogProdOffer> prodCatalogProdOffers = new ArrayList<ProdCatalogProdOffer>();
-        List<Map<String,Object>> productOfferingResps = new ArrayList<Map<String,Object>>();
+        List<Map<String,Object>> productOfferingResps = null;
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         prodCatalogProdOffers = controller.retrieveProductOffering(offeringName,format.parse(time));
         String fieldArray[] = null;
         if(null != fields && !"".equals(fields)){
             fieldArray  =fields.split("\\,");
         }
-        for(ProdCatalogProdOffer prodCataProdOffer : prodCatalogProdOffers ){
-            ProductOfferingResp offeringResp = new ProductOfferingResp();
-            offeringResp = ConvertUtils.convertFromProdCatalogProdOffeing(prodCataProdOffer);
-            productOfferingResps.add(ConvertUtils.convertMap(offeringResp,fieldArray));
+        if(null != prodCatalogProdOffers && 0 != prodCatalogProdOffers.size()){
+            productOfferingResps = new ArrayList<Map<String,Object>>();
+            for(ProdCatalogProdOffer prodCataProdOffer : prodCatalogProdOffers ){
+                ProductOfferingResp offeringResp = new ProductOfferingResp();
+                offeringResp = ConvertUtils.convertFromProdCatalogProdOffeing(prodCataProdOffer);
+                productOfferingResps.add(ConvertUtils.convertMap(offeringResp,fieldArray));
+            }
         }
         return productOfferingResps;
     }
