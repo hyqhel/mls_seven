@@ -34,7 +34,7 @@ public class ProductCatalogTest {
        validFor = new TimePeriod("2015-07-08 10:20:00", "2017-12-08 10:20:00");
         pcata = new ProductCatalog("1","13 inch", ProductCatalogType.BOOK.getValue(),validFor);
 
-        String id = "0001OF";
+        String id = "1";
         String name = "13-inch MacBook Pro";
         String description = "13-inch MacBook Pro";
 
@@ -81,7 +81,7 @@ public class ProductCatalogTest {
         assertEquals("expectProdCatalogProdOffer compare to catalog's prodCatalogProdOffer.", expectProdCatalogProdOffer, pcata.getProdCatalogProdOffer());
 
         //publish a exists offering but the validFor within the last published time
-        TimePeriod validFor13 = new TimePeriod("2015-09-08 23:59:59","2016-07-08");
+        TimePeriod validFor13 = new TimePeriod("2015-09-08 23:59:59","2016-07-08 00:00:00");
         errorCode =  pcata.publish(sameProductOffering,validFor13);
         assertEquals("compare to return errorCode.", ProductCatalogErrorEnum.PUBLISH_REPETITIVE_OFFERING.getCode(), errorCode);
         assertEquals("expectProdCatalogProdOffer compare to catalog's prodCatalogProdOffer.",expectProdCatalogProdOffer,pcata.getProdCatalogProdOffer());
@@ -92,7 +92,7 @@ public class ProductCatalogTest {
         assertEquals("expectProdCatalogProdOffer compare to catalog's prodCatalogProdOffer.",expectProdCatalogProdOffer,pcata.getProdCatalogProdOffer());
 
         //publish a exists offering but the validFor's endTime within the last published time
-        TimePeriod validFor12 = new TimePeriod("2015-07-28 23:59:59","2015-12-08 23:59:59");
+        TimePeriod validFor12 = new TimePeriod("2015-07-29 23:59:59","2015-12-08 23:59:59");
         errorCode =  pcata.publish(sameProductOffering,validFor12);
         assertEquals("compare to return errorCode.", ProductCatalogErrorEnum.PUBLISH_REPETITIVE_OFFERING.getCode(), errorCode);
         assertEquals("expectProdCatalogProdOffer compare to catalog's prodCatalogProdOffer.",expectProdCatalogProdOffer,pcata.getProdCatalogProdOffer());
@@ -104,7 +104,7 @@ public class ProductCatalogTest {
         assertEquals("expectProdCatalogProdOffer compare to catalog's prodCatalogProdOffer.",expectProdCatalogProdOffer,pcata.getProdCatalogProdOffer());
 
         //publish a exists offering but the validFor include the last published time
-        TimePeriod validFor15 = new TimePeriod("2015-07-28 11:59:59","2016-12-08 23:59:59");
+        TimePeriod validFor15 = new TimePeriod("2015-07-29 11:59:59","2016-12-08 23:59:59");
         errorCode =  pcata.publish(sameProductOffering,validFor15);
         assertEquals("compare to return errorCode.", ProductCatalogErrorEnum.PUBLISH_REPETITIVE_OFFERING.getCode(), errorCode);
         assertEquals("expectProdCatalogProdOffer compare to catalog's prodCatalogProdOffer.",expectProdCatalogProdOffer,pcata.getProdCatalogProdOffer());
@@ -113,79 +113,29 @@ public class ProductCatalogTest {
         TimePeriod validFor2 = new TimePeriod("2015-02-10 23:59:59","2015-07-15 23:59:59");
         SimpleProductOffering invalidProductOffering =new SimpleProductOffering("2","11-inch MacBook","11-inch MacBook", validFor2,prodSpec) ;
         errorCode =  pcata.publish(invalidProductOffering,validFor1);
-        assertEquals("compare to return errorCode.", ProductCatalogErrorEnum.PUBLISH_INVALID_OFFERING.getCode(), errorCode);
+        assertEquals("compare to return errorCode.", ProductCatalogErrorEnum.PUBLISH_VALIDFOR_INVALID.getCode(), errorCode);
         assertEquals("expectProdCatalogProdOffer compare to catalog's prodCatalogProdOffer.",expectProdCatalogProdOffer,pcata.getProdCatalogProdOffer());
 
         //publish a offering but the publish time is greater than offering's endDateTime
-        TimePeriod validFor3 = new TimePeriod("2015-07-28 11:59:59","2016-10-08 23:59:59");
+        TimePeriod validFor3 = new TimePeriod("2015-07-29 11:59:59","2016-10-08 23:59:59");
         SimpleProductOffering productOffering3 =new SimpleProductOffering("3","17-inch MacBook Pro","17-inch MacBook Pro", validFor3,prodSpec) ;
-        errorCode =  pcata.publish(productOffering3,new TimePeriod("2015-07-28 11:59:59","2016-12-08 23:59:59"));
-        assertEquals("compare to return errorCode.", ProductCatalogErrorEnum.PUBLISH_INVALID_OFFERING.getCode(), errorCode);
+        errorCode =  pcata.publish(productOffering3,new TimePeriod("2015-07-29 11:59:59","2016-12-08 23:59:59"));
+        assertEquals("compare to return errorCode.", ProductCatalogErrorEnum.PUBLISH_VALIDFOR_INVALID.getCode(), errorCode);
         assertEquals("expectProdCatalogProdOffer compare to catalog's prodCatalogProdOffer.",expectProdCatalogProdOffer,pcata.getProdCatalogProdOffer());
 
         //publish a offering but the publish time is greater than offering's validFor
-        TimePeriod validFor4 = new TimePeriod("2015-07-28 11:59:59","2016-10-08 23:59:59");
+        TimePeriod validFor4 = new TimePeriod("2015-07-29 11:59:59","2016-10-08 23:59:59");
         SimpleProductOffering productOffering4 =new SimpleProductOffering("3","17-inch MacBook Pro","17-inch MacBook Pro", validFor4,prodSpec) ;
         errorCode =  pcata.publish(productOffering4,new TimePeriod("2016-12-08 11:59:59","2017-12-08 23:59:59"));
-        assertEquals("compare to return errorCode.", ProductCatalogErrorEnum.PUBLISH_INVALID_OFFERING.getCode(), errorCode);
+        assertEquals("compare to return errorCode.", ProductCatalogErrorEnum.PUBLISH_VALIDFOR_INVALID.getCode(), errorCode);
         assertEquals("expectProdCatalogProdOffer compare to catalog's prodCatalogProdOffer.",expectProdCatalogProdOffer,pcata.getProdCatalogProdOffer());
 
         //publish an ineffective offering
         TimePeriod validFor5 = new TimePeriod("2015-09-08 11:59:59","2017-08-08 23:59:59");
         SimpleProductOffering productOffering5 =new SimpleProductOffering("3","18-inch MacBook Pro","18-inch MacBook Pro", validFor5,prodSpec) ;
-        errorCode =  pcata.publish(productOffering4,new TimePeriod("2015-07-28 11:59:59","2016-08-08 23:59:59"));
+        errorCode =  pcata.publish(productOffering5,new TimePeriod("2015-07-29 11:59:59","2016-08-08 23:59:59"));
         assertEquals("compare to return errorCode.", ProductCatalogErrorEnum.PUBLISH_VALIDFOR_INVALID.getCode(), errorCode);
         assertEquals("expectProdCatalogProdOffer compare to catalog's prodCatalogProdOffer.",expectProdCatalogProdOffer,pcata.getProdCatalogProdOffer());
-
-    }
-
-    @Test
-    public void testRetired(){
-        ProductOffering offering = null ;
-        int returnCode =  pcata.retired(offering);
-        assertEquals("retired  one null offering ", ProductOfferingErrorEnum.OFFERING_IS_NULL.getCode(), returnCode);
-
-        TimePeriod validFor1 = new TimePeriod("2015-06-04 10:20:00", "2015-07-26 10:20:00");
-        pcata.publish(poff, validFor1);
-        pcata.retired(poff);
-        assertEquals("retired  one  offering check size", 1, pcata.getProdCatalogProdOffer().size());
-        for(ProdCatalogProdOffer pcpo:pcata.getProdCatalogProdOffer()){
-            assertTrue("retired  one  offering", 0 >= pcpo.getValidFor().getEndDateTime().compareTo(new Date()));
-        }
-        TimePeriod validFor2 = new TimePeriod("2015-06-04 10:20:00", "2015-07-26 10:20:00");
-        pcata.publish(poff, validFor2);
-        ProductSpecification  prodSpec = new AtomicProductSpecification("001SP", "11 英寸 MacBook Air SPEC", "Mac Air");
-        SimpleProductOffering offering1 = new SimpleProductOffering("00011F", "13 英寸 MacBook Air",  "1.6GHz 双核 Intel Core i5 处理器，Turbo Boost 高达 2.7GHz", validFor1, prodSpec);
-        pcata.retired(offering1);
-        assertEquals("retired  one  not exists offering ,check size ", 1, pcata.getProdCatalogProdOffer().size());
-
-        TimePeriod validFor3 = new TimePeriod("2015-06-04 10:20:00", "2015-07-26 10:20:00");
-        pcata.publish(offering1, validFor3);
-        assertEquals("publish different offering ,check size ", 2, pcata.getProdCatalogProdOffer().size());
-
-        List<ProdCatalogProdOffer> lisretiredOffer = new ArrayList<ProdCatalogProdOffer>();
-        ProdCatalogProdOffer expectedRetiredOffering1 = new ProdCatalogProdOffer(poff,validFor1);
-        lisretiredOffer.add(expectedRetiredOffering1);
-
-        List<ProdCatalogProdOffer> listpublishOffer = new ArrayList<ProdCatalogProdOffer>();
-        ProdCatalogProdOffer expectedPublishOffering1 = new ProdCatalogProdOffer(offering1,validFor3);
-        listpublishOffer.add(expectedPublishOffering1);
-
-        List<ProdCatalogProdOffer> listResultRetiredOffer = new ArrayList<ProdCatalogProdOffer>();
-        List<ProdCatalogProdOffer> listResultPublishOffer = new ArrayList<ProdCatalogProdOffer>();
-
-        for(ProdCatalogProdOffer pcpo:pcata.getProdCatalogProdOffer()){
-            if(0 >= pcpo.getValidFor().getEndDateTime().compareTo(new Date())){
-                listResultRetiredOffer.add(pcpo);
-            }else{
-                listResultPublishOffer.add(pcpo);
-            }
-        }
-        assertEquals("publish different offering and have one retired check retired count", 1, listResultRetiredOffer.size());
-        assertEquals("publish different offering and have one retired check retired count", lisretiredOffer, listResultRetiredOffer);
-
-        assertEquals("publish different offering and have one retired check publish count", 1, listResultPublishOffer.size());
-        assertEquals("publish different offering and have one retired check content",listpublishOffer, listResultPublishOffer);
 
     }
 
@@ -300,7 +250,7 @@ public class ProductCatalogTest {
         assertEquals("compare to size.", 0, prodCatalogProdOffer.size());
 
         //retrieve offeringName is '15-inch MacBook Pro' and validTime is 2015-07-31  offerings
-        prodCatalogProdOffer = pcata.retrieveOffering("15-inch MacBook Pro",dateFormat.parse("2015-07-31 11:59:59"));
+        prodCatalogProdOffer = pcata.retrieveOffering("17-inch MacBook Pro",dateFormat.parse("2015-07-31 11:59:59"));
         assertEquals("compare to size.", 0, prodCatalogProdOffer.size());
 
     }
